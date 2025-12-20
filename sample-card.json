@@ -1,0 +1,14 @@
+{
+  "name": "Castling Maneuver",
+  "manaCost": "{1}{W}{U}",
+  "type": "Instant",
+  "text": "Exchange the positions of your King and a Rook you control on the chess board. Both pieces must not have moved this game.\nDraw a card.",
+  "colors": ["W", "U"],
+  "rarity": "Uncommon",
+  "imageUrl": "https://i.imgur.com/example.jpg",
+  "flavorText": "In chess, as in magic, timing is everything.",
+  "artist": "Chess Magic Team",
+  "set": "2025 MTG",
+  "chessPiece": "king",
+  "archetypes": ["Chess", "Control", "Card Draw"]
+}

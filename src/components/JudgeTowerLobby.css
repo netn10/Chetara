@@ -1,0 +1,398 @@
+.jt-lobby-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.jt-back-button {
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.jt-back-button:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+  transform: translateX(-3px);
+}
+
+/* Setup Screen */
+.jt-lobby-setup {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  padding: 3rem;
+}
+
+.jt-setup-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.jt-setup-header h2 {
+  color: var(--color-gold);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-setup-header p {
+  color: var(--color-text);
+  font-size: 1.1rem;
+}
+
+/* Rules Summary */
+.jt-rules-summary {
+  background: rgba(207, 181, 59, 0.05);
+  border-left: 4px solid var(--color-accent);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.jt-rules-summary h3 {
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-rules-summary ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.jt-rules-summary li {
+  padding: 0.5rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Setup Options */
+.jt-setup-options {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.jt-setup-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.jt-setup-card h3 {
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-setup-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.jt-setup-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.jt-setup-divider span {
+  background: var(--color-bg-light);
+  color: var(--color-text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  z-index: 1;
+  position: relative;
+}
+
+.jt-create-btn,
+.jt-join-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-accent);
+  color: var(--color-black);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+}
+
+.jt-create-btn:hover:not(:disabled),
+.jt-join-btn:hover:not(:disabled) {
+  background: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.jt-create-btn:disabled,
+.jt-join-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Lobby Screen */
+.jt-lobby {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  padding: 3rem;
+}
+
+.jt-lobby-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.jt-lobby-header h2 {
+  color: var(--color-gold);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-game-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.jt-game-code span {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.jt-game-code code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.jt-copy-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(207, 181, 59, 0.2);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.jt-copy-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.jt-lobby-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.jt-players-section h3,
+.jt-game-info h3 {
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-players-list {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 200px;
+}
+
+.jt-player-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.jt-player-number {
+  background: var(--color-accent);
+  color: var(--color-black);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.jt-player-name {
+  flex: 1;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.jt-connection-status {
+  font-size: 0.8rem;
+}
+
+.jt-info-grid {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.jt-info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.jt-info-item:last-child {
+  border-bottom: none;
+}
+
+.jt-info-label {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.jt-info-value {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.jt-start-game-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-accent);
+  color: var(--color-black);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.jt-start-game-btn:hover:not(:disabled) {
+  background: var(--color-gold);
+  transform: scale(1.02);
+}
+
+.jt-start-game-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.jt-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-top-color: var(--color-black);
+  border-radius: 50%;
+  animation: jt-spin 1s linear infinite;
+}
+
+@keyframes jt-spin {
+  to { transform: rotate(360deg); }
+}
+
+.jt-error-message {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .jt-setup-options,
+  .jt-lobby-content {
+    grid-template-columns: 1fr;
+  }
+
+  .jt-setup-divider {
+    height: 40px;
+  }
+
+  .jt-setup-divider::before {
+    width: 100%;
+    height: 2px;
+    left: 0;
+    top: 50%;
+  }
+
+  .jt-rules-summary ul {
+    grid-template-columns: 1fr;
+  }
+
+  .jt-game-code {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .jt-lobby-container {
+    padding: 1rem;
+  }
+
+  .jt-lobby-setup,
+  .jt-lobby {
+    padding: 1.5rem;
+  }
+
+  .jt-setup-header h2,
+  .jt-lobby-header h2 {
+    font-size: 1.5rem;
+  }
+}

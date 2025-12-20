@@ -1,0 +1,301 @@
+.rules-page {
+  min-height: 100vh;
+}
+
+.rules-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  padding: 6rem 0 4rem;
+  text-align: center;
+}
+
+.rules-content {
+  padding: 4rem 0;
+}
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.rule-card {
+  background: var(--color-bg-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  position: relative;
+  padding-left: 5rem;
+  transition: all 0.3s ease;
+}
+
+.rule-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 25px rgba(207, 181, 59, 0.15);
+}
+
+.rule-number {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-accent);
+  color: var(--color-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+}
+
+.rule-card h3 {
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+/* Example Section */
+.example-section {
+  margin: 4rem 0;
+}
+
+.example-card-detailed {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: var(--color-bg-light);
+  padding: 3rem;
+  border-radius: 12px;
+  border: 2px solid var(--color-accent);
+}
+
+.example-card-image {
+  max-width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(207, 181, 59, 0.2);
+}
+
+.example-card-fallback {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-light) 100%);
+  padding: 4rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  color: var(--color-text-muted);
+  border: 2px dashed var(--color-border);
+}
+
+.example-card-fallback h3 {
+  color: var(--color-gold);
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  font-family: 'Cinzel', serif;
+}
+
+.card-mock {
+  background: linear-gradient(135deg, #1a4d2e 0%, #0f2419 100%);
+  border: 3px solid var(--color-gold);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-mock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.card-mock-header h3 {
+  color: var(--color-white);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.mana-cost {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.card-mock-type {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.card-mock-text {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  min-height: 150px;
+}
+
+.card-mock-text p {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.card-mock-text p:last-child {
+  margin-bottom: 0;
+}
+
+.card-mock-stats {
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  font-family: 'Cinzel', serif;
+}
+
+.example-right h3 {
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.example-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.example-right li {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.8;
+}
+
+.example-right li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* Turn Structure */
+.turn-structure {
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.phase-diagram {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.phase {
+  background: var(--color-bg-light);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--color-border);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.phase:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+}
+
+.chess-phase {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-gold) 100%);
+  color: var(--color-black);
+  border-color: var(--color-gold);
+  font-size: 1.1rem;
+  box-shadow: 0 5px 20px rgba(207, 181, 59, 0.3);
+}
+
+.phase-note {
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Strategy Tips */
+.strategy-tips {
+  margin: 4rem 0;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.tip-card {
+  background: var(--color-bg-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.tip-card h4 {
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .example-card-detailed {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .phase-diagram {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .phase {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .rule-card {
+    padding: 2rem 1rem 1rem 1rem;
+  }
+
+  .rule-number {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card-mock {
+    padding: 1rem;
+  }
+}

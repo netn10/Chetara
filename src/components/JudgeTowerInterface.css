@@ -1,0 +1,528 @@
+.jt-interface {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 2rem;
+}
+
+/* Header */
+.jt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.jt-game-info h2 {
+  color: var(--color-gold);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-game-stats {
+  display: flex;
+  gap: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.jt-exit-btn-small {
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.jt-exit-btn-small:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.jt-error-banner {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+/* Rules Reminder */
+.jt-rules-reminder {
+  background: rgba(207, 181, 59, 0.1);
+  border: 2px solid var(--color-accent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.jt-rules-reminder h3 {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+}
+
+.jt-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.jt-rules-grid span {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Main Game Area */
+.jt-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.jt-game-area h3,
+.jt-controls h3 {
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+/* Current Player */
+.jt-current-player {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-accent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.jt-current-player h3 {
+  margin-bottom: 1rem;
+}
+
+.jt-player-stats {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.1rem;
+}
+
+.jt-player-stats span {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Hand */
+.jt-your-hand {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.jt-hand-cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-height: 150px;
+}
+
+.jt-card {
+  width: 120px;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.jt-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.jt-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-accent);
+}
+
+.jt-card.selected {
+  border-color: var(--color-gold);
+  transform: translateY(-5px);
+}
+
+.jt-card-placeholder {
+  background: var(--color-bg);
+  padding: 1rem 0.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  min-height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.jt-empty-message {
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: 2rem;
+  text-align: center;
+}
+
+.jt-play-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-accent);
+  color: var(--color-black);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.jt-play-btn:hover {
+  background: var(--color-gold);
+  transform: scale(1.02);
+}
+
+/* Shared Zones */
+.jt-shared-zones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.jt-zone {
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.jt-zone h4 {
+  color: var(--color-accent);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.jt-top-card {
+  background: rgba(207, 181, 59, 0.1);
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Game Log */
+.jt-game-log {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.jt-log-entries {
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.jt-log-entry {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.jt-log-entry:last-child {
+  border-bottom: none;
+}
+
+/* Controls */
+.jt-controls {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.jt-controls-section {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.75rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-control-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.jt-control-btn:hover {
+  background: rgba(207, 181, 59, 0.2);
+  border-color: var(--color-accent);
+}
+
+.winner-btn {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: #4caf50;
+}
+
+.winner-btn:hover {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.violation-btn {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+}
+
+.violation-btn:hover {
+  background: rgba(220, 53, 69, 0.3);
+}
+
+.next-round-btn {
+  background: var(--color-accent);
+  color: var(--color-black);
+  border-color: var(--color-accent);
+}
+
+.next-round-btn:hover {
+  background: var(--color-gold);
+}
+
+.jt-player-scores {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.jt-player-scores h4 {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jt-score-line {
+  padding: 0.5rem 0;
+  color: var(--color-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Completed Screen */
+.completed-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.completion-message {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.completion-message h2 {
+  color: var(--color-gold);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+.completion-message h3 {
+  color: var(--color-accent);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.completion-message > p {
+  color: var(--color-text);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.final-scores {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.final-scores h4 {
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  font-family: 'Cinzel', serif;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.score-rank {
+  background: var(--color-accent);
+  color: var(--color-black);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.score-name {
+  flex: 1;
+  text-align: left;
+  font-weight: 600;
+}
+
+.score-points {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.jt-exit-btn {
+  padding: 1rem 3rem;
+  background: var(--color-accent);
+  color: var(--color-black);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+}
+
+.jt-exit-btn:hover {
+  background: var(--color-gold);
+  transform: scale(1.05);
+}
+
+/* Loading/Error Screens */
+.loading-screen,
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .jt-main {
+    grid-template-columns: 1fr;
+  }
+
+  .jt-controls {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .jt-interface {
+    padding: 1rem;
+  }
+
+  .jt-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .jt-rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jt-hand-cards {
+    gap: 0.5rem;
+  }
+
+  .jt-card {
+    width: 100px;
+  }
+
+  .jt-shared-zones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .jt-game-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .jt-game-stats {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .jt-player-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .completion-message {
+    padding: 1.5rem;
+  }
+
+  .completion-message h2 {
+    font-size: 1.8rem;
+  }
+}
