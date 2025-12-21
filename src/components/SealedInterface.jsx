@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './SealedInterface.css';
 
 function SealedInterface({ onBack }) {
@@ -17,6 +17,8 @@ function SealedInterface({ onBack }) {
   const [sideboardPage, setSideboardPage] = useState(1);
   const [deckPage, setDeckPage] = useState(1);
   const cardsPerPage = 20;
+  const updateInProgressRef = useRef(false);
+  const deckInitializedRef = useRef(false);
 
   useEffect(() => {
     if (sealedId) {
@@ -35,12 +37,13 @@ function SealedInterface({ onBack }) {
         const data = await response.json();
         setSealed(data);
 
-        // Update deck and sideboard if needed
+        // Only sync deck and sideboard on initial load, not during active deck building
         const player = data.players.find(p => p.id === playerId);
-        if (player && !deck.length && !sideboard.length) {
+        if (player && !deckInitializedRef.current && player.sideboard && player.sideboard.length > 0) {
           console.log('Fetching - Player data:', player);
           setDeck(player.deck || []);
           setSideboard(player.sideboard || []);
+          deckInitializedRef.current = true;
         }
       }
     } catch (err) {
@@ -139,6 +142,7 @@ function SealedInterface({ onBack }) {
           console.log('Sideboard:', player.sideboard);
           setDeck(player.deck || []);
           setSideboard(player.sideboard || []);
+          deckInitializedRef.current = true;
         }
       } else {
         const data = await response.json();
@@ -151,26 +155,13 @@ function SealedInterface({ onBack }) {
     }
   };
 
-  const moveToDeck = (cardId) => {
-    const sideboardCard = sideboard.find(c => c._id === cardId);
-    if (sideboardCard) {
-      setDeck([...deck, sideboardCard]);
-      setSideboard(sideboard.filter(c => c._id !== cardId));
-      updateDeck([...deck, sideboardCard], sideboard.filter(c => c._id !== cardId));
+  const updateDeck = useCallback(async (newDeck, newSideboard) => {
+    if (updateInProgressRef.current) {
+      return;
     }
-  };
 
-  const moveToSideboard = (cardId) => {
-    const deckCard = deck.find(c => c._id === cardId);
-    if (deckCard) {
-      setSideboard([...sideboard, deckCard]);
-      setDeck(deck.filter(c => c._id !== cardId));
-      updateDeck(deck.filter(c => c._id !== cardId), [...sideboard, deckCard]);
-    }
-  };
-
-  const updateDeck = async (newDeck, newSideboard) => {
     try {
+      updateInProgressRef.current = true;
       await fetch(`http://localhost:5000/api/sealed/${sealedId}/update-deck`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -182,8 +173,52 @@ function SealedInterface({ onBack }) {
       });
     } catch (err) {
       console.error('Error updating deck:', err);
+    } finally {
+      updateInProgressRef.current = false;
     }
-  };
+  }, [sealedId, playerId]);
+
+  const moveToDeck = useCallback((cardIndex) => {
+    setSideboard(prevSideboard => {
+      if (cardIndex < 0 || cardIndex >= prevSideboard.length) return prevSideboard;
+
+      const sideboardCard = prevSideboard[cardIndex];
+      // Remove only ONE instance of the card
+      const newSideboard = [
+        ...prevSideboard.slice(0, cardIndex),
+        ...prevSideboard.slice(cardIndex + 1)
+      ];
+
+      setDeck(prevDeck => {
+        const newDeck = [...prevDeck, sideboardCard];
+        updateDeck(newDeck, newSideboard);
+        return newDeck;
+      });
+
+      return newSideboard;
+    });
+  }, [updateDeck]);
+
+  const moveToSideboard = useCallback((cardIndex) => {
+    setDeck(prevDeck => {
+      if (cardIndex < 0 || cardIndex >= prevDeck.length) return prevDeck;
+
+      const deckCard = prevDeck[cardIndex];
+      // Remove only ONE instance of the card
+      const newDeck = [
+        ...prevDeck.slice(0, cardIndex),
+        ...prevDeck.slice(cardIndex + 1)
+      ];
+
+      setSideboard(prevSideboard => {
+        const newSideboard = [...prevSideboard, deckCard];
+        updateDeck(newDeck, newSideboard);
+        return newSideboard;
+      });
+
+      return newDeck;
+    });
+  }, [updateDeck]);
 
   const handleCompleteDeck = async () => {
     if (deck.length < 40) {
@@ -323,8 +358,25 @@ function SealedInterface({ onBack }) {
     </div>
   );
 
+  // Helper function to group cards by name
+  const groupCardsByName = (cards) => {
+    const groups = {};
+    cards.forEach((card, index) => {
+      const key = card.name || card._id;
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      groups[key].push({ ...card, originalIndex: index });
+    });
+    return Object.values(groups);
+  };
+
   const renderDeckBuilder = () => {
     const player = sealed?.players?.find(p => p.id === playerId);
+
+    // Group cards for stacking display
+    const sideboardGroups = groupCardsByName(sideboard);
+    const deckGroups = groupCardsByName(deck);
 
     return (
       <div className="sealed-deck-builder">
@@ -340,7 +392,7 @@ function SealedInterface({ onBack }) {
         <div className="sealed-zones">
           <div className="sealed-zone">
             <h3>Sideboard ({sideboard.length})</h3>
-            {sideboard.length > cardsPerPage && (
+            {sideboardGroups.length > cardsPerPage && (
               <div className="sealed-pagination sealed-pagination-top">
                 <button
                   className="sealed-page-btn"
@@ -350,31 +402,53 @@ function SealedInterface({ onBack }) {
                   Previous
                 </button>
                 <span className="sealed-page-info">
-                  Page {sideboardPage} of {Math.ceil(sideboard.length / cardsPerPage)}
+                  Page {sideboardPage} of {Math.ceil(sideboardGroups.length / cardsPerPage)}
                 </span>
                 <button
                   className="sealed-page-btn"
-                  onClick={() => setSideboardPage(prev => Math.min(Math.ceil(sideboard.length / cardsPerPage), prev + 1))}
-                  disabled={sideboardPage === Math.ceil(sideboard.length / cardsPerPage)}
+                  onClick={() => setSideboardPage(prev => Math.min(Math.ceil(sideboardGroups.length / cardsPerPage), prev + 1))}
+                  disabled={sideboardPage === Math.ceil(sideboardGroups.length / cardsPerPage)}
                 >
                   Next
                 </button>
               </div>
             )}
             <div className="sealed-cards-grid">
-              {sideboard
+              {sideboardGroups
                 .slice((sideboardPage - 1) * cardsPerPage, sideboardPage * cardsPerPage)
-                .map((card) => (
-                  <div key={card._id} className="sealed-card" onClick={() => moveToDeck(card._id)}>
-                    {card.imageUrl ? (
-                      <img src={card.imageUrl} alt={card.name} />
-                    ) : (
-                      <div className="sealed-card-placeholder">{card.name}</div>
+                .map((cardGroup, groupIndex) => (
+                  <div
+                    key={`group-${groupIndex}-${cardGroup[0]._id}`}
+                    className="sealed-card-stack"
+                    onClick={() => moveToDeck(cardGroup[cardGroup.length - 1].originalIndex)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {cardGroup.map((card, index) => (
+                      <div
+                        key={card._id}
+                        className="sealed-card"
+                        style={{
+                          position: index > 0 ? 'relative' : 'static',
+                          top: index > 0 ? `${index * 4}px` : '0',
+                          marginTop: index > 0 ? '-96%' : '0',
+                          zIndex: index,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        {card.imageUrl ? (
+                          <img src={card.imageUrl} alt={card.name} />
+                        ) : (
+                          <div className="sealed-card-placeholder">{card.name}</div>
+                        )}
+                      </div>
+                    ))}
+                    {cardGroup.length > 1 && (
+                      <div className="sealed-card-count" style={{ pointerEvents: 'none' }}>{cardGroup.length}</div>
                     )}
                   </div>
                 ))}
             </div>
-            {sideboard.length > cardsPerPage && (
+            {sideboardGroups.length > cardsPerPage && (
               <div className="sealed-pagination">
                 <button
                   className="sealed-page-btn"
@@ -384,12 +458,12 @@ function SealedInterface({ onBack }) {
                   Previous
                 </button>
                 <span className="sealed-page-info">
-                  Page {sideboardPage} of {Math.ceil(sideboard.length / cardsPerPage)}
+                  Page {sideboardPage} of {Math.ceil(sideboardGroups.length / cardsPerPage)}
                 </span>
                 <button
                   className="sealed-page-btn"
-                  onClick={() => setSideboardPage(prev => Math.min(Math.ceil(sideboard.length / cardsPerPage), prev + 1))}
-                  disabled={sideboardPage === Math.ceil(sideboard.length / cardsPerPage)}
+                  onClick={() => setSideboardPage(prev => Math.min(Math.ceil(sideboardGroups.length / cardsPerPage), prev + 1))}
+                  disabled={sideboardPage === Math.ceil(sideboardGroups.length / cardsPerPage)}
                 >
                   Next
                 </button>
@@ -399,7 +473,7 @@ function SealedInterface({ onBack }) {
 
           <div className="sealed-zone deck-zone">
             <h3>Deck ({deck.length})</h3>
-            {deck.length > cardsPerPage && (
+            {deckGroups.length > cardsPerPage && (
               <div className="sealed-pagination sealed-pagination-top">
                 <button
                   className="sealed-page-btn"
@@ -409,31 +483,53 @@ function SealedInterface({ onBack }) {
                   Previous
                 </button>
                 <span className="sealed-page-info">
-                  Page {deckPage} of {Math.ceil(deck.length / cardsPerPage)}
+                  Page {deckPage} of {Math.ceil(deckGroups.length / cardsPerPage)}
                 </span>
                 <button
                   className="sealed-page-btn"
-                  onClick={() => setDeckPage(prev => Math.min(Math.ceil(deck.length / cardsPerPage), prev + 1))}
-                  disabled={deckPage === Math.ceil(deck.length / cardsPerPage)}
+                  onClick={() => setDeckPage(prev => Math.min(Math.ceil(deckGroups.length / cardsPerPage), prev + 1))}
+                  disabled={deckPage === Math.ceil(deckGroups.length / cardsPerPage)}
                 >
                   Next
                 </button>
               </div>
             )}
             <div className="sealed-cards-grid">
-              {deck
+              {deckGroups
                 .slice((deckPage - 1) * cardsPerPage, deckPage * cardsPerPage)
-                .map((card) => (
-                  <div key={card._id} className="sealed-card" onClick={() => moveToSideboard(card._id)}>
-                    {card.imageUrl ? (
-                      <img src={card.imageUrl} alt={card.name} />
-                    ) : (
-                      <div className="sealed-card-placeholder">{card.name}</div>
+                .map((cardGroup, groupIndex) => (
+                  <div
+                    key={`group-${groupIndex}-${cardGroup[0]._id}`}
+                    className="sealed-card-stack"
+                    onClick={() => moveToSideboard(cardGroup[cardGroup.length - 1].originalIndex)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {cardGroup.map((card, index) => (
+                      <div
+                        key={card._id}
+                        className="sealed-card"
+                        style={{
+                          position: index > 0 ? 'relative' : 'static',
+                          top: index > 0 ? `${index * 4}px` : '0',
+                          marginTop: index > 0 ? '-96%' : '0',
+                          zIndex: index,
+                          pointerEvents: 'none'
+                        }}
+                      >
+                        {card.imageUrl ? (
+                          <img src={card.imageUrl} alt={card.name} />
+                        ) : (
+                          <div className="sealed-card-placeholder">{card.name}</div>
+                        )}
+                      </div>
+                    ))}
+                    {cardGroup.length > 1 && (
+                      <div className="sealed-card-count" style={{ pointerEvents: 'none' }}>{cardGroup.length}</div>
                     )}
                   </div>
                 ))}
             </div>
-            {deck.length > cardsPerPage && (
+            {deckGroups.length > cardsPerPage && (
               <div className="sealed-pagination">
                 <button
                   className="sealed-page-btn"
@@ -443,12 +539,12 @@ function SealedInterface({ onBack }) {
                   Previous
                 </button>
                 <span className="sealed-page-info">
-                  Page {deckPage} of {Math.ceil(deck.length / cardsPerPage)}
+                  Page {deckPage} of {Math.ceil(deckGroups.length / cardsPerPage)}
                 </span>
                 <button
                   className="sealed-page-btn"
-                  onClick={() => setDeckPage(prev => Math.min(Math.ceil(deck.length / cardsPerPage), prev + 1))}
-                  disabled={deckPage === Math.ceil(deck.length / cardsPerPage)}
+                  onClick={() => setDeckPage(prev => Math.min(Math.ceil(deckGroups.length / cardsPerPage), prev + 1))}
+                  disabled={deckPage === Math.ceil(deckGroups.length / cardsPerPage)}
                 >
                   Next
                 </button>

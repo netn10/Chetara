@@ -127,6 +127,7 @@
   gap: 0.4rem;
   align-items: center;
   flex-wrap: wrap;
+  cursor: default;
 }
 
 .mana-symbol {
@@ -144,10 +145,43 @@
     0 4px 8px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease;
+  cursor: default;
+  user-select: none;
 }
 
 .mana-symbol:hover {
   transform: scale(1.1);
+}
+
+/* Hybrid Mana Symbols */
+.mana-symbol.mana-hybrid {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+}
+
+.hybrid-half {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: none;
+}
+
+.hybrid-left {
+  left: 0;
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.hybrid-right {
+  left: 0;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
 }
 
 /* Colorless/Generic mana */

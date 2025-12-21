@@ -30,18 +30,6 @@ function CardDetail() {
     }
   };
 
-  const getColorIcon = (colors) => {
-    if (!colors || colors.length === 0) return '◇';
-    const icons = {
-      'W': '☀',
-      'U': '💧',
-      'B': '💀',
-      'R': '🔥',
-      'G': '🌲'
-    };
-    return colors.map(c => icons[c] || '◇').join(' ');
-  };
-
   const getPieceEmoji = (piece) => {
     const emojis = {
       pawn: '♟',
@@ -56,15 +44,27 @@ function CardDetail() {
   };
 
   const renderManaCost = (manaCost) => {
-    if (!manaCost) return null;
+    if (!manaCost || manaCost === '{0}') return null;
 
     // Parse mana cost string like "{2}{W}{U}" into individual symbols
     const symbols = manaCost.match(/\{[^}]+\}/g) || [];
 
     return (
-      <span className="mana-cost">
+      <span className="mana-cost" style={{ userSelect: 'none' }}>
         {symbols.map((symbol, index) => {
           const cleanSymbol = symbol.replace(/[{}]/g, '');
+
+          // Handle hybrid mana (e.g., "B/G", "W/U")
+          if (cleanSymbol.includes('/')) {
+            const parts = cleanSymbol.split('/');
+            return (
+              <span key={index} className={`mana-symbol mana-hybrid mana-${parts[0].toLowerCase()}-${parts[1].toLowerCase()}`}>
+                <span className={`hybrid-half hybrid-left mana-${parts[0].toLowerCase()}`}></span>
+                <span className={`hybrid-half hybrid-right mana-${parts[1].toLowerCase()}`}></span>
+              </span>
+            );
+          }
+
           return (
             <span key={index} className={`mana-symbol mana-${cleanSymbol.toLowerCase()}`}>
               {cleanSymbol}
@@ -142,19 +142,17 @@ function CardDetail() {
               {card.manaCost && renderManaCost(card.manaCost)}
             </div>
 
-            {card.colors && card.colors.length > 0 && (
-              <div className="detail-colors">
-                {getColorIcon(card.colors)}
-              </div>
-            )}
-
             <div className="detail-type">
               {card.type} {card.subtype && `— ${card.subtype}`}
             </div>
 
             {card.chessPiece && card.chessPiece !== 'none' && (
               <div className="detail-chess-piece">
-                <span className="chess-piece-badge-large">
+                <span
+                  className="chess-piece-badge-large clickable"
+                  onClick={() => navigate(`/cards?chessPiece=${card.chessPiece}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   {getPieceEmoji(card.chessPiece)} {card.chessPiece.toUpperCase()}
                 </span>
               </div>
@@ -177,11 +175,11 @@ function CardDetail() {
 
             {card.flavorText && (
               <div className="detail-flavor">
-                <em>"{card.flavorText}"</em>
+                <em>{card.flavorText}</em>
               </div>
             )}
 
-            {(card.power !== undefined && card.toughness !== undefined) && (
+            {(card.power !== undefined && card.power !== null && card.toughness !== undefined && card.toughness !== null) && (
               <div className="detail-stats">
                 <h3>Power / Toughness</h3>
                 <div className="stats-value">{card.power} / {card.toughness}</div>
@@ -198,9 +196,7 @@ function CardDetail() {
             <div className="detail-meta">
               <div className="meta-row">
                 <span className="meta-label">Rarity:</span>
-                <span className={`rarity-badge rarity-${card.rarity}`}>
-                  {card.rarity ? card.rarity.toUpperCase() : 'UNKNOWN'}
-                </span>
+                <span className="meta-value">{card.rarity || 'Unknown'}</span>
               </div>
 
               {card.artist && (
