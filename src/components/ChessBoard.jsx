@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chess } from 'chess.js';
 import './ChessBoard.css';
+import CardSearch from './CardSearch';
 import {
   MTG_PHASES,
   canLinkCardToPiece,
@@ -10,6 +11,7 @@ import {
 } from '../utils/chessMagicUtils';
 
 function ChessBoard() {
+  const [gameStarted, setGameStarted] = useState(false);
   const [game, setGame] = useState(new Chess());
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
@@ -22,41 +24,55 @@ function ChessBoard() {
   const [materialBalance, setMaterialBalance] = useState(0);
   const [lastMove, setLastMove] = useState(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showLinkConfirm, setShowLinkConfirm] = useState(false);
+  const [showFreeMoveKingConfirm, setShowFreeMoveKingConfirm] = useState(false);
+  const [showVictoryModal, setShowVictoryModal] = useState(false);
+  const [winner, setWinner] = useState(null); // 'White' or 'Black'
+  const [pendingLink, setPendingLink] = useState(null); // {square, card, piece}
+  const [pendingFreeMove, setPendingFreeMove] = useState(null); // {from, to, piece, targetPiece}
   const [movablePieces, setMovablePieces] = useState([]);
+  const [freeMoveMode, setFreeMoveMode] = useState(false);
 
   // MTG Integration State
-  const [currentPhase, setCurrentPhase] = useState('untap');
   const [linkedCards, setLinkedCards] = useState({}); // { square: cardData }
-  const [playerHand, setPlayerHand] = useState([]);
-  const [battlefield, setBattlefield] = useState([]);
+  const [linkedCardsHistory, setLinkedCardsHistory] = useState([]); // Track linked cards state for undo
+  const [fenHistory, setFenHistory] = useState([]); // Track board positions for undo
+  const [capturedPiecesHistory, setCapturedPiecesHistory] = useState([]); // Track captured pieces for undo
   const [selectedCard, setSelectedCard] = useState(null);
-  const [manaPool, setManaPool] = useState({ white: 0, blue: 0, black: 0, red: 0, green: 0, colorless: 0 });
+  const [viewedLinkedCard, setViewedLinkedCard] = useState(null); // Card being viewed in sidebar
+  const [viewedSquare, setViewedSquare] = useState(null); // Square of the viewed card
 
-  // MTG Phases
-  const phases = MTG_PHASES;
-
+  // Load saved game state on component mount
   useEffect(() => {
-    updateGameStatus();
-    calculateMaterialBalance();
-    updateMovablePieces();
-
-    // Start timer for current player
-    if (!game.isGameOver()) {
-      setActiveTimer(game.turn());
-      setLastMoveTime(Date.now());
-    } else {
-      setActiveTimer(null);
-    }
-  }, [game]);
-
-  // Initialize with sample cards
-  useEffect(() => {
-    setPlayerHand(getSampleCards().slice(0, 3));
+    loadGameState();
   }, []);
+
+  // Save game state whenever it changes
+  useEffect(() => {
+    if (gameStarted) {
+      saveGameState();
+    }
+  }, [game, moveHistory, capturedPieces, gameTime, linkedCards, linkedCardsHistory, fenHistory, capturedPiecesHistory, gameStarted]);
+
+  useEffect(() => {
+    if (gameStarted) {
+      updateGameStatus();
+      calculateMaterialBalance();
+      updateMovablePieces();
+
+      // Start timer for current player
+      if (!game.isGameOver()) {
+        setActiveTimer(game.turn());
+        setLastMoveTime(Date.now());
+      } else {
+        setActiveTimer(null);
+      }
+    }
+  }, [game, gameStarted]);
 
   // Timer effect
   useEffect(() => {
-    if (!activeTimer || game.isGameOver()) return;
+    if (!activeTimer || game.isGameOver() || !gameStarted) return;
 
     const interval = setInterval(() => {
       setGameTime(prev => {
@@ -69,7 +85,77 @@ function ChessBoard() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [activeTimer, game]);
+  }, [activeTimer, game, gameStarted]);
+
+  // Save game state to localStorage
+  const saveGameState = () => {
+    try {
+      const gameState = {
+        fen: game.fen(),
+        moveHistory,
+        capturedPieces,
+        gameTime,
+        linkedCards,
+        linkedCardsHistory,
+        fenHistory,
+        capturedPiecesHistory,
+        gameStarted,
+        lastMove
+      };
+      localStorage.setItem('chessMagicGameState', JSON.stringify(gameState));
+    } catch (error) {
+      console.error('Error saving game state:', error);
+    }
+  };
+
+  // Load game state from localStorage
+  const loadGameState = () => {
+    try {
+      const savedState = localStorage.getItem('chessMagicGameState');
+      if (savedState) {
+        const gameState = JSON.parse(savedState);
+
+        // Restore game state
+        const loadedGame = new Chess(gameState.fen);
+        setGame(loadedGame);
+        setMoveHistory(gameState.moveHistory || []);
+        setCapturedPieces(gameState.capturedPieces || { white: [], black: [] });
+        setGameTime(gameState.gameTime || { white: 600, black: 600 });
+        setLinkedCards(gameState.linkedCards || {});
+        setLinkedCardsHistory(gameState.linkedCardsHistory || []);
+        setFenHistory(gameState.fenHistory || []);
+        setCapturedPiecesHistory(gameState.capturedPiecesHistory || []);
+        setGameStarted(gameState.gameStarted || false);
+        setLastMove(gameState.lastMove || null);
+      }
+    } catch (error) {
+      console.error('Error loading game state:', error);
+    }
+  };
+
+  // Start a new game
+  const startNewGame = () => {
+    setGameStarted(true);
+    setGame(new Chess());
+    setSelectedSquare(null);
+    setValidMoves([]);
+    setMoveHistory([]);
+    setCapturedPieces({ white: [], black: [] });
+    setGameTime({ white: 600, black: 600 });
+    setActiveTimer('w');
+    setLastMoveTime(Date.now());
+    setMaterialBalance(0);
+    setLastMove(null);
+    setMovablePieces([]);
+    setLinkedCards({});
+    setLinkedCardsHistory([]);
+    setFenHistory([]);
+    setCapturedPiecesHistory([]);
+    setSelectedCard(null);
+    setViewedLinkedCard(null);
+    setViewedSquare(null);
+    setWinner(null);
+  };
 
   const updateGameStatus = () => {
     if (game.isCheckmate()) {
@@ -101,7 +187,13 @@ function ChessBoard() {
   };
 
   const handleSquareClick = (square) => {
-    if (game.isGameOver()) return;
+    if (!gameStarted || game.isGameOver()) return;
+
+    // If free move mode is active, use special logic
+    if (freeMoveMode) {
+      handleFreeMoveClick(square);
+      return;
+    }
 
     // If a square is already selected
     if (selectedSquare) {
@@ -112,9 +204,29 @@ function ChessBoard() {
         promotion: 'q' // Always promote to queen for simplicity
       };
 
+      // Save current state to history before attempting move
+      const currentFen = game.fen();
+      const currentCaptured = { ...capturedPieces };
+      const currentLinkedCards = { ...linkedCards };
+
       try {
         const result = game.move(move);
         if (result) {
+          // Save state to history
+          setLinkedCardsHistory(prev => [...prev, currentLinkedCards]);
+          setFenHistory(prev => [...prev, currentFen]);
+          setCapturedPiecesHistory(prev => [...prev, currentCaptured]);
+
+          // Move linked card if piece has one
+          if (linkedCards[result.from]) {
+            setLinkedCards(prev => {
+              const newLinkedCards = { ...prev };
+              newLinkedCards[result.to] = newLinkedCards[result.from];
+              delete newLinkedCards[result.from];
+              return newLinkedCards;
+            });
+          }
+
           // Update captured pieces
           if (result.captured) {
             const capturedColor = result.color === 'w' ? 'black' : 'white';
@@ -122,6 +234,15 @@ function ChessBoard() {
               ...prev,
               [capturedColor]: [...prev[capturedColor], result.captured]
             }));
+
+            // Remove linked card from captured square if any
+            if (linkedCards[result.to]) {
+              setLinkedCards(prev => {
+                const newLinkedCards = { ...prev };
+                delete newLinkedCards[result.to];
+                return newLinkedCards;
+              });
+            }
           }
 
           // Update move history
@@ -157,8 +278,126 @@ function ChessBoard() {
     }
   };
 
+  const handleFreeMoveClick = (square) => {
+    if (selectedSquare) {
+      // Make a free move - can move any piece anywhere
+      const piece = game.get(selectedSquare);
+      const targetPiece = game.get(square);
+
+      if (piece) {
+        // Check if capturing a king - require confirmation
+        if (targetPiece && targetPiece.type === 'k') {
+          setPendingFreeMove({
+            from: selectedSquare,
+            to: square,
+            piece: piece,
+            targetPiece: targetPiece
+          });
+          setShowFreeMoveKingConfirm(true);
+          return;
+        }
+
+        // Execute the free move
+        executeFreeMoveInternal(selectedSquare, square, piece, targetPiece);
+      }
+
+      setSelectedSquare(null);
+      setValidMoves([]);
+    } else {
+      // Select any piece (regardless of color)
+      const piece = game.get(square);
+      if (piece) {
+        setSelectedSquare(square);
+        // In free move mode, can move to any square
+        const board = game.board();
+        const allSquares = [];
+        const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+        files.forEach(file => {
+          ranks.forEach(rank => {
+            allSquares.push(`${file}${rank}`);
+          });
+        });
+        setValidMoves(allSquares);
+      }
+    }
+  };
+
+  const executeFreeMoveInternal = (fromSquare, toSquare, piece, targetPiece) => {
+    // Save current state to history before modifying
+    const currentFen = game.fen();
+    const currentCaptured = { ...capturedPieces };
+    const currentLinkedCards = { ...linkedCards };
+
+    setLinkedCardsHistory(prev => [...prev, currentLinkedCards]);
+    setFenHistory(prev => [...prev, currentFen]);
+    setCapturedPiecesHistory(prev => [...prev, currentCaptured]);
+
+    // Check if capturing a king to end the game
+    const isKingCapture = targetPiece && targetPiece.type === 'k';
+    // Winner is the opposite color of the king that was captured
+    const winningColor = isKingCapture ? (targetPiece.color === 'w' ? 'Black' : 'White') : null;
+
+    // Move linked card if piece has one
+    if (linkedCards[fromSquare]) {
+      setLinkedCards(prev => {
+        const newLinkedCards = { ...prev };
+        newLinkedCards[toSquare] = newLinkedCards[fromSquare];
+        delete newLinkedCards[fromSquare];
+        return newLinkedCards;
+      });
+    }
+
+    // Remove linked card from captured square if any
+    if (targetPiece && linkedCards[toSquare]) {
+      setLinkedCards(prev => {
+        const newLinkedCards = { ...prev };
+        delete newLinkedCards[toSquare];
+        return newLinkedCards;
+      });
+    }
+
+    // Manually update the board
+    const newGame = new Chess(game.fen());
+
+    // Remove piece from origin
+    newGame.remove(fromSquare);
+
+    // Place piece at destination
+    newGame.put(piece, toSquare);
+
+    // Update state
+    setGame(newGame);
+
+    // Add to captured if capturing
+    if (targetPiece) {
+      const capturedColor = targetPiece.color === 'w' ? 'white' : 'black';
+      setCapturedPieces(prev => ({
+        ...prev,
+        [capturedColor]: [...prev[capturedColor], targetPiece.type]
+      }));
+    }
+
+    // Store last move for highlighting
+    setLastMove({ from: fromSquare, to: toSquare });
+
+    // Add to history
+    setMoveHistory(prev => [...prev, `FREE: ${fromSquare}-${toSquare}`]);
+
+    // If king was captured, end the game
+    if (isKingCapture) {
+      setGameStatus(`Game Over! ${winningColor} wins by capturing the king!`);
+      setActiveTimer(null); // Stop the timer
+      setWinner(winningColor); // Set the winner
+      setShowVictoryModal(true); // Show victory modal
+    }
+
+    // Deactivate free move mode after use
+    setFreeMoveMode(false);
+  };
+
   const handleResetGame = () => {
-    if (moveHistory.length > 0) {
+    if (gameStarted && moveHistory.length > 0) {
       setShowResetConfirm(true);
     } else {
       resetGame();
@@ -166,28 +405,8 @@ function ChessBoard() {
   };
 
   const resetGame = () => {
-    setGame(new Chess());
-    setSelectedSquare(null);
-    setValidMoves([]);
-    setMoveHistory([]);
-    setCapturedPieces({ white: [], black: [] });
-    setGameTime({ white: 600, black: 600 });
-    setActiveTimer('w');
-    setLastMoveTime(Date.now());
-    setMaterialBalance(0);
-    setLastMove(null);
     setShowResetConfirm(false);
-    setMovablePieces([]);
-
-    // Reset MTG state
-    setCurrentPhase('untap');
-    setLinkedCards({});
-    setBattlefield([]);
-    setSelectedCard(null);
-    setManaPool({ white: 0, blue: 0, black: 0, red: 0, green: 0, colorless: 0 });
-
-    // Reset hand to initial cards
-    setPlayerHand(getSampleCards().slice(0, 3));
+    startNewGame();
   };
 
   const cancelReset = () => {
@@ -284,95 +503,70 @@ function ChessBoard() {
   };
 
   const undoMove = () => {
-    game.undo();
-    setGame(new Chess(game.fen()));
+    if (moveHistory.length === 0) return;
+
+    // Restore previous FEN position
+    if (fenHistory.length > 0) {
+      const previousFen = fenHistory[fenHistory.length - 1];
+      const restoredGame = new Chess(previousFen);
+      setGame(restoredGame);
+      setFenHistory(prev => prev.slice(0, -1));
+    }
+
+    // Restore previous linked cards state
+    if (linkedCardsHistory.length > 0) {
+      const previousLinkedCards = linkedCardsHistory[linkedCardsHistory.length - 1];
+      setLinkedCards(previousLinkedCards);
+      setLinkedCardsHistory(prev => prev.slice(0, -1));
+    }
+
+    // Restore previous captured pieces
+    if (capturedPiecesHistory.length > 0) {
+      const previousCaptured = capturedPiecesHistory[capturedPiecesHistory.length - 1];
+      setCapturedPieces(previousCaptured);
+      setCapturedPiecesHistory(prev => prev.slice(0, -1));
+    }
+
+    // Remove the last move from history
     setMoveHistory(prev => prev.slice(0, -1));
-    // Recalculate captured pieces
-    const newGame = new Chess();
-    const history = game.history({ verbose: true });
-    const newCaptured = { white: [], black: [] };
-    history.forEach(move => {
-      if (move.captured) {
-        const capturedColor = move.color === 'w' ? 'black' : 'white';
-        newCaptured[capturedColor].push(move.captured);
-      }
-    });
-    setCapturedPieces(newCaptured);
+
+    // Reset last move highlighting
+    if (moveHistory.length > 1) {
+      // If there are still moves left, we need to figure out what the last move was
+      // For now, just clear it - it's complex to reconstruct
+      setLastMove(null);
+    } else {
+      setLastMove(null);
+    }
+
+    // Clear selection
     setSelectedSquare(null);
     setValidMoves([]);
-    setLastMove(null);
   };
 
-  // MTG Functions
-  const nextPhase = () => {
-    const currentIndex = phases.findIndex(p => p.id === currentPhase);
-    const nextIndex = (currentIndex + 1) % phases.length;
-    setCurrentPhase(phases[nextIndex].id);
-
-    // Handle phase-specific logic
-    if (phases[nextIndex].id === 'untap') {
-      // New turn - switch active player in chess if needed
-    } else if (phases[nextIndex].id === 'draw') {
-      // Draw a card (simulate)
-      drawCard();
-    }
-  };
-
-  const drawCard = () => {
-    // Simulate drawing a card - in real implementation, this would fetch from server
-    const sampleCards = [
-      {
-        id: 1,
-        name: "Lightning Bolt",
-        manaCost: "R",
-        type: "Instant",
-        text: "Lightning Bolt deals 3 damage to any target.",
-        chessPiece: "none",
-        colors: ["red"]
-      },
-      {
-        id: 2,
-        name: "Chess Knight",
-        manaCost: "2W",
-        type: "Creature",
-        subtype: "Knight",
-        power: 2,
-        toughness: 2,
-        text: "When Chess Knight enters the battlefield, you may place it on an empty knight square on the chess board.",
-        chessPiece: "knight",
-        colors: ["white"]
-      },
-      {
-        id: 3,
-        name: "Royal Guard",
-        manaCost: "1B",
-        type: "Creature",
-        subtype: "Human Soldier",
-        power: 1,
-        toughness: 3,
-        text: "Defender. Linked chess piece gains +0/+1.",
-        chessPiece: "pawn",
-        colors: ["black"]
-      }
-    ];
-
-    const randomCard = sampleCards[Math.floor(Math.random() * sampleCards.length)];
-    setPlayerHand(prev => [...prev, { ...randomCard, id: Date.now() + Math.random() }]);
-  };
-
-  const playCard = (card) => {
-    if (currentPhase !== 'main1' && currentPhase !== 'main2') {
-      alert('You can only play cards during main phases!');
-      return;
-    }
-
-    // Remove from hand and add to battlefield
-    setPlayerHand(prev => prev.filter(c => c.id !== card.id));
-    setBattlefield(prev => [...prev, card]);
-
-    // If it's a chess creature, allow linking to board
-    if (card.chessPiece !== 'none') {
+  const handleCardSearchSelect = (card) => {
+    // If it's a chess creature card, select it for linking
+    if (card.chessPiece && card.chessPiece !== 'none') {
       setSelectedCard(card);
+    }
+  };
+
+  // Handle mouse enter on chess square
+  const handleSquareMouseEnter = (square) => {
+    if (linkedCards[square]) {
+      // Show the linked card
+      setViewedLinkedCard(linkedCards[square]);
+      setViewedSquare(square);
+    }
+    // Note: Don't clear the card when hovering over non-linked squares
+    // The card should persist until another linked piece is hovered
+  };
+
+  // Handle click on chess square with linked card
+  const handleLinkedCardClick = (square) => {
+    if (linkedCards[square]) {
+      setViewedLinkedCard(linkedCards[square]);
+      setViewedSquare(square);
     }
   };
 
@@ -392,19 +586,102 @@ function ChessBoard() {
     return false;
   };
 
-  const handleSquareClickWithCard = (square) => {
+  const handleSquareClickWithCard = (square, e) => {
+    // Stop propagation to prevent page-wide click handler
+    if (e) e.stopPropagation();
+
+    // First check if this square has a linked card - show it
+    handleLinkedCardClick(square);
+
     if (selectedCard) {
       // Try to link card to piece
-      if (linkCardToPiece(square, selectedCard)) {
-        alert(`${selectedCard.name} linked to ${square}!`);
+      const piece = game.get(square);
+      if (piece && canLinkCardToPiece(selectedCard, piece)) {
+        // Show confirmation dialog
+        const pieceName = piece.type === 'n' ? 'knight' : piece.type === 'b' ? 'bishop' : piece.type === 'r' ? 'rook' : piece.type === 'q' ? 'queen' : piece.type === 'k' ? 'king' : 'pawn';
+        setPendingLink({ square, card: selectedCard, piece, pieceName });
+        setShowLinkConfirm(true);
       } else {
-        alert('Cannot link this card to this piece!');
+        // Cannot link to this square or piece - deselect card
+        setSelectedCard(null);
       }
       return;
     }
 
     // Regular chess move logic
     handleSquareClick(square);
+  };
+
+  const confirmLink = () => {
+    if (pendingLink) {
+      linkCardToPiece(pendingLink.square, pendingLink.card);
+      setSelectedCard(null);
+      // Show the newly linked card
+      setViewedLinkedCard(pendingLink.card);
+      setViewedSquare(pendingLink.square);
+    }
+    setShowLinkConfirm(false);
+    setPendingLink(null);
+  };
+
+  const cancelLink = () => {
+    setShowLinkConfirm(false);
+    setPendingLink(null);
+  };
+
+  const confirmFreeMoveKingCapture = () => {
+    if (pendingFreeMove) {
+      executeFreeMoveInternal(
+        pendingFreeMove.from,
+        pendingFreeMove.to,
+        pendingFreeMove.piece,
+        pendingFreeMove.targetPiece
+      );
+      setSelectedSquare(null);
+      setValidMoves([]);
+    }
+    setShowFreeMoveKingConfirm(false);
+    setPendingFreeMove(null);
+  };
+
+  const cancelFreeMoveKingCapture = () => {
+    setShowFreeMoveKingConfirm(false);
+    setPendingFreeMove(null);
+    setSelectedSquare(null);
+    setValidMoves([]);
+  };
+
+  const closeVictoryModal = () => {
+    setShowVictoryModal(false);
+  };
+
+  const startNewGameFromVictory = () => {
+    // Close victory modal
+    setShowVictoryModal(false);
+    setWinner(null);
+
+    // Reset all game state
+    setGame(new Chess());
+    setSelectedSquare(null);
+    setValidMoves([]);
+    setMoveHistory([]);
+    setCapturedPieces({ white: [], black: [] });
+    setGameTime({ white: 600, black: 600 });
+    setActiveTimer(null);
+    setLastMoveTime(Date.now());
+    setMaterialBalance(0);
+    setLastMove(null);
+    setMovablePieces([]);
+    setLinkedCards({});
+    setLinkedCardsHistory([]);
+    setFenHistory([]);
+    setCapturedPiecesHistory([]);
+    setSelectedCard(null);
+    setViewedLinkedCard(null);
+    setViewedSquare(null);
+
+    // Return to start screen
+    setGameStarted(false);
   };
 
   const renderBoard = () => {
@@ -441,7 +718,8 @@ function ChessBoard() {
                     ${canLinkCard ? 'can-link-card' : ''}
                     ${linkedCards[square] ? 'has-linked-card' : ''}
                   `}
-                  onClick={() => handleSquareClickWithCard(square)}
+                  onClick={(e) => handleSquareClickWithCard(square, e)}
+                  onMouseEnter={() => handleSquareMouseEnter(square)}
                 >
                   <span className="square-label">{square}</span>
                   {piece && (
@@ -451,8 +729,8 @@ function ChessBoard() {
                   )}
                   {linkedCards[square] && (
                     <div className="linked-card-indicator">
-                      <span className="card-link-icon">🃏</span>
-                      <span className="card-link-name">{linkedCards[square].name}</span>
+                      <span className="card-link-icon">⚡</span>
+                      <span className="card-link-badge">LINKED</span>
                     </div>
                   )}
                   {isValidMove && !piece && <div className="move-indicator"></div>}
@@ -494,26 +772,78 @@ function ChessBoard() {
     );
   };
 
-  return (
-    <div className={`chess-magic-game ${game.turn() === 'w' ? 'white-turn' : 'black-turn'}`}>
-      <div className="game-layout">
-        {/* MTG Phases Sidebar */}
-        <div className="phases-sidebar">
-          <h3>Game Phases</h3>
-          <div className="phases-list">
-            {phases.map((phase, index) => (
-              <div
-                key={phase.id}
-                className={`phase-item ${currentPhase === phase.id ? 'active' : ''}`}
-              >
-                <div className="phase-name">{phase.name}</div>
-                <div className="phase-description">{phase.description}</div>
-              </div>
-            ))}
+  // Render start game screen
+  if (!gameStarted) {
+    return (
+      <div className="chess-magic-game white-turn">
+        <div className="game-start-screen">
+          <div className="start-screen-content">
+            <h1>Chess Magic</h1>
+            <p className="start-description">
+              Combine the strategy of Chess with the power of Magic: The Gathering cards.
+              Link cards to chess pieces and dominate the board!
+            </p>
+            <button onClick={startNewGame} className="btn btn-primary start-game-btn">
+              Start New Game
+            </button>
           </div>
-          <button onClick={nextPhase} className="btn btn-primary phase-btn">
-            Next Phase →
-          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const handlePageClick = () => {
+    // Deselect card when clicking on the page background
+    if (selectedCard) {
+      setSelectedCard(null);
+    }
+  };
+
+  return (
+    <div
+      className={`chess-magic-game ${winner ? (winner === 'White' ? 'white-turn' : 'black-turn') : (game.turn() === 'w' ? 'white-turn' : 'black-turn')}`}
+      onClick={handlePageClick}
+    >
+      <div className="game-layout">
+        {/* Linked Card Display Sidebar */}
+        <div className="linked-card-sidebar">
+          <h3>Linked Card</h3>
+          {viewedLinkedCard ? (
+            <div className="viewed-card-container">
+              {viewedSquare && (
+                <div className="viewed-square-label">
+                  Square: <span className="square-name">{viewedSquare}</span>
+                </div>
+              )}
+              {viewedLinkedCard.imageUrl ? (
+                <div className="viewed-card-image-wrapper">
+                  <img
+                    src={viewedLinkedCard.imageUrl}
+                    alt={viewedLinkedCard.name}
+                    className="viewed-card-image"
+                  />
+                </div>
+              ) : (
+                <div className="viewed-card-details">
+                  <div className="viewed-card-header">
+                    <span className="viewed-card-name">{viewedLinkedCard.name}</span>
+                    <span className="viewed-card-cost">{viewedLinkedCard.manaCost}</span>
+                  </div>
+                  <div className="viewed-card-type">{viewedLinkedCard.type}</div>
+                  {viewedLinkedCard.power !== undefined && (
+                    <div className="viewed-card-stats">
+                      {viewedLinkedCard.power}/{viewedLinkedCard.toughness}
+                    </div>
+                  )}
+                  <div className="viewed-card-text">{viewedLinkedCard.text}</div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="no-card-selected">
+              <p>Hover over a chess piece with a linked card to view it here.</p>
+            </div>
+          )}
         </div>
 
         {/* Main Game Area */}
@@ -547,6 +877,12 @@ function ChessBoard() {
             <div className="game-controls">
               <button onClick={undoMove} className="btn btn-secondary" disabled={moveHistory.length === 0}>
                 ↶ Undo
+              </button>
+              <button
+                onClick={() => setFreeMoveMode(!freeMoveMode)}
+                className={`btn ${freeMoveMode ? 'btn-warning' : 'btn-info'}`}
+              >
+                {freeMoveMode ? '✓ Free Move Active' : '🎯 Free Movement'}
               </button>
               <button onClick={handleResetGame} className="btn btn-primary">
                 🔄 New Game
@@ -596,57 +932,30 @@ function ChessBoard() {
           </div>
         </div>
 
-        {/* MTG Cards Area */}
+        {/* Card Search Area */}
         <div className="cards-area">
-          <div className="battlefield-section">
-            <h3>Battlefield</h3>
-            <div className="battlefield-cards">
-              {battlefield.length === 0 ? (
-                <p className="no-cards">No creatures on battlefield</p>
-              ) : (
-                battlefield.map(card => (
-                  <div key={card.id} className="battlefield-card">
-                    <div className="card-name">{card.name}</div>
-                    <div className="card-cost">{card.manaCost}</div>
-                    {card.power !== undefined && (
-                      <div className="card-stats">{card.power}/{card.toughness}</div>
-                    )}
-                    <div className="card-text">{card.text}</div>
-                    {card.chessPiece !== 'none' && (
-                      <div className="chess-link">🏰 {card.chessPiece}</div>
-                    )}
-                  </div>
-                ))
-              )}
+          <CardSearch
+            onCardSelect={handleCardSearchSelect}
+            selectedCard={selectedCard}
+          />
+          {selectedCard && (
+            <div className="selected-card-info">
+              <h4>Selected Card:</h4>
+              <div className="selected-card-display">
+                <div className="card-name">{selectedCard.name}</div>
+                <div className="card-type">{selectedCard.type} - {selectedCard.chessPiece}</div>
+                <p className="card-instruction">
+                  Click on a {selectedCard.chessPiece} piece on the board to link this card.
+                </p>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setSelectedCard(null)}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="hand-section">
-            <h3>Hand ({playerHand.length})</h3>
-            <div className="hand-cards">
-              {playerHand.length === 0 ? (
-                <p className="no-cards">No cards in hand</p>
-              ) : (
-                playerHand.map(card => (
-                  <div
-                    key={card.id}
-                    className={`hand-card ${selectedCard?.id === card.id ? 'selected' : ''}`}
-                    onClick={() => playCard(card)}
-                  >
-                    <div className="card-name">{card.name}</div>
-                    <div className="card-cost">{card.manaCost}</div>
-                    {card.power !== undefined && (
-                      <div className="card-stats">{card.power}/{card.toughness}</div>
-                    )}
-                    <div className="card-text">{card.text}</div>
-                    {card.chessPiece !== 'none' && (
-                      <div className="chess-link">🏰 {card.chessPiece}</div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -661,6 +970,73 @@ function ChessBoard() {
               </button>
               <button onClick={resetGame} className="btn btn-danger">
                 Yes, Start New Game
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showLinkConfirm && pendingLink && (
+        <div className="modal-overlay">
+          <div className="confirmation-modal">
+            <h3>Link Card to Chess Piece?</h3>
+            <p>
+              Are you sure you want to link <strong>{pendingLink.card.name}</strong> to the{' '}
+              <strong>{pendingLink.pieceName}</strong> at <strong>{pendingLink.square}</strong>?
+            </p>
+            <div className="modal-buttons">
+              <button onClick={cancelLink} className="btn btn-secondary">
+                Cancel
+              </button>
+              <button onClick={confirmLink} className="btn btn-primary">
+                Yes, Link Card
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showFreeMoveKingConfirm && pendingFreeMove && (
+        <div className="modal-overlay">
+          <div className="confirmation-modal">
+            <h3>Capture King with Free Movement?</h3>
+            <p>
+              Are you sure you want to capture the <strong>{pendingFreeMove.targetPiece.color === 'w' ? 'White' : 'Black'} King</strong> at{' '}
+              <strong>{pendingFreeMove.to}</strong>?
+            </p>
+            <p style={{ fontSize: '0.9em', marginTop: '10px', fontStyle: 'italic' }}>
+              This will remove the king from the board (not a legal chess move).
+            </p>
+            <div className="modal-buttons">
+              <button onClick={cancelFreeMoveKingCapture} className="btn btn-secondary">
+                Cancel
+              </button>
+              <button onClick={confirmFreeMoveKingCapture} className="btn btn-danger">
+                Yes, Capture King
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showVictoryModal && winner && (
+        <div className="modal-overlay">
+          <div className={`confirmation-modal victory-modal ${winner === 'White' ? 'light-mode' : 'dark-mode'}`}>
+            <h2 className="victory-title">
+              🎉 Victory! 🎉
+            </h2>
+            <h3 className="victory-winner">
+              {winner} Wins!
+            </h3>
+            <p className="victory-message">
+              The {winner === 'White' ? 'Black' : 'White'} King has been captured!
+            </p>
+            <div className="modal-buttons">
+              <button onClick={closeVictoryModal} className="btn btn-secondary">
+                Close
+              </button>
+              <button onClick={startNewGameFromVictory} className="btn btn-primary">
+                New Game
               </button>
             </div>
           </div>

@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm init:*)"
+      "Bash(npm init:*)",
+      "Bash(git add:*)"
     ]
   }
 }

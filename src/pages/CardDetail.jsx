@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './CardDetail.css';
 
@@ -9,10 +9,20 @@ function CardDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showReminderText, setShowReminderText] = useState(true);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     fetchCard();
   }, [id]);
+
+  useEffect(() => {
+    if (card && titleRef.current) {
+      // Small delay to ensure the page has rendered
+      setTimeout(() => {
+        titleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [card]);
 
   const fetchCard = async () => {
     try {
@@ -114,7 +124,7 @@ function CardDetail() {
   return (
     <div className="card-detail-page">
       <div className="container">
-        <button onClick={() => navigate('/cards')} className="back-button">
+        <button ref={titleRef} onClick={() => navigate('/cards')} className="back-button">
           ← Back to Gallery
         </button>
 

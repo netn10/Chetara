@@ -1,8 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
+  const [boosterOpening, setBoosterOpening] = useState(false);
+  const [revealedCards, setRevealedCards] = useState([]);
+  const [boosterCards, setBoosterCards] = useState([]);
+
+  const renderManaSymbols = (colors) => {
+    const colorPairs = colors.split('');
+    return (
+      <span className="archetype-mana-symbols">
+        {colorPairs.map((color, index) => (
+          <span key={index} className={`mana-symbol-home mana-${color.toLowerCase()}`}>
+            {color.toUpperCase()}
+          </span>
+        ))}
+      </span>
+    );
+  };
+
+  const openBoosterPack = async () => {
+    setBoosterOpening(true);
+    setRevealedCards([]);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/cards');
+      const allCards = await response.json();
+
+      // Randomly select 15 cards
+      const shuffled = [...allCards].sort(() => Math.random() - 0.5);
+      const selected = shuffled.slice(0, 15);
+      setBoosterCards(selected);
+
+      // Reveal cards one by one with a delay
+      selected.forEach((card, index) => {
+        setTimeout(() => {
+          setRevealedCards(prev => [...prev, card]);
+        }, index * 150);
+      });
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
+
+  const closeBooster = () => {
+    setBoosterOpening(false);
+    setRevealedCards([]);
+    setBoosterCards([]);
+  };
+
   return (
     <div className="home">
       <section className="hero">
@@ -19,6 +66,59 @@ function Home() {
           </div>
         </div>
         <div className="hero-chess-pattern"></div>
+      </section>
+
+      {/* Booster Pack Section */}
+      <section className="booster-section">
+        <div className="container">
+          <h2 className="section-title">Open a Booster Pack</h2>
+          <p className="section-subtitle">Click the pack to reveal 15 random cards!</p>
+
+          {!boosterOpening ? (
+            <div className="booster-pack-wrapper">
+              <button className="booster-pack" onClick={openBoosterPack}>
+                <div className="pack-shine"></div>
+                <div className="pack-content">
+                  <div className="pack-logo">♜ ✨</div>
+                  <div className="pack-title">CHESS MAGIC</div>
+                  <div className="pack-subtitle">Booster Pack</div>
+                  <div className="pack-count">15 Cards</div>
+                </div>
+                <div className="pack-glint"></div>
+              </button>
+            </div>
+          ) : (
+            <div className="booster-opened">
+              <div className="cards-fan">
+                {boosterCards.map((card, index) => (
+                  <Link
+                    key={card._id}
+                    to={`/cards/${card._id}`}
+                    className={`fan-card ${revealedCards.includes(card) ? 'revealed' : ''}`}
+                    style={{
+                      '--card-index': index,
+                      '--total-cards': boosterCards.length,
+                      animationDelay: `${index * 0.1}s`
+                    }}
+                  >
+                    <img
+                      src={card.imageUrl || '/placeholder-card.png'}
+                      alt={card.name}
+                      onError={(e) => {
+                        e.target.src = '/placeholder-card.png';
+                      }}
+                    />
+                  </Link>
+                ))}
+              </div>
+              {revealedCards.length === boosterCards.length && boosterCards.length > 0 && (
+                <button className="btn btn-primary reset-pack-btn" onClick={closeBooster}>
+                  Open Another Pack
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </section>
 
       <section className="about">
@@ -72,7 +172,7 @@ function Home() {
           <div className="archetypes-grid">
             <div className="archetype-card" data-colors="wu">
               <div className="archetype-header">
-                <span className="mana-symbols">W/U</span>
+                {renderManaSymbols('wu')}
                 <h3>Azorius - Blink</h3>
               </div>
               <p>Flicker your Chess Creatures to reposition pieces and gain value from enters-the-battlefield effects.</p>
@@ -80,7 +180,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="ub">
               <div className="archetype-header">
-                <span className="mana-symbols">U/B</span>
+                {renderManaSymbols('ub')}
                 <h3>Dimir - Evasion</h3>
               </div>
               <p>Unblockable creatures and evasive threats dominate both the battlefield and the board.</p>
@@ -88,7 +188,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="br">
               <div className="archetype-header">
-                <span className="mana-symbols">B/R</span>
+                {renderManaSymbols('br')}
                 <h3>Rakdos - Sacrifice</h3>
               </div>
               <p>Sacrifice chess pieces for powerful effects - sometimes losing a piece wins the war.</p>
@@ -96,7 +196,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="rg">
               <div className="archetype-header">
-                <span className="mana-symbols">R/G</span>
+                {renderManaSymbols('rg')}
                 <h3>Gruul - Knights Matter</h3>
               </div>
               <p>Jump over obstacles! Knights and cards that reward their unique L-shaped movement.</p>
@@ -104,7 +204,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="gw">
               <div className="archetype-header">
-                <span className="mana-symbols">G/W</span>
+                {renderManaSymbols('gw')}
                 <h3>Selesnya - Enchantments</h3>
               </div>
               <p>Enchant your pieces and creatures for long-term advantage and protection.</p>
@@ -112,7 +212,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="wb">
               <div className="archetype-header">
-                <span className="mana-symbols">W/B</span>
+                {renderManaSymbols('wb')}
                 <h3>Orzhov - Pawns & Bishops</h3>
               </div>
               <p>Master the humble pawn and the diagonal Bishop to control the board.</p>
@@ -120,7 +220,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="bg">
               <div className="archetype-header">
-                <span className="mana-symbols">B/G</span>
+                {renderManaSymbols('bg')}
                 <h3>Golgari - Graveyard</h3>
               </div>
               <p>Recursion and graveyard strategies let you bring back lost pieces and creatures.</p>
@@ -128,7 +228,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="gu">
               <div className="archetype-header">
-                <span className="mana-symbols">G/U</span>
+                {renderManaSymbols('gu')}
                 <h3>Simic - Rooks Ramp</h3>
               </div>
               <p>Ramp into powerful Rooks that dominate files and ranks with overwhelming force.</p>
@@ -136,7 +236,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="ur">
               <div className="archetype-header">
-                <span className="mana-symbols">U/R</span>
+                {renderManaSymbols('ur')}
                 <h3>Izzet - Instant Speed</h3>
               </div>
               <p>Play during your opponent's turn - control both games with perfect timing.</p>
@@ -144,7 +244,7 @@ function Home() {
 
             <div className="archetype-card" data-colors="rw">
               <div className="archetype-header">
-                <span className="mana-symbols">R/W</span>
+                {renderManaSymbols('rw')}
                 <h3>Boros - Extra Moves</h3>
               </div>
               <p>Break the rules by moving chess pieces outside the chess phase for aggressive advantage.</p>
