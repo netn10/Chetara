@@ -578,14 +578,23 @@ function ChessBoard() {
     }
   };
 
+  const generateRandomColor = () => {
+    // Generate random hue (0-360), with high saturation and medium-high lightness for vibrant colors
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 65 + Math.floor(Math.random() * 30); // 65-95%
+    const lightness = 45 + Math.floor(Math.random() * 20); // 45-65%
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  };
+
   const linkCardToPiece = (square, card) => {
     const piece = game.get(square);
     if (!piece) return false;
 
     if (canLinkCardToPiece(card, piece)) {
+      const randomColor = generateRandomColor();
       setLinkedCards(prev => ({
         ...prev,
-        [square]: card
+        [square]: { ...card, linkColor: randomColor }
       }));
       setSelectedCard(null);
       return true;
@@ -713,6 +722,8 @@ function ChessBoard() {
               const isMovablePiece = movablePieces.includes(square);
               const canLinkCard = selectedCard && piece && canLinkCardToPiece(selectedCard, piece);
 
+              const linkedColor = linkedCards[square]?.linkColor;
+
               return (
                 <div
                   key={square}
@@ -727,6 +738,9 @@ function ChessBoard() {
                     ${canLinkCard ? 'can-link-card' : ''}
                     ${linkedCards[square] ? 'has-linked-card' : ''}
                   `}
+                  style={linkedColor ? {
+                    boxShadow: `inset 0 0 0 3px ${linkedColor}`
+                  } : {}}
                   onClick={(e) => handleSquareClickWithCard(square, e)}
                   onMouseEnter={() => handleSquareMouseEnter(square)}
                 >
@@ -737,7 +751,14 @@ function ChessBoard() {
                     </span>
                   )}
                   {linkedCards[square] && (
-                    <div className="linked-card-indicator">
+                    <div
+                      className="linked-card-indicator"
+                      style={{
+                        background: linkedColor || 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                        borderColor: linkedColor || 'rgba(255, 215, 0, 0.5)',
+                        color: '#fff'
+                      }}
+                    >
                       <span className="card-link-icon">⚡</span>
                       <span className="card-link-badge">LINKED</span>
                     </div>
