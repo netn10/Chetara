@@ -28,6 +28,7 @@ function ChessBoard() {
   const [showFreeMoveKingConfirm, setShowFreeMoveKingConfirm] = useState(false);
   const [showVictoryModal, setShowVictoryModal] = useState(false);
   const [winner, setWinner] = useState(null); // 'White' or 'Black'
+  const [winMethod, setWinMethod] = useState(null); // 'checkmate' or 'king_capture'
   const [pendingLink, setPendingLink] = useState(null); // {square, card, piece}
   const [pendingFreeMove, setPendingFreeMove] = useState(null); // {from, to, piece, targetPiece}
   const [movablePieces, setMovablePieces] = useState([]);
@@ -155,11 +156,17 @@ function ChessBoard() {
     setViewedLinkedCard(null);
     setViewedSquare(null);
     setWinner(null);
+    setWinMethod(null);
   };
 
   const updateGameStatus = () => {
     if (game.isCheckmate()) {
-      setGameStatus(`Checkmate! ${game.turn() === 'w' ? 'Black' : 'White'} wins!`);
+      const winningColor = game.turn() === 'w' ? 'Black' : 'White';
+      setGameStatus(`Checkmate! ${winningColor} wins!`);
+      setWinner(winningColor);
+      setWinMethod('checkmate');
+      setShowVictoryModal(true);
+      setActiveTimer(null); // Stop the timer
     } else if (game.isDraw()) {
       setGameStatus('Game is a draw!');
     } else if (game.isStalemate()) {
@@ -389,6 +396,7 @@ function ChessBoard() {
       setGameStatus(`Game Over! ${winningColor} wins by capturing the king!`);
       setActiveTimer(null); // Stop the timer
       setWinner(winningColor); // Set the winner
+      setWinMethod('king_capture'); // Set win method
       setShowVictoryModal(true); // Show victory modal
     }
 
@@ -659,6 +667,7 @@ function ChessBoard() {
     // Close victory modal
     setShowVictoryModal(false);
     setWinner(null);
+    setWinMethod(null);
 
     // Reset all game state
     setGame(new Chess());
@@ -1029,7 +1038,9 @@ function ChessBoard() {
               {winner} Wins!
             </h3>
             <p className="victory-message">
-              The {winner === 'White' ? 'Black' : 'White'} King has been captured!
+              {winMethod === 'checkmate'
+                ? 'Checkmate!'
+                : `The ${winner === 'White' ? 'Black' : 'White'} King has been captured!`}
             </p>
             <div className="modal-buttons">
               <button onClick={closeVictoryModal} className="btn btn-secondary">

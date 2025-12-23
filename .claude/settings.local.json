@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npm init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nMajor gameplay and UI improvements for Chess Magic\n\nGame Mechanics:\n- Fix linked cards to move with chess pieces when they move\n- Implement complete undo system with FEN history tracking\n- Add confirmation dialog when using free movement to capture a king\n- Make king capture via free movement end the game with proper winner\n- Fix win logic: capturing a king makes the opposite player win\n- Linked cards now properly removed when piece is captured\n\nVictory System:\n- Add animated victory popup with celebration effects\n- Implement dual-theme victory modal \\(light mode for White wins, dark for Black wins\\)\n- Victory modal features pulsing animations and themed colors\n- Add \"New Game\" button that returns to start screen\n- Fix background theme to match winner when game ends\n\nBoard Improvements:\n- Increase chess board size from 60px to 80px squares for better visibility\n- Improve piece movement and linking feedback\n\nCard Library Enhancements:\n- Expand card library width from 300px to 400px\n- Increase card display size from 120px to 150px\n- Center and style \"Card Library\" title with uppercase and letter spacing\n- Improve search input with larger size, better borders, and focus effects\n- Enhance filter buttons with hover animations and centered layout\n- Add shadows and better spacing throughout\n- Card search now only searches by card name \\(not text\\)\n\nUser Experience:\n- Clicking invalid targets or anywhere outside valid areas now deselects card\n- Add page-wide click handler for intuitive card deselection\n- Clicking on cards or valid chess pieces maintains selection\n- Remove alert dialogs, replace with silent deselection for better UX\nEOF\n\\)\")",
+      "Bash(git push:*)"
     ]
   }
 }
