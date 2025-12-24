@@ -20,6 +20,248 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Background Floating Cards */
+.background-cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.floating-card {
+  position: absolute;
+  width: 200px;
+  height: 280px;
+  opacity: 0.4;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.floating-card:hover {
+  opacity: 1;
+  animation: floatHover 0.6s ease-in-out forwards;
+  z-index: 100;
+}
+
+.floating-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.floating-card:hover img {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 165, 116, 0.3);
+  border: 2px solid rgba(212, 165, 116, 0.5);
+}
+
+/* Position each card differently - 18 cards in 3 rows spread across full width */
+/* Row 1 - Top (6 cards) */
+.floating-card:nth-child(1) {
+  top: 12%;
+  left: 2%;
+}
+
+.floating-card:nth-child(2) {
+  top: 12%;
+  left: 18%;
+}
+
+.floating-card:nth-child(3) {
+  top: 12%;
+  left: 34%;
+}
+
+.floating-card:nth-child(4) {
+  top: 12%;
+  left: 50%;
+}
+
+.floating-card:nth-child(5) {
+  top: 12%;
+  left: 66%;
+}
+
+.floating-card:nth-child(6) {
+  top: 12%;
+  left: 82%;
+}
+
+/* Row 2 - Middle (6 cards) */
+.floating-card:nth-child(7) {
+  top: 50%;
+  left: 4%;
+}
+
+.floating-card:nth-child(8) {
+  top: 50%;
+  left: 20%;
+}
+
+.floating-card:nth-child(9) {
+  top: 50%;
+  left: 36%;
+}
+
+.floating-card:nth-child(10) {
+  top: 50%;
+  left: 52%;
+}
+
+.floating-card:nth-child(11) {
+  top: 50%;
+  left: 68%;
+}
+
+.floating-card:nth-child(12) {
+  top: 50%;
+  left: 84%;
+}
+
+/* Row 3 - Bottom (6 cards) */
+.floating-card:nth-child(13) {
+  top: 88%;
+  left: 3%;
+}
+
+.floating-card:nth-child(14) {
+  top: 88%;
+  left: 19%;
+}
+
+.floating-card:nth-child(15) {
+  top: 88%;
+  left: 35%;
+}
+
+.floating-card:nth-child(16) {
+  top: 88%;
+  left: 51%;
+}
+
+.floating-card:nth-child(17) {
+  top: 88%;
+  left: 67%;
+}
+
+.floating-card:nth-child(18) {
+  top: 88%;
+  left: 83%;
+}
+
+/* Give each card a slightly different animation timing for organic feel */
+.floating-card:nth-child(1) { animation-delay: 0s; }
+.floating-card:nth-child(2) { animation-delay: 0.3s; }
+.floating-card:nth-child(3) { animation-delay: 0.6s; }
+.floating-card:nth-child(4) { animation-delay: 0.9s; }
+.floating-card:nth-child(5) { animation-delay: 1.2s; }
+.floating-card:nth-child(6) { animation-delay: 1.5s; }
+.floating-card:nth-child(7) { animation-delay: 1.8s; }
+.floating-card:nth-child(8) { animation-delay: 2.1s; }
+.floating-card:nth-child(9) { animation-delay: 2.4s; }
+.floating-card:nth-child(10) { animation-delay: 2.7s; }
+.floating-card:nth-child(11) { animation-delay: 3s; }
+.floating-card:nth-child(12) { animation-delay: 3.3s; }
+.floating-card:nth-child(13) { animation-delay: 3.6s; }
+.floating-card:nth-child(14) { animation-delay: 3.9s; }
+.floating-card:nth-child(15) { animation-delay: 4.2s; }
+.floating-card:nth-child(16) { animation-delay: 4.5s; }
+.floating-card:nth-child(17) { animation-delay: 4.8s; }
+.floating-card:nth-child(18) { animation-delay: 5.1s; }
+
+/* Floating animations */
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+@keyframes floatHover {
+  to {
+    transform: translateY(-20px) scale(1.1) rotate(0deg);
+  }
+}
+
+/* Responsive adjustments for cards */
+@media (max-width: 1024px) {
+  .floating-card {
+    width: 160px;
+    height: 224px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-card {
+    width: 120px;
+    height: 168px;
+  }
+
+  /* Show 12 cards (4 per row) on tablets */
+  .floating-card:nth-child(n+13) {
+    display: none;
+  }
+
+  /* Re-position 12 cards in 3 rows (4 per row) */
+  /* Row 1: cards 1-4 */
+  .floating-card:nth-child(1) { top: 12%; left: 5%; }
+  .floating-card:nth-child(2) { top: 12%; left: 32%; }
+  .floating-card:nth-child(3) { top: 12%; left: 59%; }
+  .floating-card:nth-child(4) { top: 12%; left: 86%; }
+
+  /* Row 2: cards 5-8 (need to move from row 1 to row 2) */
+  .floating-card:nth-child(5) { top: 50%; left: 5%; }
+  .floating-card:nth-child(6) { top: 50%; left: 32%; }
+  .floating-card:nth-child(7) { top: 50%; left: 59%; }
+  .floating-card:nth-child(8) { top: 50%; left: 86%; }
+
+  /* Row 3: cards 9-12 (need to move from row 2 to row 3) */
+  .floating-card:nth-child(9) { top: 88%; left: 5%; }
+  .floating-card:nth-child(10) { top: 88%; left: 32%; }
+  .floating-card:nth-child(11) { top: 88%; left: 59%; }
+  .floating-card:nth-child(12) { top: 88%; left: 86%; }
+}
+
+@media (max-width: 480px) {
+  .floating-card {
+    width: 90px;
+    height: 126px;
+  }
+
+  /* Show 9 cards (3 per row) on very small screens */
+  .floating-card:nth-child(n+10) {
+    display: none;
+  }
+
+  /* Re-position 9 cards in 3 rows - maintain row positions */
+  .floating-card:nth-child(1) { top: 12%; left: 8%; }
+  .floating-card:nth-child(2) { top: 12%; left: 42%; }
+  .floating-card:nth-child(3) { top: 12%; left: 76%; }
+
+  .floating-card:nth-child(4) { top: 50%; left: 8%; }
+  .floating-card:nth-child(5) { top: 50%; left: 42%; }
+  .floating-card:nth-child(6) { top: 50%; left: 76%; }
+
+  .floating-card:nth-child(7) { top: 88%; left: 8%; }
+  .floating-card:nth-child(8) { top: 88%; left: 42%; }
+  .floating-card:nth-child(9) { top: 88%; left: 76%; }
+}
+
 .hero::before {
   content: '';
   position: absolute;
@@ -31,6 +273,7 @@
     radial-gradient(circle at 20% 50%, rgba(139, 90, 60, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 50%, rgba(90, 125, 107, 0.08) 0%, transparent 50%);
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero-chess-pattern {
@@ -45,13 +288,20 @@
     linear-gradient(-45deg, transparent 75%, var(--border-subtle) 75%);
   background-size: 120px 120px;
   background-position: 0 0, 0 60px, 60px -60px, -60px 0px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-content {
   text-align: center;
-  z-index: 1;
+  z-index: 10;
   padding: 2rem;
   max-width: 800px;
+  pointer-events: none;
+}
+
+.hero-content * {
+  pointer-events: auto;
 }
 
 .hero-title {

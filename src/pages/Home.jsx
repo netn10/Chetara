@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -6,6 +6,28 @@ function Home() {
   const [boosterOpening, setBoosterOpening] = useState(false);
   const [revealedCards, setRevealedCards] = useState([]);
   const [boosterCards, setBoosterCards] = useState([]);
+  const [backgroundCards, setBackgroundCards] = useState([]);
+  const [allCards, setAllCards] = useState([]);
+
+  // Fetch all cards on component mount
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/cards');
+        const cards = await response.json();
+        setAllCards(cards);
+        // Set initial background cards
+        if (cards.length > 0) {
+          const shuffled = [...cards].sort(() => Math.random() - 0.5);
+          setBackgroundCards(shuffled.slice(0, 18));
+        }
+      } catch (error) {
+        console.error('Error fetching cards:', error);
+      }
+    };
+    fetchCards();
+  }, []);
+
 
   const renderManaSymbols = (colors) => {
     const colorPairs = colors.split('');
@@ -53,6 +75,25 @@ function Home() {
   return (
     <div className="home">
       <section className="hero">
+        {/* Background floating cards */}
+        <div className="background-cards">
+          {backgroundCards.map((card, index) => (
+            <Link
+              key={`${card._id}-${index}`}
+              to={`/cards/${card._id}`}
+              className="floating-card"
+            >
+              <img
+                src={card.imageUrl || '/placeholder-card.png'}
+                alt={card.name}
+                onError={(e) => {
+                  e.target.src = '/placeholder-card.png';
+                }}
+              />
+            </Link>
+          ))}
+        </div>
+
         <div className="hero-content">
           <h1 className="hero-title">Chess Magic</h1>
           <p className="hero-subtitle">Where Strategy Meets Sorcery</p>

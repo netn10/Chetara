@@ -842,68 +842,368 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .chess-game {
-    padding: 10px;
+/* Large Tablets and Small Desktops (1200px and below) */
+@media (max-width: 1200px) {
+  .game-layout {
+    grid-template-columns: 250px 1fr 250px;
+    gap: 15px;
   }
-  
-  .chess-square {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .piece {
-    font-size: 2rem;
-  }
-  
-  .game-sidebar {
-    margin-top: 15px;
-  }
-  
-  .captured-section {
-    grid-template-columns: 1fr;
-  }
-  
-  .moves-list {
-    grid-template-columns: 1fr;
-  }
-  
-  .status-display {
-    font-size: 1.2rem;
+
+  .linked-card-sidebar,
+  .cards-area {
     min-width: 250px;
+  }
+
+  .chess-square {
+    width: 65px;
+    height: 65px;
+  }
+
+  .piece {
+    font-size: 2.2rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .game-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main"
+      "linked"
+      "cards";
+    gap: 20px;
+  }
+
+  .linked-card-sidebar,
+  .cards-area {
+    position: static;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
   .chess-square {
-    width: 35px;
-    height: 35px;
+    width: 60px;
+    height: 60px;
   }
-  
+
   .piece {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
-  
+
+  .cards-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .timer-display {
+    gap: 20px;
+  }
+
+  .status-display {
+    font-size: 1.3rem;
+    min-width: 280px;
+  }
+}
+
+/* Mobile Landscape and Small Tablets (768px and below) */
+@media (max-width: 768px) {
+  .chess-magic-game {
+    padding: 10px;
+  }
+
+  .game-start-screen {
+    padding: 20px;
+    min-height: 70vh;
+  }
+
+  .start-screen-content {
+    padding: 40px 25px;
+  }
+
+  .start-screen-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .start-description {
+    font-size: 1rem;
+  }
+
+  .chess-square {
+    width: 50px;
+    height: 50px;
+  }
+
+  .piece {
+    font-size: 1.8rem;
+  }
+
   .square-label {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
   }
-  
+
+  .linked-card-indicator {
+    padding: 2px 4px;
+    font-size: 0.5rem;
+  }
+
+  .game-sidebar {
+    margin-top: 15px;
+  }
+
+  .captured-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .moves-list {
+    grid-template-columns: 1fr;
+    max-height: 150px;
+  }
+
+  .status-display {
+    font-size: 1.2rem;
+    min-width: 250px;
+    padding: 10px 20px;
+  }
+
+  .timer-display {
+    gap: 15px;
+  }
+
+  .player-timer {
+    padding: 10px 15px;
+    min-width: 90px;
+  }
+
+  .timer-value {
+    font-size: 1.3rem;
+  }
+
+  .game-controls {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .cards-area {
+    grid-template-columns: 1fr;
+  }
+
+  .battlefield-cards,
+  .hand-cards {
+    max-height: 250px;
+  }
+
+  .viewed-card-image {
+    max-width: 220px;
+  }
+}
+
+/* Mobile Portrait (480px and below) */
+@media (max-width: 480px) {
+  .chess-magic-game {
+    padding: 5px;
+  }
+
+  .start-screen-content {
+    padding: 30px 20px;
+  }
+
+  .start-screen-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .start-description {
+    font-size: 0.95rem;
+  }
+
+  .start-game-btn {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+  }
+
+  .chess-square {
+    width: 38px;
+    height: 38px;
+  }
+
+  .piece {
+    font-size: 1.4rem;
+  }
+
+  .square-label {
+    font-size: 0.55rem;
+  }
+
+  .linked-card-indicator {
+    display: none; /* Hide on very small screens to avoid clutter */
+  }
+
+  .game-board-container {
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: 1fr 25px;
+    gap: 3px;
+  }
+
+  .rank-label,
+  .file-label {
+    font-size: 0.75rem;
+  }
+
   .game-controls {
     flex-direction: column;
     width: 100%;
+    gap: 8px;
   }
-  
+
   .btn {
     width: 100%;
+    font-size: 0.85rem;
   }
-  
+
   .confirmation-modal {
     padding: 20px;
-    max-width: 350px;
+    max-width: 90%;
   }
-  
+
+  .confirmation-modal h3 {
+    font-size: 1.3rem;
+  }
+
   .modal-buttons {
     flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-buttons .btn {
+    width: 100%;
+  }
+
+  .status-display {
+    font-size: 1rem;
+    min-width: 200px;
+    padding: 8px 16px;
+  }
+
+  .timer-display {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .player-timer {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 15px;
+  }
+
+  .timer-label {
+    font-size: 0.85rem;
+  }
+
+  .timer-value {
+    font-size: 1.2rem;
+  }
+
+  .material-balance {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .linked-card-sidebar,
+  .cards-area {
+    padding: 15px;
+  }
+
+  .linked-card-sidebar h3,
+  .cards-area h3 {
+    font-size: 1rem;
+  }
+
+  .viewed-card-image {
+    max-width: 100%;
+  }
+
+  .battlefield-cards,
+  .hand-cards {
+    max-height: 200px;
+  }
+
+  .captured-pieces,
+  .move-history {
+    padding: 12px;
+  }
+
+  .captured-pieces h4,
+  .move-history h3 {
+    font-size: 0.9rem;
+  }
+
+  .captured-piece {
+    font-size: 1.3rem;
+  }
+
+  .moves-list {
+    max-height: 120px;
+  }
+
+  .victory-modal {
+    max-width: 90%;
+    padding: 25px 20px;
+  }
+
+  .victory-title {
+    font-size: 1.8rem;
+  }
+
+  .victory-winner {
+    font-size: 1.3rem;
+  }
+
+  .victory-message {
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Devices (360px and below) */
+@media (max-width: 360px) {
+  .chess-square {
+    width: 32px;
+    height: 32px;
+  }
+
+  .piece {
+    font-size: 1.2rem;
+  }
+
+  .square-label {
+    display: none; /* Hide square labels on tiny screens */
+  }
+
+  .game-board-container {
+    grid-template-columns: 20px 1fr;
+    grid-template-rows: 1fr 20px;
+  }
+
+  .rank-label,
+  .file-label {
+    font-size: 0.7rem;
+  }
+
+  .start-screen-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .status-display {
+    font-size: 0.9rem;
+    padding: 6px 12px;
   }
 }
 
