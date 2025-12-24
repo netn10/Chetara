@@ -6,23 +6,52 @@ function Rules() {
   const [loadingCard, setLoadingCard] = useState(true);
 
   useEffect(() => {
-    fetchRandomChessCard();
-  }, []);
+    let isMounted = true;
+    const abortController = new AbortController();
 
-  const fetchRandomChessCard = async () => {
-    try {
-      setLoadingCard(true);
-      const response = await fetch('http://localhost:5000/api/cards/random/chess');
-      if (response.ok) {
-        const card = await response.json();
-        setExampleCard(card);
+    const fetchRandomChessCard = async () => {
+      try {
+        setLoadingCard(true);
+        let attempts = 0;
+        let validCard = null;
+
+        // Keep fetching until we get a card with a valid chess piece
+        while (!validCard && attempts < 10 && isMounted) {
+          const response = await fetch('http://localhost:5000/api/cards/random/chess', {
+            signal: abortController.signal
+          });
+
+          if (response.ok) {
+            const card = await response.json();
+            // Only accept cards with valid chess pieces (not 'none' or undefined)
+            if (card.chessPiece && card.chessPiece !== 'none') {
+              validCard = card;
+            }
+          }
+          attempts++;
+        }
+
+        if (validCard && isMounted) {
+          setExampleCard(validCard);
+        }
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Error fetching random chess card:', error);
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingCard(false);
+        }
       }
-    } catch (error) {
-      console.error('Error fetching random chess card:', error);
-    } finally {
-      setLoadingCard(false);
-    }
-  };
+    };
+
+    fetchRandomChessCard();
+
+    return () => {
+      isMounted = false;
+      abortController.abort();
+    };
+  }, []);
 
   const getPieceEmoji = (piece) => {
     const emojis = {
@@ -134,22 +163,45 @@ function Rules() {
                 <div className="example-right">
                   <h3>How It Works</h3>
                   <ul>
-                    <li>
-                      <strong>Link the Games:</strong> When you cast {exampleCard.name}, choose one of your
-                      {exampleCard.chessPiece !== 'none' && ` ${exampleCard.chessPiece}s`} on the chess board to link with it.
-                    </li>
-                    <li>
-                      <strong>Double Vulnerability:</strong> If your opponent destroys the creature OR
-                      captures the {exampleCard.chessPiece}, you lose both! High risk, high reward.
-                    </li>
-                    <li>
-                      <strong>Extra Chess Moves:</strong> Many chess creature cards let you move your
-                      piece outside the Chess Phase - this is extremely powerful for tactical advantage.
-                    </li>
-                    <li>
-                      <strong>Strategic Depth:</strong> Protect your creature with counterspells and
-                      removal, while positioning your {exampleCard.chessPiece} safely on the board.
-                    </li>
+                    {exampleCard.chessPiece && exampleCard.chessPiece !== 'none' ? (
+                      <>
+                        <li>
+                          <strong>Link the Games:</strong> When you cast {exampleCard.name}, choose one of your{' '}
+                          {exampleCard.chessPiece}s on the chess board to link with it.
+                        </li>
+                        <li>
+                          <strong>Double Vulnerability:</strong> If your opponent destroys the creature OR
+                          captures the {exampleCard.chessPiece}, you lose both! High risk, high reward.
+                        </li>
+                        <li>
+                          <strong>Extra Chess Moves:</strong> Many chess creature cards let you move your
+                          piece outside the Chess Phase - this is extremely powerful for tactical advantage.
+                        </li>
+                        <li>
+                          <strong>Strategic Depth:</strong> Protect your creature with counterspells and
+                          removal, while positioning your {exampleCard.chessPiece} safely on the board.
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li>
+                          <strong>Strategic Gameplay:</strong> When you cast {exampleCard.name}, use it to gain
+                          tactical advantages in both the Magic game and chess match.
+                        </li>
+                        <li>
+                          <strong>Dual Game Mastery:</strong> Success requires balancing resources and strategy
+                          across both Magic and Chess simultaneously.
+                        </li>
+                        <li>
+                          <strong>Tactical Advantage:</strong> Cards like this can provide unique effects that
+                          influence the state of both games at once.
+                        </li>
+                        <li>
+                          <strong>Strategic Depth:</strong> Carefully time when you cast spells to maximize
+                          their impact on both the Magic battlefield and chess board.
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </div>
               </div>

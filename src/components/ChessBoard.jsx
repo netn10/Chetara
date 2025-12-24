@@ -78,9 +78,23 @@ function ChessBoard() {
     const interval = setInterval(() => {
       setGameTime(prev => {
         const newTime = { ...prev };
-        if (newTime[activeTimer === 'w' ? 'white' : 'black'] > 0) {
-          newTime[activeTimer === 'w' ? 'white' : 'black']--;
+        const currentPlayer = activeTimer === 'w' ? 'white' : 'black';
+
+        if (newTime[currentPlayer] > 0) {
+          newTime[currentPlayer]--;
+
+          // Check if time just ran out
+          if (newTime[currentPlayer] === 0) {
+            // Player ran out of time - opponent wins
+            const winningColor = activeTimer === 'w' ? 'Black' : 'White';
+            setGameStatus(`Time's up! ${winningColor} wins by timeout!`);
+            setWinner(winningColor);
+            setWinMethod('timeout');
+            setShowVictoryModal(true);
+            setActiveTimer(null);
+          }
         }
+
         return newTime;
       });
     }, 1000);
@@ -879,6 +893,10 @@ function ChessBoard() {
         {/* Main Game Area */}
         <div className="main-game-area">
           <div className="game-info">
+            <button onClick={handleResetGame} className="btn btn-primary new-game-btn">
+              🔄 New Game
+            </button>
+
             <div className="timer-display">
               <div className={`player-timer ${activeTimer === 'w' ? 'active' : ''}`}>
                 <span className="timer-label">White</span>
@@ -913,9 +931,6 @@ function ChessBoard() {
                 className={`btn ${freeMoveMode ? 'btn-warning' : 'btn-info'}`}
               >
                 {freeMoveMode ? '✓ Free Move Active' : '🎯 Free Movement'}
-              </button>
-              <button onClick={handleResetGame} className="btn btn-primary">
-                🔄 New Game
               </button>
             </div>
           </div>
@@ -1061,6 +1076,8 @@ function ChessBoard() {
             <p className="victory-message">
               {winMethod === 'checkmate'
                 ? 'Checkmate!'
+                : winMethod === 'timeout'
+                ? `${winner === 'White' ? 'Black' : 'White'} ran out of time!`
                 : `The ${winner === 'White' ? 'Black' : 'White'} King has been captured!`}
             </p>
             <div className="modal-buttons">

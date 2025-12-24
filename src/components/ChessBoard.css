@@ -287,6 +287,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .game-info {
@@ -295,6 +297,8 @@
   align-items: center;
   margin-bottom: 20px;
   gap: 15px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .timer-display {
@@ -349,11 +353,13 @@
 .material-balance {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 8px 16px;
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 200px;
 }
 
 .balance-label {
@@ -517,6 +523,8 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   text-align: center;
   min-width: 300px;
+  max-width: 500px;
+  width: 100%;
   transition: all 0.3s ease;
 }
 
@@ -541,10 +549,16 @@
 .game-controls {
   display: flex;
   gap: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -553,6 +567,11 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn:hover {
@@ -576,12 +595,22 @@
   color: white;
 }
 
+.new-game-btn {
+  width: 100%;
+  max-width: 300px;
+  font-size: 1.1rem;
+  padding: 14px 28px;
+  margin-bottom: 15px;
+}
+
 .game-board-container {
   display: grid;
   grid-template-columns: 30px 1fr;
   grid-template-rows: 1fr 30px;
   gap: 5px;
-  margin: 20px 0;
+  margin: 20px auto;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .board-labels {
@@ -615,6 +644,8 @@
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   background: #8b4513;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .board-row {
@@ -845,27 +876,28 @@
 /* Large Tablets and Small Desktops (1200px and below) */
 @media (max-width: 1200px) {
   .game-layout {
-    grid-template-columns: 250px 1fr 250px;
-    gap: 15px;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 12px;
   }
 
   .linked-card-sidebar,
   .cards-area {
-    min-width: 250px;
+    min-width: 220px;
+    padding: 15px;
   }
 
   .chess-square {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
   }
 
   .piece {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 
-/* Tablets (1024px and below) */
-@media (max-width: 1024px) {
+/* Switch to single column earlier for better experience (1100px and below) */
+@media (max-width: 1100px) {
   .game-layout {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -873,6 +905,7 @@
       "linked"
       "cards";
     gap: 20px;
+    padding: 0 15px;
   }
 
   .linked-card-sidebar,
@@ -891,35 +924,99 @@
     font-size: 2rem;
   }
 
+  .game-info {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .status-display {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+  }
+
+  .game-controls .btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+
+  .new-game-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+
+  .cards-area {
+    min-width: 100%;
+  }
+
+  .game-sidebar {
+    max-width: 100%;
+  }
+}
+
+/* Tablets (1024px and below) */
+@media (max-width: 1024px) {
   .cards-area {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
   }
 
+  .new-game-btn {
+    width: 100%;
+  }
+
   .timer-display {
     gap: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .player-timer {
+    flex: 1;
+    max-width: 250px;
   }
 
   .status-display {
-    font-size: 1.3rem;
-    min-width: 280px;
+    min-width: auto;
+    width: 100%;
+  }
+
+  .material-balance {
+    width: 100%;
+  }
+
+  .game-controls {
+    width: 100%;
+  }
+
+  .game-controls .btn {
+    flex: 1;
+    min-width: 150px;
   }
 }
 
 /* Mobile Landscape and Small Tablets (768px and below) */
 @media (max-width: 768px) {
   .chess-magic-game {
-    padding: 10px;
+    padding: 5px;
+    overflow-x: hidden;
+  }
+
+  .main-game-area {
+    padding: 0 10px;
   }
 
   .game-start-screen {
-    padding: 20px;
-    min-height: 70vh;
+    padding: 10px;
+    min-height: 60vh;
+  }
+
+  .game-board-container {
+    margin: 15px auto;
   }
 
   .start-screen-content {
-    padding: 40px 25px;
+    padding: 30px 20px;
   }
 
   .start-screen-content h1 {
@@ -948,8 +1045,64 @@
     font-size: 0.5rem;
   }
 
+  .game-info {
+    margin-bottom: 10px;
+    gap: 10px;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .new-game-btn {
+    max-width: 100%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+  }
+
+  .timer-display {
+    gap: 15px;
+    width: 100%;
+  }
+
+  .player-timer {
+    padding: 10px 15px;
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .timer-value {
+    font-size: 1.3rem;
+  }
+
+  .status-display {
+    font-size: 1.2rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 20px;
+  }
+
+  .material-balance {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .game-controls {
+    gap: 10px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .game-controls .btn {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+    min-height: 44px;
+  }
+
   .game-sidebar {
-    margin-top: 15px;
+    margin-top: 10px;
   }
 
   .captured-section {
@@ -960,35 +1113,6 @@
   .moves-list {
     grid-template-columns: 1fr;
     max-height: 150px;
-  }
-
-  .status-display {
-    font-size: 1.2rem;
-    min-width: 250px;
-    padding: 10px 20px;
-  }
-
-  .timer-display {
-    gap: 15px;
-  }
-
-  .player-timer {
-    padding: 10px 15px;
-    min-width: 90px;
-  }
-
-  .timer-value {
-    font-size: 1.3rem;
-  }
-
-  .game-controls {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .btn {
-    font-size: 0.9rem;
-    padding: 8px 16px;
   }
 
   .cards-area {
@@ -1008,11 +1132,16 @@
 /* Mobile Portrait (480px and below) */
 @media (max-width: 480px) {
   .chess-magic-game {
+    padding: 2px;
+  }
+
+  .game-start-screen {
     padding: 5px;
+    min-height: 50vh;
   }
 
   .start-screen-content {
-    padding: 30px 20px;
+    padding: 25px 15px;
   }
 
   .start-screen-content h1 {
@@ -1028,9 +1157,13 @@
     padding: 0.75rem 2rem;
   }
 
+  .game-board-container {
+    margin: 10px 5px;
+  }
+
   .chess-square {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
   }
 
   .piece {
@@ -1048,7 +1181,8 @@
   .game-board-container {
     grid-template-columns: 25px 1fr;
     grid-template-rows: 1fr 25px;
-    gap: 3px;
+    gap: 2px;
+    margin: 10px 0;
   }
 
   .rank-label,
@@ -1059,12 +1193,20 @@
   .game-controls {
     flex-direction: column;
     width: 100%;
-    gap: 8px;
+    gap: 10px;
   }
 
   .btn {
     width: 100%;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    min-height: 48px;
+  }
+
+  .new-game-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+    margin-bottom: 10px;
   }
 
   .confirmation-modal {
@@ -1115,6 +1257,16 @@
   .material-balance {
     width: 100%;
     justify-content: center;
+    padding: 6px 12px;
+  }
+
+  .game-info {
+    margin-bottom: 5px;
+    gap: 8px;
+  }
+
+  .game-sidebar {
+    margin-top: 5px;
   }
 
   .linked-card-sidebar,
@@ -1174,9 +1326,13 @@
 
 /* Extra Small Devices (360px and below) */
 @media (max-width: 360px) {
+  .game-board-container {
+    margin: 10px 2px;
+  }
+
   .chess-square {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
 
   .piece {
@@ -1238,7 +1394,7 @@
   height: fit-content;
   min-width: 300px;
   position: sticky;
-  top: 20px;
+  top: 80px;
 }
 
 .linked-card-sidebar h3 {
@@ -1502,19 +1658,19 @@
 
 /* Responsive Design for MTG Layout */
 @media (max-width: 1000px) {
-  .game-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    grid-template-areas: 
-      "phases"
-      "main"
-      "cards";
-  }
-  
   .cards-area {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+  }
+
+  .chess-square {
+    width: 56px;
+    height: 56px;
+  }
+
+  .piece {
+    font-size: 1.9rem;
   }
 }
 

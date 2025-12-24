@@ -11,21 +11,37 @@ function Home() {
 
   // Fetch all cards on component mount
   useEffect(() => {
+    let isMounted = true;
+    const abortController = new AbortController();
+
     const fetchCards = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/cards');
-        const cards = await response.json();
-        setAllCards(cards);
-        // Set initial background cards
-        if (cards.length > 0) {
-          const shuffled = [...cards].sort(() => Math.random() - 0.5);
-          setBackgroundCards(shuffled.slice(0, 18));
+        const response = await fetch('http://localhost:5000/api/cards', {
+          signal: abortController.signal
+        });
+
+        if (response.ok && isMounted) {
+          const cards = await response.json();
+          setAllCards(cards);
+          // Set initial background cards
+          if (cards.length > 0) {
+            const shuffled = [...cards].sort(() => Math.random() - 0.5);
+            setBackgroundCards(shuffled.slice(0, 18));
+          }
         }
       } catch (error) {
-        console.error('Error fetching cards:', error);
+        if (error.name !== 'AbortError') {
+          console.error('Error fetching cards:', error);
+        }
       }
     };
+
     fetchCards();
+
+    return () => {
+      isMounted = false;
+      abortController.abort();
+    };
   }, []);
 
 

@@ -3,12 +3,12 @@
   min-height: 100vh;
   background: var(--bg-primary);
   color: var(--text-primary);
-  padding: 6rem 0 4rem;
+  padding: 6rem 0 2rem;
 }
 
 .play-header {
   text-align: center;
-  padding: 2.5rem 1.25rem 1.25rem;
+  padding: 1.5rem 1.25rem 1rem;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -88,31 +88,49 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .play-page {
+    padding: 5rem 0 1.5rem;
+  }
+
+  .play-header {
+    padding: 1rem 1rem 0.75rem;
+  }
+
   .play-header h1 {
     font-size: 2.2rem;
+    margin-bottom: 0.75rem;
   }
-  
+
   .play-header p {
     font-size: 1rem;
   }
-  
+
   .play-info {
     grid-template-columns: 1fr;
     margin-top: 20px;
   }
-  
+
   .info-section {
     padding: 20px;
   }
 }
 
 @media (max-width: 480px) {
+  .play-page {
+    padding: 4.5rem 0 1rem;
+  }
+
   .play-header {
-    padding: 20px 15px 15px;
+    padding: 0.75rem 1rem 0.5rem;
   }
 
   .play-header h1 {
     font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .play-header p {
+    font-size: 0.95rem;
   }
 
   .play-info {

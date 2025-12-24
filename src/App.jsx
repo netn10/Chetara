@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import About from './pages/About';
 import Rules from './pages/Rules';
 import Cards from './pages/Cards';
 import CardDetail from './pages/CardDetail';
@@ -46,6 +47,7 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/rules" element={<Rules />} />
               <Route path="/cards" element={<Cards />} />
               <Route path="/cards/:id" element={<CardDetail />} />
