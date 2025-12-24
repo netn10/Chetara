@@ -28,13 +28,11 @@
 }
 
 .start-screen-content h1 {
-  font-size: 3.5rem;
-  margin: 0 0 20px 0;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+  font-size: 3rem;
+  margin: 0 0 1.25rem 0;
+  color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .start-description {
@@ -45,32 +43,32 @@
 }
 
 .start-game-btn {
-  font-size: 1.3rem;
-  padding: 15px 50px;
-  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-weight: bold;
+  font-size: 1.125rem;
+  padding: 0.875rem 2.5rem;
+  background: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+  transition: background-color 0.2s, border-color 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.01em;
 }
 
 .start-game-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
-  background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+  background: var(--accent-highlight);
+  border-color: var(--accent-highlight);
 }
 
 .chess-magic-game.white-turn {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e3f2fd 50%, #bbdefb 100%);
-  color: #212121;
+  background: #F5F5F7;
+  color: #1C1C1E;
 }
 
 .chess-magic-game.black-turn {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  color: #fff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* Light mode text colors */
@@ -421,75 +419,52 @@
 
 /* Victory Modal - Special Styling */
 .victory-modal {
-  border: 3px solid #fff;
+  border: 2px solid var(--border-medium);
   max-width: 500px;
 }
 
 .victory-title {
-  font-size: 2.5em;
-  margin: 20px 0;
+  font-size: 2.25rem;
+  margin: 1.25rem 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .victory-winner {
-  font-size: 1.8em;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
 }
 
 .victory-message {
-  font-size: 1.2em;
-  margin-bottom: 30px;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
 }
 
 /* Light mode victory modal (White wins) */
 .victory-modal.light-mode {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
-  border-color: #1565c0;
-  box-shadow: 0 0 40px rgba(21, 101, 192, 0.6), 0 20px 40px rgba(0, 0, 0, 0.5);
-  animation: victory-pulse-light 2s ease-in-out infinite;
+  background: #F5F5F7;
+  border-color: var(--accent-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .victory-modal.light-mode .victory-title,
 .victory-modal.light-mode .victory-winner,
 .victory-modal.light-mode .victory-message {
-  color: #1565c0;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  color: #1C1C1E;
 }
 
 /* Dark mode victory modal (Black wins) */
 .victory-modal.dark-mode {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border-color: #4a90e2;
-  box-shadow: 0 0 40px rgba(74, 144, 226, 0.6), 0 20px 40px rgba(0, 0, 0, 0.5);
-  animation: victory-pulse-dark 2s ease-in-out infinite;
+  background: var(--bg-secondary);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .victory-modal.dark-mode .victory-title,
 .victory-modal.dark-mode .victory-winner,
 .victory-modal.dark-mode .victory-message {
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-@keyframes victory-pulse-light {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 40px rgba(21, 101, 192, 0.6), 0 20px 40px rgba(0, 0, 0, 0.5);
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 0 60px rgba(21, 101, 192, 0.8), 0 25px 50px rgba(0, 0, 0, 0.6);
-  }
-}
-
-@keyframes victory-pulse-dark {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 40px rgba(74, 144, 226, 0.6), 0 20px 40px rgba(0, 0, 0, 0.5);
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 0 60px rgba(74, 144, 226, 0.8), 0 25px 50px rgba(0, 0, 0, 0.6);
-  }
+  color: var(--text-primary);
 }
 
 .modal-buttons {

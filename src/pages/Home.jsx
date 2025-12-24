@@ -98,6 +98,7 @@ function Home() {
                     style={{
                       '--card-index': index,
                       '--total-cards': boosterCards.length,
+                      '--card-image': `url(${card.imageUrl || '/placeholder-card.png'})`,
                       animationDelay: `${index * 0.1}s`
                     }}
                   >

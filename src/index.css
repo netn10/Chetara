@@ -1,16 +1,31 @@
 :root {
   --color-white: #F0E6D2;
-  --color-blue: #0E68AB;
-  --color-black: #150B00;
-  --color-red: #D3202A;
-  --color-green: #00733E;
+  --color-blue: #2B5F9E;
+  --color-black: #1C1C1E;
+  --color-red: #B8394E;
+  --color-green: #2D5F4F;
   --color-gold: #CFB53B;
-  --color-bg: #1a1a1a;
-  --color-bg-light: #2a2a2a;
-  --color-text: #e0e0e0;
-  --color-text-muted: #a0a0a0;
-  --color-border: #3a3a3a;
-  --color-accent: #CFB53B;
+
+  /* New clean palette */
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #141416;
+  --bg-tertiary: #1C1C1E;
+  --text-primary: #FAFAFA;
+  --text-secondary: #A8A8A8;
+  --text-muted: #6E6E73;
+  --border-subtle: #2C2C2E;
+  --border-medium: #3A3A3C;
+  --accent-primary: #8B5A3C;
+  --accent-secondary: #5A7D6B;
+  --accent-highlight: #D4A574;
+
+  /* Legacy support */
+  --color-bg: var(--bg-primary);
+  --color-bg-light: var(--bg-secondary);
+  --color-text: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+  --color-border: var(--border-subtle);
+  --color-accent: var(--accent-primary);
 }
 
 * {
@@ -20,16 +35,20 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 #root {
@@ -54,25 +73,10 @@ main {
   padding: 0 20px;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Minimal animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Smooth Scrolling */
@@ -82,58 +86,62 @@ html {
 
 /* Buttons */
 .btn {
-  padding: 1rem 2rem;
+  padding: 0.875rem 1.75rem;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   display: inline-block;
-  font-size: 1.1rem;
-  border: none;
+  font-size: 1rem;
+  border: 2px solid transparent;
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary {
-  background: var(--color-accent);
-  color: var(--color-black);
+  background: var(--accent-primary);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
 }
 
 .btn-primary:hover {
-  background: var(--color-gold);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(207, 181, 59, 0.3);
+  background: var(--accent-highlight);
+  border-color: var(--accent-highlight);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-accent);
-  border: 2px solid var(--color-accent);
+  color: var(--accent-primary);
+  border-color: var(--border-medium);
 }
 
 .btn-secondary:hover {
-  background: var(--color-accent);
-  color: var(--color-black);
-  transform: translateY(-2px);
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  color: var(--accent-highlight);
 }
 
 /* Section styling */
 section {
-  padding: 6rem 0;
+  padding: 5rem 0;
 }
 
 .section-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--color-accent);
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .section-subtitle {
   text-align: center;
-  font-size: 1.2rem;
-  color: var(--color-text-muted);
+  font-size: 1.125rem;
+  color: var(--text-secondary);
   margin-bottom: 3rem;
+  font-weight: 400;
 }
 
 /* Responsive Design */
