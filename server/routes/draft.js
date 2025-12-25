@@ -233,6 +233,9 @@ router.post('/:id/pick', async (req, res) => {
           draft.status = 'completed';
         }
       }
+    } else {
+      // Increment currentPlayerIndex to pass the booster
+      booster.currentPlayerIndex = (booster.currentPlayerIndex || 0) + 1;
     }
 
     await draft.save();
@@ -312,19 +315,19 @@ async function generateBoosters(draft) {
 async function generateSetBooster(count = 15) {
   // Play booster distribution: 10-11 commons, 3-4 uncommons, 1 rare/mythic
   const commons = await Card.aggregate([
-    { $match: { rarity: 'common' } },
+    { $match: { rarity: 'Common' } },
     { $sample: { size: 10 } }
   ]);
 
   const uncommons = await Card.aggregate([
-    { $match: { rarity: 'uncommon' } },
+    { $match: { rarity: 'Uncommon' } },
     { $sample: { size: 3 } }
   ]);
 
   // 1/8 chance for mythic, otherwise rare
   const isMythic = Math.random() < 0.125;
   const rareCards = await Card.aggregate([
-    { $match: { rarity: isMythic ? 'mythic' : 'rare' } },
+    { $match: { rarity: isMythic ? 'Mythic' : 'Rare' } },
     { $sample: { size: 1 } }
   ]);
 
@@ -332,7 +335,7 @@ async function generateSetBooster(count = 15) {
   const totalCards = commons.length + uncommons.length + rareCards.length;
   if (totalCards < count) {
     const extraCommons = await Card.aggregate([
-      { $match: { rarity: 'common', _id: { $nin: commons.map(c => c._id) } } },
+      { $match: { rarity: 'Common', _id: { $nin: commons.map(c => c._id) } } },
       { $sample: { size: count - totalCards } }
     ]);
     commons.push(...extraCommons);
@@ -359,7 +362,10 @@ async function autoPickForBots(draftId) {
     }
 
     let madePick = false;
+    const boostersToRemove = [];
+    const boostersPicked = new Set(); // Track which boosters had picks made
 
+    // First, all bots pick from their current boosters
     for (let i = 0; i < draft.players.length; i++) {
       const player = draft.players[i];
 
@@ -378,11 +384,35 @@ async function autoPickForBots(draftId) {
             booster.cards.splice(randomIndex, 1);
             madePick = true;
 
-            // Remove empty boosters
+            // Track that this booster had a pick made
+            boostersPicked.add(boosterIndex);
+
+            // Mark empty boosters for removal
             if (booster.cards.length === 0) {
-              draft.boosters.splice(boosterIndex, 1);
+              boostersToRemove.push(boosterIndex);
             }
           }
+        }
+      }
+    }
+
+    // Remove empty boosters (in reverse order to maintain indices)
+    boostersToRemove.sort((a, b) => b - a);
+    for (const index of boostersToRemove) {
+      draft.boosters.splice(index, 1);
+    }
+
+    // Then, pass only the boosters that bots picked from
+    if (madePick) {
+      // Recalculate indices after removal
+      const adjustedIndices = Array.from(boostersPicked).map(originalIndex => {
+        const removedBefore = boostersToRemove.filter(removed => removed < originalIndex).length;
+        return originalIndex - removedBefore;
+      });
+
+      for (const index of adjustedIndices) {
+        if (index >= 0 && index < draft.boosters.length) {
+          draft.boosters[index].currentPlayerIndex = (draft.boosters[index].currentPlayerIndex || 0) + 1;
         }
       }
     }

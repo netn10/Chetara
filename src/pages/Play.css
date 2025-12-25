@@ -224,6 +224,14 @@
   color: var(--color-accent);
   font-weight: 600;
   font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.pack-info {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
 }
 
 .mode-btn {
@@ -279,6 +287,44 @@
   background: var(--color-accent);
   color: var(--color-black);
   transform: translateX(-3px);
+}
+
+.chess-back-button {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  z-index: 10;
+}
+
+.chess-mode {
+  padding: 80px 0 0 0;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .chess-mode {
+    padding: 60px 0 0 0;
+  }
+
+  .chess-back-button {
+    top: 70px;
+    left: 10px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chess-mode {
+    padding: 50px 0 0 0;
+  }
+
+  .chess-back-button {
+    top: 60px;
+    left: 5px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
 }
 
 .mode-header {

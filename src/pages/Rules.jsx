@@ -70,9 +70,9 @@ function Rules() {
     <div className="rules-page">
       <section className="rules-hero">
         <div className="container">
-          <h1 className="section-title">How to Play Chess Magic</h1>
+          <h1 className="section-title">How to Play?</h1>
           <p className="section-subtitle">
-            Combine the strategic depth of Magic: The Gathering with the tactical brilliance of Chess
+            The combination of Magic and Chess is a powerful one, and this is how to play it.
           </p>
         </div>
       </section>

@@ -111,15 +111,15 @@ function Home() {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-title">Chess Magic</h1>
-          <p className="hero-subtitle">Where Strategy Meets Sorcery</p>
+          <h1 className="hero-title">Chetara,</h1>
+          <p className="hero-subtitle">Of Chess and Magic, Dreams and Nightmares</p>
           <p className="hero-description">
-            A revolutionary 180-card custom cube that combines Magic: The Gathering with Chess
+            The first custom cube that combines Magic: The Gathering with Chess
           </p>
           <div className="hero-buttons">
             <Link to="/rules" className="btn btn-primary">Learn to Play</Link>
             <Link to="/cards" className="btn btn-secondary">View Cards</Link>
-            <Link to="/play" className="btn btn-secondary">Play Chess</Link>
+            <Link to="/play" className="btn btn-secondary">Play Now</Link>
           </div>
         </div>
         <div className="hero-chess-pattern"></div>
@@ -185,13 +185,13 @@ function Home() {
           <div className="about-grid">
             <div className="about-card">
               <div className="about-icon">♜</div>
-              <h3>Dual Battlefield</h3>
+              <h3>Two Battlefields</h3>
               <p>Battle your opponent on both the Magic battlefield and the chess board simultaneously</p>
             </div>
             <div className="about-card">
               <div className="about-icon">✨</div>
               <h3>180 Card Cube</h3>
-              <p>A carefully designed cube for 2-4 players supporting draft and sealed formats</p>
+              <p>A cube for 2-4 players supporting draft and sealed</p>
             </div>
             <div className="about-card">
               <div className="about-icon">⚔️</div>
@@ -201,7 +201,7 @@ function Home() {
             <div className="about-card">
               <div className="about-icon">👑</div>
               <h3>Checkmate to Win</h3>
-              <p>Victory comes through checkmate - even if you lose in Magic, you can still win with chess</p>
+              <p>Victory comes through checkmate - even if you lose in Magic, you can still win with chess!</p>
             </div>
           </div>
 
@@ -231,79 +231,79 @@ function Home() {
             <div className="archetype-card" data-colors="wu">
               <div className="archetype-header">
                 {renderManaSymbols('wu')}
-                <h3>Azorius - Blink</h3>
+                <h3>Blink</h3>
               </div>
-              <p>Flicker your Chess Creatures to reposition pieces and gain value from enters-the-battlefield effects.</p>
+              <p>Flicker your Chess Creatures to reposition pieces to their home squares and gain value from their enters the battlefield effects.</p>
             </div>
 
             <div className="archetype-card" data-colors="ub">
               <div className="archetype-header">
                 {renderManaSymbols('ub')}
-                <h3>Dimir - Evasion</h3>
+                <h3>Evasion</h3>
               </div>
-              <p>Unblockable creatures and evasive threats dominate both the battlefield and the board.</p>
+              <p>Take adventage of hard to block creatures and dominate both the battlefield and the chess board.</p>
             </div>
 
             <div className="archetype-card" data-colors="br">
               <div className="archetype-header">
                 {renderManaSymbols('br')}
-                <h3>Rakdos - Sacrifice</h3>
+                <h3>Sacrifice</h3>
               </div>
-              <p>Sacrifice chess pieces for powerful effects - sometimes losing a piece wins the war.</p>
+              <p>This is not your usuSacrifice chess pieces for powerful effects - sometimes losing a piece wins the war!</p>
             </div>
 
             <div className="archetype-card" data-colors="rg">
               <div className="archetype-header">
                 {renderManaSymbols('rg')}
-                <h3>Gruul - Knights Matter</h3>
+                <h3>Knights-Jumping Matter</h3>
               </div>
-              <p>Jump over obstacles! Knights and cards that reward their unique L-shaped movement.</p>
+              <p>Jump over obstacles! Use knights and payoffs that reward you for jumping over pieces!</p>
             </div>
 
             <div className="archetype-card" data-colors="gw">
               <div className="archetype-header">
                 {renderManaSymbols('gw')}
-                <h3>Selesnya - Enchantments</h3>
+                <h3>Enchantments</h3>
               </div>
-              <p>Enchant your pieces and creatures for long-term advantage and protection.</p>
+              <p>Use many enchantment chess modifiers to your advantage, and gain value from playing them.</p>
             </div>
 
             <div className="archetype-card" data-colors="wb">
               <div className="archetype-header">
                 {renderManaSymbols('wb')}
-                <h3>Orzhov - Pawns & Bishops</h3>
+                <h3>Pawns & Bishops</h3>
               </div>
-              <p>Master the humble pawn and the diagonal Bishop to control the board.</p>
+              <p>Sacrifice your pawns to the bishop to control the board in this semi-aristocrats deck.</p>
             </div>
 
             <div className="archetype-card" data-colors="bg">
               <div className="archetype-header">
                 {renderManaSymbols('bg')}
-                <h3>Golgari - Graveyard</h3>
+                <h3>Graveyard</h3>
               </div>
-              <p>Recursion and graveyard strategies let you bring back lost pieces and creatures.</p>
+              <p>Play the long game and accumulate value through the graveyard in this attrition-based deck.</p>
             </div>
 
             <div className="archetype-card" data-colors="gu">
               <div className="archetype-header">
                 {renderManaSymbols('gu')}
-                <h3>Simic - Rooks Ramp</h3>
+                <h3>Rooks Ramp</h3>
               </div>
-              <p>Ramp into powerful Rooks that dominate files and ranks with overwhelming force.</p>
+              <p>Ramp into powerful Rooks that dominate everything on the board.</p>
             </div>
 
             <div className="archetype-card" data-colors="ur">
               <div className="archetype-header">
                 {renderManaSymbols('ur')}
-                <h3>Izzet - Instant Speed</h3>
+                <h3>Instant Speed</h3>
               </div>
-              <p>Play during your opponent's turn - control both games with perfect timing.</p>
+              <p>Play during your opponent's turn, and trigger annoying effects to throw your opponent off balance.</p>
             </div>
 
             <div className="archetype-card" data-colors="rw">
               <div className="archetype-header">
                 {renderManaSymbols('rw')}
-                <h3>Boros - Extra Moves</h3>
+                <h3>Extra Moves</h3>
               </div>
               <p>Break the rules by moving chess pieces outside the chess phase for aggressive advantage.</p>
             </div>
@@ -319,8 +319,8 @@ function Home() {
             <div className="contact-card">
               <h3>🎨 Artists Wanted</h3>
               <p>
-                This project currently uses AI-generated art for concepts that don't have readily
-                available artwork. If you're an artist interested in contributing, please reach out!
+                This project currently uses some AI-generated art for concepts that don't have readily
+                available artwork, and art that I've found on the internet that doesn't really fit some cards. If you're an artist interested in paid work, please reach out!
               </p>
             </div>
 
