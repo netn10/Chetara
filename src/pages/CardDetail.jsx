@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './CardDetail.css';
+import API_BASE_URL from '../config/api';
 
 function CardDetail() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ function CardDetail() {
   const fetchCard = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/cards/${id}`);
+      const response = await fetch(`${API_BASE_URL}/cards/${id}`);
       if (!response.ok) {
         throw new Error('Card not found');
       }

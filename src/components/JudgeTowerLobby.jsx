@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeTowerLobby.css';
+import API_BASE_URL from '../config/api';
 
 function JudgeTowerLobby({ onBack, onGameStart }) {
   const [gameId, setGameId] = useState(null);
@@ -23,7 +24,7 @@ function JudgeTowerLobby({ onBack, onGameStart }) {
 
   const fetchGameStatus = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}`);
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}`);
       if (response.ok) {
         const data = await response.json();
         setGame(data);
@@ -47,7 +48,7 @@ function JudgeTowerLobby({ onBack, onGameStart }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/judge-tower/create', {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim() })
@@ -85,7 +86,7 @@ function JudgeTowerLobby({ onBack, onGameStart }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${joinCode}/join`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${joinCode}/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim() })
@@ -113,7 +114,7 @@ function JudgeTowerLobby({ onBack, onGameStart }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/start`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/start`, {
         method: 'POST'
       });
 

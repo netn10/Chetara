@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Rules.css';
+import API_BASE_URL from '../config/api';
 
 function Rules() {
   const [exampleCard, setExampleCard] = useState(null);
@@ -17,7 +18,7 @@ function Rules() {
 
         // Keep fetching until we get a card with a valid chess piece
         while (!validCard && attempts < 10 && isMounted) {
-          const response = await fetch('http://localhost:5000/api/cards/random/chess', {
+          const response = await fetch(`${API_BASE_URL}/cards/random/chess`, {
             signal: abortController.signal
           });
 

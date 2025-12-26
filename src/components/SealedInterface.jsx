@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './SealedInterface.css';
+import API_BASE_URL from '../config/api';
 
 function SealedInterface({ onBack }) {
   const [sealedId, setSealedId] = useState(null);
@@ -32,7 +33,7 @@ function SealedInterface({ onBack }) {
 
   const fetchSealedStatus = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/sealed/${sealedId}`);
+      const response = await fetch(`${API_BASE_URL}/sealed/${sealedId}`);
       if (response.ok) {
         const data = await response.json();
         setSealed(data);
@@ -61,7 +62,7 @@ function SealedInterface({ onBack }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/sealed/create', {
+      const response = await fetch(`${API_BASE_URL}/sealed/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim(), packsPerPlayer: 6 })
@@ -100,7 +101,7 @@ function SealedInterface({ onBack }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/sealed/${joinCode}/join`, {
+      const response = await fetch(`${API_BASE_URL}/sealed/${joinCode}/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim() })
@@ -129,7 +130,7 @@ function SealedInterface({ onBack }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/sealed/${sealedId}/start`, {
+      const response = await fetch(`${API_BASE_URL}/sealed/${sealedId}/start`, {
         method: 'POST'
       });
 
@@ -162,7 +163,7 @@ function SealedInterface({ onBack }) {
 
     try {
       updateInProgressRef.current = true;
-      await fetch(`http://localhost:5000/api/sealed/${sealedId}/update-deck`, {
+      await fetch(`${API_BASE_URL}/sealed/${sealedId}/update-deck`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -227,7 +228,7 @@ function SealedInterface({ onBack }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/sealed/${sealedId}/complete-deck`, {
+      const response = await fetch(`${API_BASE_URL}/sealed/${sealedId}/complete-deck`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId })

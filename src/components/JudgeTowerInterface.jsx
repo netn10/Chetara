@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeTowerInterface.css';
+import API_BASE_URL from '../config/api';
 
 function JudgeTowerInterface({ gameId, onExit }) {
   const [game, setGame] = useState(null);
@@ -21,7 +22,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
 
   const fetchGameStatus = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}`);
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}`);
       if (response.ok) {
         const data = await response.json();
         setGame(data);
@@ -37,7 +38,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
     if (!playerId) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/draw`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/draw`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId })
@@ -60,7 +61,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
     if (!playerId) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/play`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/play`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId, cardId })
@@ -82,7 +83,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
 
   const handleNextPhase = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/next-phase`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/next-phase`, {
         method: 'POST'
       });
 
@@ -101,7 +102,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
 
   const handleEndRound = async (winnerId, reason) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/end-round`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/end-round`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ winnerId, reason })
@@ -122,7 +123,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
 
   const handleNextRound = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/judge-tower/${gameId}/next-round`, {
+      const response = await fetch(`${API_BASE_URL}/judge-tower/${gameId}/next-round`, {
         method: 'POST'
       });
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import './DraftInterface.css';
+import API_BASE_URL from '../config/api';
 
 function DraftInterface({ draftId, onExit }) {
   const [draft, setDraft] = useState(null);
@@ -196,7 +197,7 @@ function DraftInterface({ draftId, onExit }) {
     abortControllerRef.current = controller;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}`, {
+      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}`, {
         signal: controller.signal
       });
 
@@ -337,7 +338,7 @@ function DraftInterface({ draftId, onExit }) {
     console.log('✅ [PICK] Booster hidden, sending request');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}/pick`, {
+      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/pick`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId, cardId })

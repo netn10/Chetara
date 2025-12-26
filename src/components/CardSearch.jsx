@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CardSearch.css';
+import API_BASE_URL from '../config/api';
 
 function CardSearch({ onCardSelect, selectedCard }) {
   const [cards, setCards] = useState([]);
@@ -55,7 +56,7 @@ function CardSearch({ onCardSelect, selectedCard }) {
 
     // Fetch fresh data from server
     try {
-      const response = await fetch('http://localhost:5000/api/cards');
+      const response = await fetch(`${API_BASE_URL}/cards`);
       if (!response.ok) {
         throw new Error('Failed to fetch cards');
       }

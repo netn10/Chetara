@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import API_BASE_URL from '../config/api';
 
 function Home() {
   const [boosterOpening, setBoosterOpening] = useState(false);
@@ -16,7 +17,7 @@ function Home() {
 
     const fetchCards = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/cards', {
+        const response = await fetch(`${API_BASE_URL}/cards`, {
           signal: abortController.signal
         });
 
@@ -63,7 +64,7 @@ function Home() {
     setRevealedCards([]);
 
     try {
-      const response = await fetch('http://localhost:5000/api/cards');
+      const response = await fetch(`${API_BASE_URL}/cards`);
       const allCards = await response.json();
 
       // Randomly select 15 cards

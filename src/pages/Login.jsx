@@ -31,8 +31,6 @@ function Login() {
       <div className="login-container">
         <div className="login-card">
           <h1>Chess Magic Login</h1>
-          <p className="login-subtitle">Admin Access</p>
-
           {error && (
             <div className="error-message">
               {error}
@@ -69,12 +67,6 @@ function Login() {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
-          <div className="login-info">
-            <p>Default credentials:</p>
-            <p>Username: <strong>admin</strong></p>
-            <p>Password: <strong>admin123</strong></p>
-          </div>
         </div>
       </div>
     </div>

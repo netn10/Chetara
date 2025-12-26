@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DraftLobby.css';
+import API_BASE_URL from '../config/api';
 
 function DraftLobby({ draftType, onBack, onDraftStart }) {
   // Restore state from localStorage
@@ -52,7 +53,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
 
   const fetchDraftStatus = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}`);
+      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}`);
       if (response.ok) {
         const data = await response.json();
         setDraft(data);
@@ -77,7 +78,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/drafts/create', {
+      const response = await fetch(`${API_BASE_URL}/drafts/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -120,7 +121,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${joinCode}/join`, {
+      const response = await fetch(`${API_BASE_URL}/drafts/${joinCode}/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim() })
@@ -146,7 +147,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
 
   const handleAddBots = async (count) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}/add-bots`, {
+      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/add-bots`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ count })
@@ -171,7 +172,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}/start`, {
+      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/start`, {
         method: 'POST'
       });
 

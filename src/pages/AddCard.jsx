@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './AddCard.css';
+import API_BASE_URL from '../config/api';
 
 function AddCard() {
   const [formData, setFormData] = useState({
@@ -136,7 +137,7 @@ function AddCard() {
         }
       }
 
-      const response = await fetch('http://localhost:5000/api/cards', {
+      const response = await fetch(`${API_BASE_URL}/cards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
