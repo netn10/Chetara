@@ -1137,6 +1137,8 @@
 @media (max-width: 480px) {
   .chess-magic-game {
     padding: 2px;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   .game-start-screen {
@@ -1161,17 +1163,27 @@
     padding: 0.75rem 2rem;
   }
 
+  .main-game-area {
+    padding: 0 5px;
+    width: 100%;
+    max-width: 100vw;
+  }
+
   .game-board-container {
-    margin: 10px 5px;
+    margin: 10px auto;
+    max-width: 100%;
+    width: calc(100vw - 20px);
   }
 
   .chess-square {
-    width: 42px;
-    height: 42px;
+    width: calc((100vw - 60px) / 8);
+    height: calc((100vw - 60px) / 8);
+    max-width: 44px;
+    max-height: 44px;
   }
 
   .piece {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
   }
 
   .square-label {
@@ -1183,15 +1195,14 @@
   }
 
   .game-board-container {
-    grid-template-columns: 25px 1fr;
-    grid-template-rows: 1fr 25px;
+    grid-template-columns: 22px 1fr;
+    grid-template-rows: 1fr 22px;
     gap: 2px;
-    margin: 10px 0;
   }
 
   .rank-label,
   .file-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .game-controls {
@@ -1332,28 +1343,45 @@
   }
 }
 
-/* Extra Small Devices (360px and below) */
-@media (max-width: 360px) {
+/* Galaxy Phones & Small Devices (361px - 414px) */
+@media (min-width: 361px) and (max-width: 414px) {
+  .chess-magic-game {
+    padding: 2px;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  .main-game-area {
+    padding: 0 5px;
+    width: 100%;
+    max-width: 100vw;
+  }
+
   .game-board-container {
-    margin: 10px 2px;
+    margin: 10px auto;
+    max-width: 100%;
+    width: calc(100vw - 30px);
   }
 
   .chess-square {
-    width: 36px;
-    height: 36px;
+    width: calc((100vw - 70px) / 8);
+    height: calc((100vw - 70px) / 8);
+    max-width: 42px;
+    max-height: 42px;
   }
 
   .piece {
-    font-size: 1.2rem;
+    font-size: clamp(1.3rem, 4.2vw, 1.5rem);
   }
 
   .square-label {
-    display: none; /* Hide square labels on tiny screens */
+    font-size: 0.6rem;
   }
 
   .game-board-container {
     grid-template-columns: 20px 1fr;
     grid-template-rows: 1fr 20px;
+    gap: 2px;
   }
 
   .rank-label,
@@ -1361,13 +1389,114 @@
     font-size: 0.7rem;
   }
 
+  .game-info {
+    padding: 0 8px;
+  }
+
+  .timer-display {
+    gap: 12px;
+  }
+
+  .player-timer {
+    padding: 8px 12px;
+  }
+
+  .status-display {
+    font-size: 1rem;
+    padding: 8px 16px;
+    min-width: auto;
+  }
+}
+
+/* Extra Small Devices (360px and below) - Galaxy Phones Optimized */
+@media (max-width: 360px) {
+  .chess-magic-game {
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .main-game-area {
+    padding: 0 2px;
+    width: 100%;
+  }
+
+  .game-board-container {
+    margin: 8px auto;
+    max-width: 100%;
+    width: calc(100vw - 10px);
+  }
+
+  .chess-square {
+    width: calc((100vw - 50px) / 8);
+    height: calc((100vw - 50px) / 8);
+    max-width: 40px;
+    max-height: 40px;
+  }
+
+  .piece {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+  }
+
+  .square-label {
+    display: none; /* Hide square labels on tiny screens */
+  }
+
+  .game-board-container {
+    grid-template-columns: 18px 1fr;
+    grid-template-rows: 1fr 18px;
+    gap: 1px;
+  }
+
+  .rank-label,
+  .file-label {
+    font-size: 0.65rem;
+  }
+
   .start-screen-content h1 {
     font-size: 1.5rem;
   }
 
   .status-display {
-    font-size: 0.9rem;
-    padding: 6px 12px;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    min-width: auto;
+  }
+
+  .game-info {
+    padding: 0 5px;
+    gap: 8px;
+  }
+
+  .timer-display {
+    gap: 10px;
+  }
+
+  .player-timer {
+    padding: 6px 10px;
+    min-width: auto;
+  }
+
+  .timer-value {
+    font-size: 1.1rem;
+  }
+
+  .timer-label {
+    font-size: 0.75rem;
+  }
+
+  .material-balance {
+    padding: 5px 10px;
+    min-width: auto;
+  }
+
+  .game-controls {
+    padding: 0 5px;
+    gap: 8px;
+  }
+
+  .game-controls .btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
   }
 }
 
