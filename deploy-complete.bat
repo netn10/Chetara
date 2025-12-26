@@ -19,9 +19,13 @@ echo.
 
 echo Step 2: Configure Heroku App
 echo -----------------------------
-echo Setting environment variables...
+echo Setting NODE_ENV...
 call heroku config:set NODE_ENV=production -a chetara
-call heroku config:set MONGODB_URI=mongodb+srv://netn10:Aa203716329@cluster0.fpxktqt.mongodb.net/ -a chetara
+echo.
+echo IMPORTANT: Set your MongoDB URI manually:
+echo   heroku config:set MONGODB_URI=your_mongodb_connection_string -a chetara
+echo.
+pause
 echo.
 
 echo Verifying configuration...

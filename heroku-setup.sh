@@ -7,8 +7,12 @@ echo "========================================"
 echo ""
 
 echo "[1/5] Setting environment variables..."
+echo ""
+echo "IMPORTANT: You need to set your MongoDB URI manually."
+echo "Run this command with your actual MongoDB credentials:"
+echo "  heroku config:set MONGODB_URI=your_mongodb_uri_here -a chetara"
+echo ""
 heroku config:set NODE_ENV=production -a chetara
-heroku config:set MONGODB_URI=mongodb+srv://netn10:Aa203716329@cluster0.fpxktqt.mongodb.net/ -a chetara
 if [ $? -ne 0 ]; then
     echo "ERROR: Failed to set environment variables"
     echo "Make sure you're logged in with: heroku login"
