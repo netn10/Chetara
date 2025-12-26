@@ -222,37 +222,27 @@ router.post('/:id/pick', async (req, res) => {
     }
 
     // Add card to player's picked cards
+    const pickedCardName = booster.cards[cardIndex]?.name;
     draft.players[playerIndex].pickedCards.push(booster.cards[cardIndex]);
     draft.players[playerIndex].currentPick = null;
 
     // Remove card from booster
     booster.cards.splice(cardIndex, 1);
-    const cardsAfterPick = booster.cards.length;
 
-    // Detailed logging
-    console.log(`\n👤 HUMAN PICK - Player ${playerIndex} (${draft.players[playerIndex].name})`);
-    console.log(`   📊 Round ${draft.currentRound}, Direction: ${draft.direction}`);
-    console.log(`   📦 Booster ${boosterIndex}: ${cardsBeforePick} → ${cardsAfterPick} cards (currentPlayerIndex=${booster.currentPlayerIndex || 0})`);
-    console.log(`   🎴 Card picked: ${booster.cards[cardIndex]?.name || 'Unknown'}`);
-
-    // Handle empty booster
-    if (booster.cards.length === 0) {
-      console.log(`   📭 Booster ${boosterIndex} is now empty - will be removed after bots pick`);
-      // Mark empty but don't remove yet - let autoPickForBots handle it
-    }
+    console.log(`👤 ${draft.players[playerIndex].name} picked: ${pickedCardName}`);
 
     // DON'T pass the booster here - let autoPickForBots pass ALL boosters together
     // This ensures everyone picks before anyone's pack is passed
 
-    await draft.save();
+    // Auto-pick for bots INSTANTLY (pass draft object directly, no DB round-trips)
+    const newRoundStarted = await autoPickForBots(draft);
 
-    // Auto-pick for bots BEFORE sending response (so UI gets final state)
-    await autoPickForBots(draft._id);
+    // Always populate picked cards so completion screen shows them
+    await draft.populate('players.pickedCards');
 
-    // Re-fetch draft to get updated state after bot picks
-    const updatedDraft = await Draft.findById(draft._id).populate('boosters.cards').populate('players.pickedCards');
-
-    res.json(updatedDraft);
+    // If new round didn't start, boosters already populated from previous round
+    // If new round started, autoPickForBots already populated the new boosters
+    res.json(draft);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -391,8 +381,8 @@ function generateSetBoosterFromPool(commons, uncommons, rares, mythics, count = 
     boosterCards.push(...extraCommons);
   }
 
-  // Shuffle and return card IDs
-  return shuffleArray(boosterCards).map(c => c._id);
+  // Shuffle and return FULL CARD OBJECTS (not IDs) for instant client access
+  return shuffleArray(boosterCards);
 }
 
 function getRandomCards(pool, count) {
@@ -418,27 +408,26 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-async function autoPickForBots(draftId, retryCount = 0) {
+async function autoPickForBots(draftOrId, retryCount = 0) {
   try {
-    // Fetch fresh draft to avoid version conflicts
-    const draft = await Draft.findById(draftId).populate('boosters.cards');
+    // Accept either draft object or ID for instant bot picks
+    let draft;
+    if (typeof draftOrId === 'string') {
+      // Fetch fresh draft if given ID
+      draft = await Draft.findById(draftOrId).populate('boosters.cards');
+    } else {
+      // Use draft object directly (already populated) for instant picks
+      draft = draftOrId;
+    }
 
     if (!draft || draft.status !== 'drafting') {
-      if (!draft) console.log(`   ⚠️  Draft ${draftId} not found`);
+      if (!draft) console.log(`   ⚠️  Draft not found`);
       if (draft?.status !== 'drafting') console.log(`   ⏸️  Draft status: ${draft?.status}\n`);
       return;
     }
 
-    console.log(`\n🔄 Bot picking round starting...`);
-    console.log(`📊 Round ${draft.currentRound}, Direction: ${draft.direction}`);
-
-    // Log current booster state
-    console.log(`📦 Current boosters:`);
-    for (let i = 0; i < draft.boosters.length; i++) {
-      const b = draft.boosters[i];
-      const owner = getBoosterCurrentPlayer(draft, i);
-      console.log(`   Booster ${i}: ${b.cards.length} cards, currentPlayerIndex=${b.currentPlayerIndex || 0}, at Player ${owner}`);
-    }
+    // Minimal logging for performance
+    console.log(`\n🤖 Bot picks (Round ${draft.currentRound})`);
 
     // Pick for ALL bots simultaneously (in one pass)
     let anyBotPicked = false;
@@ -454,34 +443,23 @@ async function autoPickForBots(draftId, retryCount = 0) {
           const booster = draft.boosters[boosterIndex];
 
           if (booster.cards.length > 0) {
-            const cardsBeforePick = booster.cards.length;
-
             // Bot picks a random card (simple AI)
             const randomIndex = Math.floor(Math.random() * booster.cards.length);
             const pickedCard = booster.cards[randomIndex];
 
-            console.log(`🤖 BOT PICK - Player ${i} (${player.name})`);
-            console.log(`   📦 Booster ${boosterIndex}: ${cardsBeforePick} → ${cardsBeforePick - 1} cards`);
-            console.log(`   🎴 Card picked: ${pickedCard.name}`);
-
-            player.pickedCards.push(pickedCard._id);
+            // Push full card object to keep it populated (Mongoose will store as ID)
+            player.pickedCards.push(pickedCard);
             booster.cards.splice(randomIndex, 1);
             anyBotPicked = true;
 
             // Mark empty boosters for removal
             if (booster.cards.length === 0) {
-              console.log(`   📭 Booster ${boosterIndex} will be removed (empty)`);
               boostersToRemove.push(boosterIndex);
             }
           }
-        } else if (boosterIndex === -1) {
-          console.log(`⚠️  BOT ${i} (${player.name}) has no booster!`);
         }
       }
     }
-
-    // Now handle booster cleanup and passing
-    console.log(`\n📬 Processing boosters...`);
 
     // Find ALL empty boosters (not just ones bots picked from)
     const allEmptyBoosters = [];
@@ -493,58 +471,52 @@ async function autoPickForBots(draftId, retryCount = 0) {
 
     // Remove all empty boosters (already in reverse order)
     for (const index of allEmptyBoosters) {
-      console.log(`   🗑️  Removing empty booster ${index}`);
       draft.boosters.splice(index, 1);
     }
 
     // If bots picked, pass ALL remaining boosters
     if (anyBotPicked) {
-      console.log(`   📦 Passing remaining boosters...`);
       for (let i = 0; i < draft.boosters.length; i++) {
         const oldIndex = draft.boosters[i].currentPlayerIndex || 0;
-        const oldPlayer = getBoosterCurrentPlayer(draft, i);
         draft.boosters[i].currentPlayerIndex = oldIndex + 1;
-        const newPlayer = (oldPlayer + (draft.direction === 'left' ? 1 : -1) + draft.players.length) % draft.players.length;
-        console.log(`      ➡️  Booster ${i}: Player ${oldPlayer} → Player ${newPlayer} (currentPlayerIndex ${oldIndex} → ${draft.boosters[i].currentPlayerIndex})`);
       }
-    } else {
-      console.log(`   ✋ No bots picked - checking if round is complete...`);
     }
 
     // Check if round is complete (all boosters are empty)
+    let newRoundStarted = false;
     if (draft.boosters.length === 0) {
       if (draft.currentRound < draft.totalRounds) {
         // Start new round
-        const oldRound = draft.currentRound;
-        const oldDirection = draft.direction;
         draft.currentRound++;
         draft.direction = draft.direction === 'left' ? 'right' : 'left';
-
-        console.log(`\n🔄 ROUND COMPLETE!`);
-        console.log(`   Round ${oldRound} → ${draft.currentRound}`);
-        console.log(`   Direction ${oldDirection} → ${draft.direction}`);
-        console.log(`   Generating new boosters...\n`);
-
         const newBoosters = await generateBoosters(draft);
         draft.boosters = newBoosters;
+        newRoundStarted = true;
+        console.log(`Round ${draft.currentRound}/${draft.totalRounds} started`);
       } else {
         // Draft complete
-        console.log(`\n🏁 DRAFT COMPLETE!`);
-        console.log(`   All ${draft.totalRounds} rounds finished\n`);
         draft.status = 'completed';
+        console.log(`Draft complete!`);
       }
-    } else {
-      console.log(`   📊 Round continues: ${draft.boosters.length} booster(s) remaining\n`);
     }
 
     await draft.save();
-    console.log(`✅ Bot picking round complete\n`);
+
+    // If new round started, populate the new boosters (Mongoose converted objects to IDs during save)
+    if (newRoundStarted) {
+      await draft.populate('boosters.cards');
+      console.log(`✅ Populated new round boosters`);
+    }
+
+    return newRoundStarted;
 
   } catch (error) {
     console.error(`\n❌ Error in auto-pick (attempt ${retryCount + 1}):`, error.message);
     // Retry on any error (network issues, etc.)
     if (retryCount < 3) {
       console.log(`   🔄 Retrying...\n`);
+      // On retry, use draft ID to get fresh data
+      const draftId = typeof draftOrId === 'string' ? draftOrId : draftOrId._id.toString();
       setImmediate(() => autoPickForBots(draftId, retryCount + 1));
     } else {
       console.log(`   ⛔ Max retries reached, stopping auto-pick\n`);

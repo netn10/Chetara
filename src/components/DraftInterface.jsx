@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { flushSync } from 'react-dom';
 import './DraftInterface.css';
 
 function DraftInterface({ draftId, onExit }) {
@@ -13,6 +14,8 @@ function DraftInterface({ draftId, onExit }) {
   const [picksThisRound, setPicksThisRound] = useState(0);
   const [lastBoosterLength, setLastBoosterLength] = useState(0);
   const currentBoosterRef = useRef([]);
+  const skipNextUpdateRef = useRef(false);
+  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     // Get player ID from localStorage or draft data
@@ -24,6 +27,7 @@ function DraftInterface({ draftId, onExit }) {
     fetchDraftStatus();
     // Poll frequently to catch rapid bot picks (but pause during picks)
     const interval = setInterval(() => {
+      // No cooldown - poll immediately after picks complete
       if (!isPicking) {
         fetchDraftStatus();
       }
@@ -32,13 +36,36 @@ function DraftInterface({ draftId, onExit }) {
   }, [draftId, isPicking]);
 
   useEffect(() => {
-    if (draft && playerId) {
-      updatePlayerView();
+    console.log('⚡ [useEffect] Triggered', {
+      hasDraft: !!draft,
+      hasPlayerId: !!playerId,
+      isPicking,
+      skipNext: skipNextUpdateRef.current,
+      currentBoosterLength: currentBooster.length
+    });
+
+    // Skip if we just manually updated (prevents duplicate update from causing flicker)
+    if (skipNextUpdateRef.current) {
+      console.log('⏭️ [useEffect] SKIPPED - manual update flag set');
+      skipNextUpdateRef.current = false;
+      return;
     }
-  }, [draft, playerId]);
+    // Skip auto-update during picks to prevent flicker (handleCardPick updates manually)
+    if (draft && playerId && !isPicking) {
+      console.log('✅ [useEffect] Calling updatePlayerView');
+      updatePlayerView();
+    } else {
+      console.log('⏭️ [useEffect] SKIPPED - isPicking or missing data');
+    }
+  }, [draft, playerId, isPicking]);
 
   // Keep ref in sync with current booster
   useEffect(() => {
+    console.log('🎴 [currentBooster CHANGED]', {
+      length: currentBooster.length,
+      cardNames: currentBooster.map(c => c.name).slice(0, 5).join(', ') || 'EMPTY',
+      isPicking
+    });
     currentBoosterRef.current = currentBooster;
   }, [currentBooster]);
 
@@ -101,25 +128,63 @@ function DraftInterface({ draftId, onExit }) {
   }, [draft, playerId]);
 
   const fetchDraftStatus = async () => {
+    console.log('🔄 [POLL] Fetching draft status');
+
+    // Cancel previous fetch if still running (but not during initial load)
+    if (abortControllerRef.current && !loading) {
+      console.log('🚫 [POLL] Cancelling previous fetch');
+      abortControllerRef.current.abort();
+    }
+
+    // Create new AbortController for this fetch
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
-      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}`);
+      const response = await fetch(`http://localhost:5000/api/drafts/${draftId}`, {
+        signal: controller.signal
+      });
+
+      console.log('📡 [POLL] Response received, status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('📥 [POLL] Draft data received', {
+          status: data.status,
+          currentRound: data.currentRound,
+          boostersCount: data.boosters?.length || 0
+        });
         setDraft(data);
         setLoading(false);
 
         // If draft is completed, could show final deck
         if (data.status === 'completed') {
+          console.log('🏁 [POLL] Draft completed');
           // Handle completion
         }
+      } else {
+        console.error('❌ [POLL] Bad response:', response.status);
+        setLoading(false);
       }
     } catch (err) {
-      console.error('Error fetching draft:', err);
-      setError('Connection error');
+      if (err.name === 'AbortError') {
+        console.log('🚫 [POLL] Fetch cancelled');
+      } else {
+        console.error('❌ [POLL] Error fetching draft:', err);
+        setError('Connection error');
+        setLoading(false);
+      }
     }
   };
 
   const updatePlayerView = () => {
+    console.log('🔄 [updatePlayerView] Called', {
+      hasDraft: !!draft,
+      hasPlayerId: !!playerId,
+      isPicking,
+      currentBoosterLength: currentBooster.length
+    });
+
     if (!draft || !playerId) return;
 
     // Find current player
@@ -144,9 +209,19 @@ function DraftInterface({ draftId, onExit }) {
     const playerIndex = draft.players.findIndex(p => p.id === playerId);
     const booster = findPlayerBooster(draft, playerIndex);
 
+    console.log('📦 [updatePlayerView] Booster found:', {
+      playerIndex,
+      boosterCards: booster ? booster.cards.length : 0,
+      cardNames: booster ? booster.cards.map(c => c.name).join(', ') : 'none',
+      isPicking
+    });
+
     if (booster) {
+      console.log('✅ [updatePlayerView] Setting booster with', booster.cards.length, 'cards');
       setCurrentBooster(booster.cards || []);
-    } else {
+    } else if (!isPicking) {
+      console.log('⚠️ [updatePlayerView] No booster found, clearing');
+      // Only clear booster if we're not currently picking (prevents flicker)
       setCurrentBooster([]);
     }
   };
@@ -170,30 +245,80 @@ function DraftInterface({ draftId, onExit }) {
   };
 
   const handleCardPick = async (cardId) => {
-    if (!playerId || !cardId || isPicking) return;
+    const pickedCardName = currentBooster.find(c => c._id === cardId)?.name;
+    console.log('👆 [PICK START]', pickedCardName, {
+      cardId,
+      currentBoosterLength: currentBooster.length,
+      isPicking
+    });
+
+    if (!playerId || !cardId || isPicking) {
+      console.log('❌ [PICK BLOCKED] Already picking or invalid');
+      return;
+    }
+
+    // Cancel any in-flight polling to prevent stale data from overwriting
+    if (abortControllerRef.current) {
+      console.log('🚫 [PICK] Cancelling in-flight polls');
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+
+    // Immediately hide booster (via isPicking) to prevent clicks on old cards
+    console.log('🚫 [PICK] Setting isPicking=true, hiding booster');
+    flushSync(() => {
+      setIsPicking(true);
+      setError('');
+      setTimeRemaining(null);
+    });
+    console.log('✅ [PICK] Booster hidden, sending request');
 
     try {
-      setIsPicking(true); // Pause polling while picking
-      setError(''); // Clear any previous errors
-      setTimeRemaining(null); // Stop timer
-
       const response = await fetch(`http://localhost:5000/api/drafts/${draftId}/pick`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId, cardId })
       });
 
+      console.log('📨 [PICK] Server response received');
+
       if (response.ok) {
         const data = await response.json();
-        setDraft(data);
+        const player = data.players.find(p => p.id === playerId);
+
+        if (player) {
+          const playerIndex = data.players.findIndex(p => p.id === playerId);
+          const booster = findPlayerBooster(data, playerIndex);
+
+          console.log('📦 [PICK] New booster found:', {
+            newBoosterCards: booster ? booster.cards.length : 0,
+            newCardNames: booster ? booster.cards.map(c => c.name).slice(0, 5).join(', ') : 'none',
+            totalPicked: player.pickedCards.length
+          });
+
+          // Skip the next useEffect update to prevent duplicate render
+          skipNextUpdateRef.current = true;
+
+          console.log('🔄 [PICK] Updating states with flushSync');
+          // Force synchronous update to show new booster immediately
+          flushSync(() => {
+            setPickedCards(player.pickedCards || []);
+            setCurrentBooster(booster ? booster.cards || [] : []);
+            setDraft(data);
+            setIsPicking(false);
+          });
+          console.log('✅ [PICK COMPLETE] New booster set, isPicking=false');
+        }
       } else {
         const data = await response.json();
+        console.error('❌ [PICK ERROR]', data.message);
         setError(data.message || 'Failed to pick card');
+        setIsPicking(false);
       }
     } catch (err) {
+      console.error('❌ [PICK EXCEPTION]', err);
       setError('Connection error');
-    } finally {
-      setIsPicking(false); // Resume polling after pick completes
+      setIsPicking(false);
     }
   };
 
@@ -331,16 +456,33 @@ function DraftInterface({ draftId, onExit }) {
 
       {error && <div className="error-banner">{error}</div>}
 
+      {/* Debug: Show bot picks */}
+      {draft && draft.players && (
+        <div style={{ padding: '10px', background: '#1a1a1a', margin: '10px', borderRadius: '4px', fontSize: '12px', fontFamily: 'monospace' }}>
+          <div style={{ marginBottom: '5px', fontWeight: 'bold', color: '#888' }}>Recent Picks (Debug):</div>
+          {draft.players.map((player, idx) => {
+            const lastPick = player.pickedCards && player.pickedCards.length > 0
+              ? player.pickedCards[player.pickedCards.length - 1]
+              : null;
+            return (
+              <div key={player.id} style={{ color: player.isBot ? '#4a9eff' : '#4eff4a', marginBottom: '2px' }}>
+                {player.name}: {lastPick ? lastPick.name : 'No picks yet'} ({player.pickedCards?.length || 0} total)
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <div className="draft-main">
         <div className="booster-section">
-          {currentBooster.length > 0 ? (
+          {currentBooster.length > 0 && !isPicking ? (
             <div className="booster-grid">
               {currentBooster.map((card) => (
                 <div
                   key={card._id}
                   className="draft-card"
-                  onClick={() => !isPicking && handleCardPick(card._id)}
-                  style={{ cursor: isPicking ? 'not-allowed' : 'pointer' }}
+                  onClick={() => handleCardPick(card._id)}
+                  style={{ cursor: 'pointer' }}
                 >
                   {card.imageUrl ? (
                     <img src={card.imageUrl} alt={card.name} />
