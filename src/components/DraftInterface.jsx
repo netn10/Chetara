@@ -8,7 +8,7 @@ function DraftInterface({ draftId, onExit }) {
   const [currentBooster, setCurrentBooster] = useState([]);
   const [pickedCards, setPickedCards] = useState([]);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Start with false to use cache first
   const [isPicking, setIsPicking] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [picksThisRound, setPicksThisRound] = useState(0);
@@ -25,15 +25,26 @@ function DraftInterface({ draftId, onExit }) {
     }
 
     fetchDraftStatus();
-    // Poll frequently to catch rapid bot picks (but pause during picks)
+
+    // Adaptive polling based on draft state for better performance
+    const getPollingInterval = () => {
+      // Fast polling when player has cards to pick
+      if (currentBooster.length > 0 && !isPicking) return 200;
+      // Medium polling when waiting for bots
+      if (draft && draft.status === 'active') return 500;
+      // Slow polling for other states
+      return 1000;
+    };
+
     const interval = setInterval(() => {
-      // No cooldown - poll immediately after picks complete
+      // Poll only when not actively picking
       if (!isPicking) {
         fetchDraftStatus();
       }
-    }, 300);
+    }, getPollingInterval());
+
     return () => clearInterval(interval);
-  }, [draftId, isPicking]);
+  }, [draftId, isPicking, currentBooster.length, draft?.status]);
 
   useEffect(() => {
     console.log('⚡ [useEffect] Triggered', {
@@ -69,12 +80,24 @@ function DraftInterface({ draftId, onExit }) {
     currentBoosterRef.current = currentBooster;
   }, [currentBooster]);
 
-  // Calculate time limit based on picks made this round
-  const getTimeLimit = (pickCount) => {
+  // Calculate time limit based on picks made this round (memoized)
+  const getTimeLimit = useMemo(() => (pickCount) => {
     if (pickCount < 5) return 60; // First 5 picks: 60 seconds
     if (pickCount < 10) return 30; // Next 5 picks: 30 seconds
     return 10; // Last 5 picks: 10 seconds
-  };
+  }, []);
+
+  // Memoize current player data for performance
+  const currentPlayer = useMemo(() => {
+    if (!draft || !playerId) return null;
+    return draft.players.find(p => p.id === playerId);
+  }, [draft, playerId]);
+
+  // Memoize player index for booster calculations
+  const playerIndex = useMemo(() => {
+    if (!draft || !playerId) return -1;
+    return draft.players.findIndex(p => p.id === playerId);
+  }, [draft, playerId]);
 
   // Auto-pick when timer hits 0
   useEffect(() => {
@@ -130,6 +153,38 @@ function DraftInterface({ draftId, onExit }) {
   const fetchDraftStatus = async () => {
     console.log('🔄 [POLL] Fetching draft status');
 
+    // Try to load from cache first for instant display
+    const cachedDraft = localStorage.getItem(`draft_${draftId}_data`);
+    const cacheTimestamp = localStorage.getItem(`draft_${draftId}_timestamp`);
+    const cacheAge = cacheTimestamp ? Date.now() - parseInt(cacheTimestamp) : Infinity;
+    const CACHE_DURATION = 2000; // 2 seconds cache for draft (shorter than cards because it changes frequently)
+
+    // If cache exists and is fresh, use it immediately
+    if (cachedDraft && cacheAge < CACHE_DURATION && !draft) {
+      try {
+        const parsedCache = JSON.parse(cachedDraft);
+        console.log('⚡ [CACHE] Using cached draft data');
+        setDraft(parsedCache);
+        setLoading(false);
+      } catch (e) {
+        console.error('Error parsing cached draft:', e);
+      }
+    } else if (cachedDraft && !draft) {
+      // Cache exists but is stale, still show it while fetching fresh data
+      try {
+        const parsedCache = JSON.parse(cachedDraft);
+        console.log('⚡ [CACHE] Using stale cached draft data');
+        setDraft(parsedCache);
+        setLoading(false);
+      } catch (e) {
+        console.error('Error parsing cached draft:', e);
+        setLoading(true);
+      }
+    } else if (!draft && !cachedDraft) {
+      // No cache at all, show loading
+      setLoading(true);
+    }
+
     // Cancel previous fetch if still running (but not during initial load)
     if (abortControllerRef.current && !loading) {
       console.log('🚫 [POLL] Cancelling previous fetch');
@@ -154,6 +209,11 @@ function DraftInterface({ draftId, onExit }) {
           currentRound: data.currentRound,
           boostersCount: data.boosters?.length || 0
         });
+
+        // Update cache
+        localStorage.setItem(`draft_${draftId}_data`, JSON.stringify(data));
+        localStorage.setItem(`draft_${draftId}_timestamp`, Date.now().toString());
+
         setDraft(data);
         setLoading(false);
 
@@ -171,7 +231,10 @@ function DraftInterface({ draftId, onExit }) {
         console.log('🚫 [POLL] Fetch cancelled');
       } else {
         console.error('❌ [POLL] Error fetching draft:', err);
-        setError('Connection error');
+        // Only show error if we don't have cached data
+        if (!cachedDraft) {
+          setError('Connection error');
+        }
         setLoading(false);
       }
     }
@@ -379,7 +442,7 @@ function DraftInterface({ draftId, onExit }) {
               {pickedCards.map((card, index) => (
                 <div key={index} className="pool-card">
                   {card.imageUrl ? (
-                    <img src={card.imageUrl} alt={card.name} />
+                    <img src={card.imageUrl} alt={card.name} loading="lazy" decoding="async" />
                   ) : (
                     <div className="card-placeholder">
                       <p>{card.name}</p>
@@ -485,7 +548,7 @@ function DraftInterface({ draftId, onExit }) {
                   style={{ cursor: 'pointer' }}
                 >
                   {card.imageUrl ? (
-                    <img src={card.imageUrl} alt={card.name} />
+                    <img src={card.imageUrl} alt={card.name} loading="eager" decoding="async" />
                   ) : (
                     <div className="card-placeholder">
                       <p>{card.name}</p>
@@ -511,7 +574,7 @@ function DraftInterface({ draftId, onExit }) {
             pickedCards.map((card, index) => (
               <div key={index} className="picked-card-mini">
                 {card.imageUrl ? (
-                  <img src={card.imageUrl} alt={card.name} />
+                  <img src={card.imageUrl} alt={card.name} loading="lazy" decoding="async" />
                 ) : (
                   <div className="mini-placeholder">{card.name}</div>
                 )}

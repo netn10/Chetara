@@ -90,6 +90,16 @@
 /* Main Draft Area */
 .draft-main {
   margin-bottom: 2rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.booster-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .booster-section h3 {
@@ -200,15 +210,21 @@
   border-radius: 12px;
   padding: 1.5rem;
   min-height: 400px;
+  /* Performance optimization */
+  contain: layout style paint;
 }
 
 .draft-card {
   cursor: pointer;
   border-radius: 12px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   border: 2px solid transparent;
   position: relative;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .draft-card img {
@@ -216,10 +232,13 @@
   height: auto;
   display: block;
   border-radius: 10px;
+  /* Performance optimizations */
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
 }
 
 .draft-card:hover {
-  transform: translateY(-5px) scale(1.05);
+  transform: translateY(-5px) scale(1.05) translateZ(0);
   border-color: var(--color-accent);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   z-index: 10;
@@ -249,11 +268,12 @@
   border-radius: 12px;
   padding: 3rem;
   text-align: center;
-  min-height: 400px;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: auto;
 }
 
 .waiting-message p {
@@ -402,6 +422,8 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   padding: 10px; /* Add padding so zoomed cards don't get cut off */
+  /* Performance optimization */
+  contain: layout style;
 }
 
 .picked-card-mini {
@@ -409,13 +431,17 @@
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   position: relative;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .picked-card-mini:hover {
-  transform: scale(2.5);
+  transform: scale(2.5) translateZ(0);
   z-index: 100;
   border-color: var(--color-gold);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
@@ -425,6 +451,9 @@
   width: 100%;
   height: auto;
   display: block;
+  /* Performance optimizations */
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
 }
 
 .mini-placeholder {
@@ -494,18 +523,26 @@
   background: rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   border-radius: 12px;
+  /* Performance optimization */
+  contain: layout style paint;
 }
 
 .pool-card {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--color-border);
+  /* Performance optimization */
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .pool-card img {
   width: 100%;
   height: auto;
   display: block;
+  /* Performance optimizations */
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
 }
 
 .exit-btn {

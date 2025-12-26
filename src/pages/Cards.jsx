@@ -7,7 +7,7 @@ function Cards() {
   const [searchParams] = useSearchParams();
   const [cards, setCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Start with false, use cache if available
   const [error, setError] = useState(null);
 
   // Initialize filters from URL params
@@ -122,8 +122,41 @@ function Cards() {
   };
 
   const fetchCards = async () => {
-    try {
+    // Try to load from cache first for instant display
+    const cachedCards = localStorage.getItem('chessmagic_cards');
+    const cacheTimestamp = localStorage.getItem('chessmagic_cards_timestamp');
+    const cacheAge = cacheTimestamp ? Date.now() - parseInt(cacheTimestamp) : Infinity;
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+    // If cache exists and is fresh, use it immediately
+    if (cachedCards && cacheAge < CACHE_DURATION) {
+      try {
+        const parsedCache = JSON.parse(cachedCards);
+        setCards(parsedCache);
+        setFilteredCards(parsedCache);
+        setLoading(false);
+        // Still fetch fresh data in background to keep cache updated
+      } catch (e) {
+        console.error('Error parsing cached cards:', e);
+      }
+    } else if (cachedCards) {
+      // Cache exists but is stale, still show it while fetching fresh data
+      try {
+        const parsedCache = JSON.parse(cachedCards);
+        setCards(parsedCache);
+        setFilteredCards(parsedCache);
+        setLoading(false);
+      } catch (e) {
+        console.error('Error parsing cached cards:', e);
+        setLoading(true);
+      }
+    } else {
+      // No cache at all, show loading
       setLoading(true);
+    }
+
+    // Fetch fresh data from server
+    try {
       const response = await fetch('http://localhost:5000/api/cards');
       if (!response.ok) {
         throw new Error('Failed to fetch cards');
@@ -140,11 +173,18 @@ function Cards() {
       console.log(`Official (false): ${noncustomCount}`);
       console.log(`Null/undefined: ${nullCount}`);
 
+      // Update cache
+      localStorage.setItem('chessmagic_cards', JSON.stringify(data));
+      localStorage.setItem('chessmagic_cards_timestamp', Date.now().toString());
+
       setCards(data);
       setFilteredCards(data);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      // Only show error if we don't have cached data
+      if (!cachedCards) {
+        setError(err.message);
+      }
       setLoading(false);
     }
   };
@@ -908,6 +948,8 @@ function Cards() {
                             src={card.imageUrl}
                             alt={card.name}
                             className="gallery-card-image"
+                            loading="lazy"
+                            decoding="async"
                           />
                         </div>
                       ) : (

@@ -17,6 +17,8 @@ function Play() {
     const [showDraftLobby, setShowDraftLobby] = useState(() => {
         return localStorage.getItem('play_showDraftLobby') === 'true';
     });
+    const [showContinuePrompt, setShowContinuePrompt] = useState(false);
+    const [continueGame, setContinueGame] = useState(true);
 
     // Save state to localStorage whenever it changes
     useEffect(() => {
@@ -58,11 +60,46 @@ function Play() {
         // Don't reset selectedMode so we can go back to draft type selection
     };
 
+    // Check if there's an existing game
+    const hasExistingGame = () => {
+        const savedState = localStorage.getItem('chessMagicGameState');
+        if (!savedState) return false;
+
+        try {
+            const gameState = JSON.parse(savedState);
+            return gameState.gameStarted === true;
+        } catch (e) {
+            return false;
+        }
+    };
+
+    // Handle standard mode selection
+    const handleStandardModeSelect = () => {
+        if (hasExistingGame()) {
+            setShowContinuePrompt(true);
+        } else {
+            setSelectedMode('standard');
+            setContinueGame(true);
+        }
+    };
+
+    // Handle continue/new game choice
+    const handleContinueChoice = (shouldContinue) => {
+        setContinueGame(shouldContinue);
+        if (!shouldContinue) {
+            // Clear the saved game state
+            localStorage.removeItem('chessMagicGameState');
+        }
+        setSelectedMode('standard');
+        setShowContinuePrompt(false);
+    };
+
     // Clear all play state when going back to main menu
     const handleBackToMain = () => {
         setSelectedMode(null);
         setDraftType(null);
         setShowDraftLobby(false);
+        setShowContinuePrompt(false);
         localStorage.removeItem('play_selectedMode');
         localStorage.removeItem('play_draftType');
         localStorage.removeItem('play_showDraftLobby');
@@ -146,9 +183,38 @@ function Play() {
                 <p>Choose your game mode and start playing!</p>
             </div>
 
+            {showContinuePrompt && (
+                <div className="modal-overlay" onClick={() => setShowContinuePrompt(false)}>
+                    <div className="modal-content continue-prompt" onClick={(e) => e.stopPropagation()}>
+                        <h2>♔ Game in Progress</h2>
+                        <p>You have a game already started. What would you like to do?</p>
+                        <div className="continue-buttons">
+                            <button
+                                className="btn btn-primary continue-btn"
+                                onClick={() => handleContinueChoice(true)}
+                            >
+                                ▶ Continue
+                            </button>
+                            <button
+                                className="btn btn-secondary new-game-btn"
+                                onClick={() => handleContinueChoice(false)}
+                            >
+                                🆕 New Game
+                            </button>
+                        </div>
+                        <button
+                            className="modal-close"
+                            onClick={() => setShowContinuePrompt(false)}
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <div className="mode-selection">
                 <div className="game-modes">
-                    <div className="mode-card" onClick={() => setSelectedMode('standard')}>
+                    <div className="mode-card" onClick={handleStandardModeSelect}>
                         <div className="mode-icon">♔</div>
                         <h3>Standard Play</h3>
                         <p className="mode-description">

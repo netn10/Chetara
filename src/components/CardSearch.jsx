@@ -4,7 +4,7 @@ import './CardSearch.css';
 function CardSearch({ onCardSelect, selectedCard }) {
   const [cards, setCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Start with false to use cache first
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [chessPieceFilter, setChessPieceFilter] = useState('all');
@@ -20,18 +20,59 @@ function CardSearch({ onCardSelect, selectedCard }) {
   }, [searchTerm, chessPieceFilter, cards]);
 
   const fetchCards = async () => {
-    try {
+    // Try to load from cache first for instant display (reuse the same cache as Cards page)
+    const cachedCards = localStorage.getItem('chessmagic_cards');
+    const cacheTimestamp = localStorage.getItem('chessmagic_cards_timestamp');
+    const cacheAge = cacheTimestamp ? Date.now() - parseInt(cacheTimestamp) : Infinity;
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+    // If cache exists and is fresh, use it immediately
+    if (cachedCards && cacheAge < CACHE_DURATION) {
+      try {
+        const parsedCache = JSON.parse(cachedCards);
+        setCards(parsedCache);
+        setFilteredCards(parsedCache);
+        setLoading(false);
+        // Still fetch fresh data in background to keep cache updated
+      } catch (e) {
+        console.error('Error parsing cached cards:', e);
+      }
+    } else if (cachedCards) {
+      // Cache exists but is stale, still show it while fetching fresh data
+      try {
+        const parsedCache = JSON.parse(cachedCards);
+        setCards(parsedCache);
+        setFilteredCards(parsedCache);
+        setLoading(false);
+      } catch (e) {
+        console.error('Error parsing cached cards:', e);
+        setLoading(true);
+      }
+    } else {
+      // No cache at all, show loading
       setLoading(true);
+    }
+
+    // Fetch fresh data from server
+    try {
       const response = await fetch('http://localhost:5000/api/cards');
       if (!response.ok) {
         throw new Error('Failed to fetch cards');
       }
       const data = await response.json();
+
+      // Update cache
+      localStorage.setItem('chessmagic_cards', JSON.stringify(data));
+      localStorage.setItem('chessmagic_cards_timestamp', Date.now().toString());
+
       setCards(data);
       setFilteredCards(data);
       setLoading(false);
     } catch (err) {
-      setError(err.message);
+      // Only show error if we don't have cached data
+      if (!cachedCards) {
+        setError(err.message);
+      }
       setLoading(false);
     }
   };
@@ -213,6 +254,8 @@ function CardSearch({ onCardSelect, selectedCard }) {
                       src={card.imageUrl}
                       alt={card.name}
                       className="card-image"
+                      loading="eager"
+                      decoding="async"
                     />
                     <div className="card-hover-details">
                       <div className="card-detail-header">
