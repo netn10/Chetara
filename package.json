@@ -12,6 +12,10 @@
     "start": "node server/server.js",
     "heroku-postbuild": "npm run build",
     "deploy": "git push heroku main",
+    "deploy:setup": "heroku config:set NODE_ENV=production MONGODB_URI=mongodb+srv://netn10:Aa203716329@cluster0.fpxktqt.mongodb.net/ -a chetara",
+    "deploy:logs": "heroku logs --tail -a chetara",
+    "deploy:open": "heroku open -a chetara",
+    "deploy:info": "heroku apps:info -a chetara",
     "populate": "node server/scripts/populateCards.js"
   },
   "engines": {

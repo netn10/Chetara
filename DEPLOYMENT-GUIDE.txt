@@ -1,0 +1,126 @@
+================================================================================
+    CHESS MAGIC - HEROKU DEPLOYMENT GUIDE
+    App Name: chetara
+    URL: https://chetara.herokuapp.com
+================================================================================
+
+QUICK START (3 Steps)
+---------------------
+
+1. LOGIN TO HEROKU
+   Run in terminal:
+   > heroku login
+
+   This will open your browser. Log in with your Heroku credentials.
+
+2. CONFIGURE THE APP (One-time setup)
+   Run in terminal:
+   > heroku-setup.bat
+
+   This sets up environment variables and buildpacks.
+
+3. DEPLOY
+   Run in terminal:
+   > deploy-heroku.bat
+
+   Or simply:
+   > npm run deploy
+
+
+DETAILED MANUAL STEPS
+----------------------
+
+If the automated scripts don't work, follow these manual steps:
+
+1. Login:
+   > heroku login
+
+2. Set environment variables:
+   > heroku config:set NODE_ENV=production -a chetara
+   > heroku config:set MONGODB_URI=mongodb+srv://netn10:Aa203716329@cluster0.fpxktqt.mongodb.net/ -a chetara
+
+3. Verify configuration:
+   > heroku config -a chetara
+
+4. Deploy:
+   > git add .
+   > git commit -m "Deploy to production"
+   > git push heroku main
+
+5. Open app:
+   > heroku open -a chetara
+
+
+AVAILABLE SCRIPTS
+-----------------
+
+deploy-heroku.bat       - Quick deploy (commit + push)
+deploy-complete.bat     - Full workflow (login + setup + deploy)
+heroku-setup.bat        - Configure environment variables
+npm run deploy          - Simple deploy command
+
+
+USEFUL COMMANDS
+---------------
+
+View live logs:         heroku logs --tail -a chetara
+Open app:               heroku open -a chetara
+Restart app:            heroku restart -a chetara
+Check app info:         heroku apps:info -a chetara
+View config vars:       heroku config -a chetara
+Run migrations:         heroku run npm run migrate -a chetara
+
+
+HEROKU DEPLOYMENT PROCESS
+--------------------------
+
+When you push to Heroku, it will:
+1. Detect Node.js app
+2. Install dependencies (npm install)
+3. Build frontend (npm run build via heroku-postbuild)
+4. Start server (node server/server.js)
+
+Build output goes to: dist/
+Server serves from: dist/ (when NODE_ENV=production)
+
+
+TROUBLESHOOTING
+---------------
+
+If deployment fails:
+1. Check logs: heroku logs --tail -a chetara
+2. Verify build succeeded: Look for "Build succeeded" in logs
+3. Check environment variables: heroku config -a chetara
+4. Restart if needed: heroku restart -a chetara
+
+If app crashes:
+1. Check logs for errors
+2. Verify MongoDB connection string is correct
+3. Ensure all dependencies are in "dependencies" (not devDependencies)
+4. Check that PORT is read from process.env.PORT
+
+
+PRODUCTION LOGGING
+------------------
+
+In production:
+- Frontend: console.log stripped from bundle
+- Backend: console.log disabled, only console.error and console.warn shown
+- To see all logs: heroku logs --tail -a chetara
+
+
+ENVIRONMENT VARIABLES
+---------------------
+
+Required:
+- MONGODB_URI: MongoDB connection string (✓ configured)
+- NODE_ENV: Set to "production" by Heroku (✓ configured)
+- PORT: Automatically set by Heroku
+
+Optional:
+Add more with: heroku config:set VAR_NAME=value -a chetara
+
+
+================================================================================
+Ready to deploy? Start with: heroku login
+================================================================================
