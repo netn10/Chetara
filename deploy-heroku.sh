@@ -32,15 +32,15 @@ echo ""
 
 echo "[4/4] Opening Heroku app..."
 if command -v xdg-open > /dev/null; then
-    xdg-open https://chetara.herokuapp.com
+    xdg-open https://chetara-8df1a70b756d.herokuapp.com/play
 elif command -v open > /dev/null; then
-    open https://chetara.herokuapp.com
+    open https://chetara-8df1a70b756d.herokuapp.com/play
 fi
 echo ""
 
 echo "========================================"
 echo "  Deployment Complete!"
-echo "  URL: https://chetara.herokuapp.com"
+echo "  URL: https://chetara-8df1a70b756d.herokuapp.com/play"
 echo "========================================"
 echo ""
 echo "To view logs: heroku logs --tail -a chetara"

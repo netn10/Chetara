@@ -31,12 +31,12 @@ if errorlevel 1 (
 echo.
 
 echo [4/4] Opening Heroku app in browser...
-start https://chetara.herokuapp.com
+start https://chetara-8df1a70b756d.herokuapp.com/play
 echo.
 
 echo ========================================
 echo   Deployment Complete!
-echo   URL: https://chetara.herokuapp.com
+echo   URL: https://chetara-8df1a70b756d.herokuapp.com/play
 echo ========================================
 echo.
 echo To view logs: heroku logs --tail -a chetara
