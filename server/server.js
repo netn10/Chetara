@@ -10,7 +10,11 @@ import draftRoutes from './routes/draft.js';
 import judgeTowerRoutes from './routes/judgeTower.js';
 import sealedRoutes from './routes/sealed.js';
 
+// Load environment variables first
 dotenv.config();
+
+// Apply console override for production (must be after dotenv.config)
+import './utils/console-override.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
