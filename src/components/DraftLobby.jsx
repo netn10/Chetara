@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './DraftLobby.css';
 
 function DraftLobby({ draftType, onBack, onDraftStart }) {
-  const [draftId, setDraftId] = useState(null);
-  const [playerName, setPlayerName] = useState('');
+  // Restore state from localStorage
+  const [draftId, setDraftId] = useState(() => {
+    return localStorage.getItem(`lobby_${draftType}_draftId`) || null;
+  });
+  const [playerName, setPlayerName] = useState(() => {
+    return localStorage.getItem(`lobby_${draftType}_playerName`) || '';
+  });
   const [joinCode, setJoinCode] = useState('');
   const [draft, setDraft] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
@@ -12,6 +17,29 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
   const [botCount, setBotCount] = useState(0);
   const [error, setError] = useState('');
 
+  // Restore draft on mount if we have a draftId
+  useEffect(() => {
+    if (draftId && !draft) {
+      fetchDraftStatus();
+    }
+  }, []);
+
+  // Save state to localStorage
+  useEffect(() => {
+    if (draftId) {
+      localStorage.setItem(`lobby_${draftType}_draftId`, draftId);
+    } else {
+      localStorage.removeItem(`lobby_${draftType}_draftId`);
+    }
+  }, [draftId, draftType]);
+
+  useEffect(() => {
+    if (playerName) {
+      localStorage.setItem(`lobby_${draftType}_playerName`, playerName);
+    }
+  }, [playerName, draftType]);
+
+  // Poll for draft status updates
   useEffect(() => {
     if (draftId) {
       const interval = setInterval(() => {
@@ -341,9 +369,20 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     </div>
   );
 
+  const handleBack = () => {
+    // Clear lobby state when going back
+    localStorage.removeItem(`lobby_${draftType}_draftId`);
+    localStorage.removeItem(`lobby_${draftType}_playerName`);
+
+    // Also clear the showDraftLobby flag so we don't return to lobby
+    localStorage.removeItem('play_showDraftLobby');
+
+    onBack();
+  };
+
   return (
     <div className="draft-lobby-container">
-      <button className="back-button" onClick={onBack}>
+      <button className="back-button" onClick={handleBack}>
         ← Back
       </button>
       {!draft ? renderSetupScreen() : renderLobby()}

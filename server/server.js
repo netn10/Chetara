@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import cardRoutes from './routes/cards.js';
 import authRoutes from './routes/auth.js';
 import draftRoutes from './routes/draft.js';
@@ -9,6 +11,9 @@ import judgeTowerRoutes from './routes/judgeTower.js';
 import sealedRoutes from './routes/sealed.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,6 +38,17 @@ app.use('/api/sealed', sealedRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Chess Magic API is running' });
 });
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../dist');
+  app.use(express.static(distPath));
+
+  // Handle client-side routing - serve index.html for all non-API routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {

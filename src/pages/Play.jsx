@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ChessBoard from '../components/ChessBoard';
 import DraftLobby from '../components/DraftLobby';
-import DraftInterface from '../components/DraftInterface';
 import './Play.css';
 
 function Play() {
-    const [selectedMode, setSelectedMode] = useState(null);
-    const [draftType, setDraftType] = useState(null);
-    const [showDraftLobby, setShowDraftLobby] = useState(false);
-    const [activeDraftId, setActiveDraftId] = useState(null);
+    const navigate = useNavigate();
+
+    // Restore state from localStorage on mount
+    const [selectedMode, setSelectedMode] = useState(() => {
+        return localStorage.getItem('play_selectedMode') || null;
+    });
+    const [draftType, setDraftType] = useState(() => {
+        return localStorage.getItem('play_draftType') || null;
+    });
+    const [showDraftLobby, setShowDraftLobby] = useState(() => {
+        return localStorage.getItem('play_showDraftLobby') === 'true';
+    });
+
+    // Save state to localStorage whenever it changes
+    useEffect(() => {
+        if (selectedMode) {
+            localStorage.setItem('play_selectedMode', selectedMode);
+        } else {
+            localStorage.removeItem('play_selectedMode');
+        }
+    }, [selectedMode]);
+
+    useEffect(() => {
+        if (draftType) {
+            localStorage.setItem('play_draftType', draftType);
+        } else {
+            localStorage.removeItem('play_draftType');
+        }
+    }, [draftType]);
+
+    useEffect(() => {
+        localStorage.setItem('play_showDraftLobby', showDraftLobby.toString());
+    }, [showDraftLobby]);
 
     // Handle draft type selection
     const handleDraftSelect = (type) => {
@@ -18,33 +47,26 @@ function Play() {
 
     // Handle draft start from lobby
     const handleDraftStart = (draftId) => {
-        setActiveDraftId(draftId);
-        setShowDraftLobby(false);
-    };
-
-    // Handle exiting draft
-    const handleExitDraft = () => {
-        setActiveDraftId(null);
-        setDraftType(null);
-        setShowDraftLobby(false);
-        setSelectedMode(null);
+        // Navigate to draft page with ID in URL
+        navigate(`/draft/${draftId}`);
     };
 
     // Handle back from lobby
     const handleBackFromLobby = () => {
         setShowDraftLobby(false);
         setDraftType(null);
-        setSelectedMode(null);
+        // Don't reset selectedMode so we can go back to draft type selection
     };
 
-    // Render active draft interface
-    if (activeDraftId) {
-        return (
-            <div className="play-page">
-                <DraftInterface draftId={activeDraftId} onExit={handleExitDraft} />
-            </div>
-        );
-    }
+    // Clear all play state when going back to main menu
+    const handleBackToMain = () => {
+        setSelectedMode(null);
+        setDraftType(null);
+        setShowDraftLobby(false);
+        localStorage.removeItem('play_selectedMode');
+        localStorage.removeItem('play_draftType');
+        localStorage.removeItem('play_showDraftLobby');
+    };
 
     // Render draft lobby
     if (showDraftLobby && draftType) {
@@ -64,7 +86,7 @@ function Play() {
         return (
             <div className="play-page">
                 <div className="play-header">
-                    <button onClick={() => setSelectedMode(null)} className="back-button">
+                    <button onClick={handleBackToMain} className="back-button">
                         ← Back to Mode Selection
                     </button>
                     <h1>Choose Draft Type</h1>
@@ -108,7 +130,7 @@ function Play() {
     if (selectedMode === 'standard') {
         return (
             <div className="play-page chess-mode">
-                <button onClick={() => setSelectedMode(null)} className="back-button chess-back-button">
+                <button onClick={handleBackToMain} className="back-button chess-back-button">
                     ← Back to Mode Selection
                 </button>
                 <ChessBoard />

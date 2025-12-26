@@ -1053,6 +1053,10 @@
     padding: 0 15px;
   }
 
+  .linked-card-sidebar {
+    top: 120px;
+  }
+
   .new-game-btn {
     max-width: 100%;
     width: 100%;
@@ -1274,6 +1278,10 @@
     padding: 15px;
   }
 
+  .linked-card-sidebar {
+    top: 140px;
+  }
+
   .linked-card-sidebar h3,
   .cards-area h3 {
     font-size: 1rem;
@@ -1364,21 +1372,25 @@
 }
 
 /* Scrollbar Styling */
-.moves-list::-webkit-scrollbar {
+.moves-list::-webkit-scrollbar,
+.linked-card-sidebar::-webkit-scrollbar {
   width: 6px;
 }
 
-.moves-list::-webkit-scrollbar-track {
+.moves-list::-webkit-scrollbar-track,
+.linked-card-sidebar::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
 
-.moves-list::-webkit-scrollbar-thumb {
+.moves-list::-webkit-scrollbar-thumb,
+.linked-card-sidebar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 3px;
 }
 
-.moves-list::-webkit-scrollbar-thumb:hover {
+.moves-list::-webkit-scrollbar-thumb:hover,
+.linked-card-sidebar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
 
@@ -1391,10 +1403,14 @@
   padding: 20px;
   border: 2px solid rgba(255, 215, 0, 0.5);
   backdrop-filter: blur(10px);
-  height: fit-content;
   min-width: 300px;
+  position: -webkit-sticky;
   position: sticky;
   top: 80px;
+  z-index: 100;
+  align-self: flex-start;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
 }
 
 .linked-card-sidebar h3 {

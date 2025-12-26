@@ -35,6 +35,9 @@ const draftSchema = new mongoose.Schema({
   usedCards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }], // For cube mode
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
+}, {
+  // Disable versioning to avoid conflicts with rapid bot picks
+  versionKey: false
 });
 
 draftSchema.pre('save', function(next) {

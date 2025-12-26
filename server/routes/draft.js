@@ -9,6 +9,8 @@ router.post('/create', async (req, res) => {
   try {
     const { draftType, playerName, numBots = 0 } = req.body;
 
+    console.log(`\n🎯 Creating new ${draftType} draft for player: ${playerName} with ${numBots} bots`);
+
     if (!draftType || !playerName) {
       return res.status(400).json({ message: 'Draft type and player name required' });
     }
@@ -22,6 +24,8 @@ router.post('/create', async (req, res) => {
       pickedCards: [],
       seatNumber: 0
     }];
+
+    console.log(`✅ Created player at seat 0: ${playerName}`);
 
     // Add bots
     for (let i = 0; i < numBots; i++) {
@@ -42,6 +46,8 @@ router.post('/create', async (req, res) => {
     });
 
     await draft.save();
+    console.log(`✅ Draft created with ID: ${draft._id}`);
+    console.log(`📊 Total players: ${draft.players.length}\n`);
     res.status(201).json(draft);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -146,6 +152,9 @@ router.post('/:id/start', async (req, res) => {
       return res.status(400).json({ message: 'Need at least 2 players to start' });
     }
 
+    console.log(`\n🚀 Starting draft ${draft._id}`);
+    console.log(`📊 Players: ${draft.players.map(p => `${p.name}(${p.isBot ? 'BOT' : 'HUMAN'})`).join(', ')}`);
+
     // Generate first round of boosters
     const boosters = await generateBoosters(draft);
     draft.boosters = boosters;
@@ -154,9 +163,12 @@ router.post('/:id/start', async (req, res) => {
 
     await draft.save();
 
-    // Auto-pick for bots
-    setTimeout(() => autoPickForBots(draft._id), 2000);
+    console.log(`✅ Draft started! Round ${draft.currentRound}, Direction: ${draft.direction}`);
+    console.log(`📦 Generated ${boosters.length} boosters with ${draft.cardsPerBooster} cards each`);
+    console.log(`⏳ Waiting for human player to make first pick...\n`);
 
+    // DON'T auto-pick for bots at start - let human pick first
+    // This ensures everyone picks once per round (proper draft rules)
     res.json(draft);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -202,6 +214,7 @@ router.post('/:id/pick', async (req, res) => {
     }
 
     const booster = draft.boosters[boosterIndex];
+    const cardsBeforePick = booster.cards.length;
     const cardIndex = booster.cards.findIndex(c => c._id.toString() === cardId);
 
     if (cardIndex === -1) {
@@ -214,36 +227,32 @@ router.post('/:id/pick', async (req, res) => {
 
     // Remove card from booster
     booster.cards.splice(cardIndex, 1);
+    const cardsAfterPick = booster.cards.length;
 
-    // Pass booster or start new round
+    // Detailed logging
+    console.log(`\n👤 HUMAN PICK - Player ${playerIndex} (${draft.players[playerIndex].name})`);
+    console.log(`   📊 Round ${draft.currentRound}, Direction: ${draft.direction}`);
+    console.log(`   📦 Booster ${boosterIndex}: ${cardsBeforePick} → ${cardsAfterPick} cards (currentPlayerIndex=${booster.currentPlayerIndex || 0})`);
+    console.log(`   🎴 Card picked: ${booster.cards[cardIndex]?.name || 'Unknown'}`);
+
+    // Handle empty booster
     if (booster.cards.length === 0) {
-      // Remove empty booster
-      draft.boosters.splice(boosterIndex, 1);
-
-      // Check if round is complete
-      if (draft.boosters.length === 0) {
-        if (draft.currentRound < draft.totalRounds) {
-          // Start new round
-          draft.currentRound++;
-          draft.direction = draft.direction === 'left' ? 'right' : 'left';
-          const newBoosters = await generateBoosters(draft);
-          draft.boosters = newBoosters;
-        } else {
-          // Draft complete
-          draft.status = 'completed';
-        }
-      }
-    } else {
-      // Increment currentPlayerIndex to pass the booster
-      booster.currentPlayerIndex = (booster.currentPlayerIndex || 0) + 1;
+      console.log(`   📭 Booster ${boosterIndex} is now empty - will be removed after bots pick`);
+      // Mark empty but don't remove yet - let autoPickForBots handle it
     }
+
+    // DON'T pass the booster here - let autoPickForBots pass ALL boosters together
+    // This ensures everyone picks before anyone's pack is passed
 
     await draft.save();
 
-    // Auto-pick for bots
-    setTimeout(() => autoPickForBots(draft._id), 1500);
+    // Auto-pick for bots BEFORE sending response (so UI gets final state)
+    await autoPickForBots(draft._id);
 
-    res.json(draft);
+    // Re-fetch draft to get updated state after bot picks
+    const updatedDraft = await Draft.findById(draft._id).populate('boosters.cards').populate('players.pickedCards');
+
+    res.json(updatedDraft);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -254,13 +263,39 @@ function generatePlayerId() {
   return `player-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
+function getBoosterCurrentPlayer(draft, boosterIndex) {
+  const totalPlayers = draft.players.length;
+  const direction = draft.direction === 'left' ? 1 : -1;
+  const booster = draft.boosters[boosterIndex];
+
+  // The booster owner is determined by which round we're in
+  const boosterOwner = (boosterIndex + draft.currentRound - 1) % totalPlayers;
+
+  // Calculate which player currently has this booster based on how many times it's been passed
+  const currentPlayerIndex = booster.currentPlayerIndex || 0;
+  // Use proper modulo to handle negative numbers correctly
+  const currentPosition = ((boosterOwner + direction * currentPlayerIndex) % totalPlayers + totalPlayers) % totalPlayers;
+
+  return currentPosition;
+}
+
 function findPlayerBooster(draft, playerIndex) {
   const totalPlayers = draft.players.length;
   const direction = draft.direction === 'left' ? 1 : -1;
 
   for (let i = 0; i < draft.boosters.length; i++) {
+    const booster = draft.boosters[i];
+    // The booster owner is determined by which round we're in
+    // Round 1: booster 0 → player 0, booster 1 → player 1, etc.
+    // Round 2: booster 0 → player 1, booster 1 → player 2, etc. (rotating)
     const boosterOwner = (i + draft.currentRound - 1) % totalPlayers;
-    const currentPosition = (boosterOwner + direction * draft.boosters[i].currentPlayerIndex + totalPlayers) % totalPlayers;
+    // Calculate which player currently has this booster based on how many times it's been passed
+    // currentPlayerIndex tracks how many picks have been made from this booster
+    // When currentPlayerIndex = 0, the pack is with the owner
+    // When currentPlayerIndex = 1, the pack has been passed once (to the next player)
+    const currentPlayerIndex = booster.currentPlayerIndex || 0;
+    // Use proper modulo to handle negative numbers correctly
+    const currentPosition = ((boosterOwner + direction * currentPlayerIndex) % totalPlayers + totalPlayers) % totalPlayers;
 
     if (currentPosition === playerIndex) {
       return i;
@@ -275,8 +310,27 @@ async function generateBoosters(draft) {
 
   if (draft.draftType === 'set') {
     // Set draft - generate boosters with rarity distribution
-    for (let i = 0; i < draft.players.length; i++) {
-      const boosterCards = await generateSetBooster(draft.cardsPerBooster);
+    // OPTIMIZED: Fetch all cards once, then build multiple boosters from them
+    const numBoosters = draft.players.length;
+    const cardsPerBooster = draft.cardsPerBooster || 15;
+
+    // Fetch all cards of each rarity in parallel (3 queries instead of 4+ per booster)
+    const [allCommons, allUncommons, allRares, allMythics] = await Promise.all([
+      Card.find({ rarity: 'Common' }).lean(),
+      Card.find({ rarity: 'Uncommon' }).lean(),
+      Card.find({ rarity: 'Rare' }).lean(),
+      Card.find({ rarity: 'Mythic' }).lean()
+    ]);
+
+    // Generate all boosters
+    for (let i = 0; i < numBoosters; i++) {
+      const boosterCards = generateSetBoosterFromPool(
+        allCommons,
+        allUncommons,
+        allRares,
+        allMythics,
+        cardsPerBooster
+      );
       boosters.push({
         cards: boosterCards,
         currentPlayerIndex: 0
@@ -284,7 +338,7 @@ async function generateBoosters(draft) {
     }
   } else {
     // Cube draft - singleton cards
-    const allCards = await Card.find({ _id: { $nin: draft.usedCards } });
+    const allCards = await Card.find({ _id: { $nin: draft.usedCards } }).lean();
 
     if (allCards.length < draft.players.length * draft.cardsPerBooster) {
       throw new Error('Not enough cards for cube draft');
@@ -312,36 +366,47 @@ async function generateBoosters(draft) {
   return boosters;
 }
 
-async function generateSetBooster(count = 15) {
-  // Play booster distribution: 10-11 commons, 3-4 uncommons, 1 rare/mythic
-  const commons = await Card.aggregate([
-    { $match: { rarity: 'Common' } },
-    { $sample: { size: 10 } }
-  ]);
+function generateSetBoosterFromPool(commons, uncommons, rares, mythics, count = 15) {
+  // Play booster distribution: 10 commons, 3 uncommons, 1 rare/mythic, 1 extra common
+  const boosterCards = [];
 
-  const uncommons = await Card.aggregate([
-    { $match: { rarity: 'Uncommon' } },
-    { $sample: { size: 3 } }
-  ]);
+  // 10 random commons
+  const selectedCommons = getRandomCards(commons, 10);
+  boosterCards.push(...selectedCommons);
 
-  // 1/8 chance for mythic, otherwise rare
+  // 3 random uncommons
+  const selectedUncommons = getRandomCards(uncommons, 3);
+  boosterCards.push(...selectedUncommons);
+
+  // 1 rare or mythic (1/8 chance for mythic)
   const isMythic = Math.random() < 0.125;
-  const rareCards = await Card.aggregate([
-    { $match: { rarity: isMythic ? 'Mythic' : 'Rare' } },
-    { $sample: { size: 1 } }
-  ]);
+  const rarePool = isMythic && mythics.length > 0 ? mythics : rares;
+  const selectedRare = getRandomCards(rarePool, 1);
+  boosterCards.push(...selectedRare);
 
-  // If we need more cards, add commons
-  const totalCards = commons.length + uncommons.length + rareCards.length;
-  if (totalCards < count) {
-    const extraCommons = await Card.aggregate([
-      { $match: { rarity: 'Common', _id: { $nin: commons.map(c => c._id) } } },
-      { $sample: { size: count - totalCards } }
-    ]);
-    commons.push(...extraCommons);
+  // Fill remaining slots with commons
+  const remaining = count - boosterCards.length;
+  if (remaining > 0) {
+    const extraCommons = getRandomCards(commons, remaining);
+    boosterCards.push(...extraCommons);
   }
 
-  return shuffleArray([...commons, ...uncommons, ...rareCards]).map(c => c._id);
+  // Shuffle and return card IDs
+  return shuffleArray(boosterCards).map(c => c._id);
+}
+
+function getRandomCards(pool, count) {
+  if (pool.length === 0) return [];
+  if (pool.length <= count) return [...pool];
+
+  const selected = [];
+  const shuffled = shuffleArray([...pool]);
+
+  for (let i = 0; i < count && i < shuffled.length; i++) {
+    selected.push(shuffled[i]);
+  }
+
+  return selected;
 }
 
 function shuffleArray(array) {
@@ -353,92 +418,137 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-async function autoPickForBots(draftId) {
+async function autoPickForBots(draftId, retryCount = 0) {
   try {
+    // Fetch fresh draft to avoid version conflicts
     const draft = await Draft.findById(draftId).populate('boosters.cards');
 
     if (!draft || draft.status !== 'drafting') {
+      if (!draft) console.log(`   ⚠️  Draft ${draftId} not found`);
+      if (draft?.status !== 'drafting') console.log(`   ⏸️  Draft status: ${draft?.status}\n`);
       return;
     }
 
-    let madePick = false;
-    const boostersToRemove = [];
-    const boostersPicked = new Set(); // Track which boosters had picks made
+    console.log(`\n🔄 Bot picking round starting...`);
+    console.log(`📊 Round ${draft.currentRound}, Direction: ${draft.direction}`);
 
-    // First, all bots pick from their current boosters
+    // Log current booster state
+    console.log(`📦 Current boosters:`);
+    for (let i = 0; i < draft.boosters.length; i++) {
+      const b = draft.boosters[i];
+      const owner = getBoosterCurrentPlayer(draft, i);
+      console.log(`   Booster ${i}: ${b.cards.length} cards, currentPlayerIndex=${b.currentPlayerIndex || 0}, at Player ${owner}`);
+    }
+
+    // Pick for ALL bots simultaneously (in one pass)
+    let anyBotPicked = false;
+    const boostersToRemove = [];
+
     for (let i = 0; i < draft.players.length; i++) {
       const player = draft.players[i];
 
       if (player.isBot) {
         const boosterIndex = findPlayerBooster(draft, i);
 
-        if (boosterIndex !== -1) {
+        if (boosterIndex !== -1 && !boostersToRemove.includes(boosterIndex)) {
           const booster = draft.boosters[boosterIndex];
 
           if (booster.cards.length > 0) {
+            const cardsBeforePick = booster.cards.length;
+
             // Bot picks a random card (simple AI)
             const randomIndex = Math.floor(Math.random() * booster.cards.length);
             const pickedCard = booster.cards[randomIndex];
 
+            console.log(`🤖 BOT PICK - Player ${i} (${player.name})`);
+            console.log(`   📦 Booster ${boosterIndex}: ${cardsBeforePick} → ${cardsBeforePick - 1} cards`);
+            console.log(`   🎴 Card picked: ${pickedCard.name}`);
+
             player.pickedCards.push(pickedCard._id);
             booster.cards.splice(randomIndex, 1);
-            madePick = true;
-
-            // Track that this booster had a pick made
-            boostersPicked.add(boosterIndex);
+            anyBotPicked = true;
 
             // Mark empty boosters for removal
             if (booster.cards.length === 0) {
+              console.log(`   📭 Booster ${boosterIndex} will be removed (empty)`);
               boostersToRemove.push(boosterIndex);
             }
           }
+        } else if (boosterIndex === -1) {
+          console.log(`⚠️  BOT ${i} (${player.name}) has no booster!`);
         }
       }
     }
 
-    // Remove empty boosters (in reverse order to maintain indices)
-    boostersToRemove.sort((a, b) => b - a);
-    for (const index of boostersToRemove) {
+    // Now handle booster cleanup and passing
+    console.log(`\n📬 Processing boosters...`);
+
+    // Find ALL empty boosters (not just ones bots picked from)
+    const allEmptyBoosters = [];
+    for (let i = draft.boosters.length - 1; i >= 0; i--) {
+      if (draft.boosters[i].cards.length === 0) {
+        allEmptyBoosters.push(i);
+      }
+    }
+
+    // Remove all empty boosters (already in reverse order)
+    for (const index of allEmptyBoosters) {
+      console.log(`   🗑️  Removing empty booster ${index}`);
       draft.boosters.splice(index, 1);
     }
 
-    // Then, pass only the boosters that bots picked from
-    if (madePick) {
-      // Recalculate indices after removal
-      const adjustedIndices = Array.from(boostersPicked).map(originalIndex => {
-        const removedBefore = boostersToRemove.filter(removed => removed < originalIndex).length;
-        return originalIndex - removedBefore;
-      });
-
-      for (const index of adjustedIndices) {
-        if (index >= 0 && index < draft.boosters.length) {
-          draft.boosters[index].currentPlayerIndex = (draft.boosters[index].currentPlayerIndex || 0) + 1;
-        }
+    // If bots picked, pass ALL remaining boosters
+    if (anyBotPicked) {
+      console.log(`   📦 Passing remaining boosters...`);
+      for (let i = 0; i < draft.boosters.length; i++) {
+        const oldIndex = draft.boosters[i].currentPlayerIndex || 0;
+        const oldPlayer = getBoosterCurrentPlayer(draft, i);
+        draft.boosters[i].currentPlayerIndex = oldIndex + 1;
+        const newPlayer = (oldPlayer + (draft.direction === 'left' ? 1 : -1) + draft.players.length) % draft.players.length;
+        console.log(`      ➡️  Booster ${i}: Player ${oldPlayer} → Player ${newPlayer} (currentPlayerIndex ${oldIndex} → ${draft.boosters[i].currentPlayerIndex})`);
       }
+    } else {
+      console.log(`   ✋ No bots picked - checking if round is complete...`);
     }
 
-    // Check if round is complete
+    // Check if round is complete (all boosters are empty)
     if (draft.boosters.length === 0) {
       if (draft.currentRound < draft.totalRounds) {
+        // Start new round
+        const oldRound = draft.currentRound;
+        const oldDirection = draft.direction;
         draft.currentRound++;
         draft.direction = draft.direction === 'left' ? 'right' : 'left';
+
+        console.log(`\n🔄 ROUND COMPLETE!`);
+        console.log(`   Round ${oldRound} → ${draft.currentRound}`);
+        console.log(`   Direction ${oldDirection} → ${draft.direction}`);
+        console.log(`   Generating new boosters...\n`);
+
         const newBoosters = await generateBoosters(draft);
         draft.boosters = newBoosters;
       } else {
+        // Draft complete
+        console.log(`\n🏁 DRAFT COMPLETE!`);
+        console.log(`   All ${draft.totalRounds} rounds finished\n`);
         draft.status = 'completed';
       }
+    } else {
+      console.log(`   📊 Round continues: ${draft.boosters.length} booster(s) remaining\n`);
     }
 
-    if (madePick) {
-      await draft.save();
+    await draft.save();
+    console.log(`✅ Bot picking round complete\n`);
 
-      // Continue auto-picking if there are more bots
-      if (draft.status === 'drafting') {
-        setTimeout(() => autoPickForBots(draftId), 1500);
-      }
-    }
   } catch (error) {
-    console.error('Error in auto-pick:', error);
+    console.error(`\n❌ Error in auto-pick (attempt ${retryCount + 1}):`, error.message);
+    // Retry on any error (network issues, etc.)
+    if (retryCount < 3) {
+      console.log(`   🔄 Retrying...\n`);
+      setImmediate(() => autoPickForBots(draftId, retryCount + 1));
+    } else {
+      console.log(`   ⛔ Max retries reached, stopping auto-pick\n`);
+    }
   }
 }
 

@@ -11,5 +11,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    // Ensure client-side routing works on refresh
+    historyApiFallback: true,
+  },
+  build: {
+    outDir: 'dist',
   },
 })

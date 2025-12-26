@@ -9,7 +9,7 @@ function CardSearch({ onCardSelect, selectedCard }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [chessPieceFilter, setChessPieceFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 4;
+  const cardsPerPage = 3;
 
   useEffect(() => {
     fetchCards();
@@ -152,7 +152,7 @@ function CardSearch({ onCardSelect, selectedCard }) {
             {filteredCards.length} card{filteredCards.length !== 1 ? 's' : ''} found
           </div>
 
-          {filteredCards.length > 4 && (
+          {filteredCards.length > 3 && (
             <div className="pagination-info">
               Page {currentPage} of {Math.ceil(filteredCards.length / cardsPerPage)}
             </div>

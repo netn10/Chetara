@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './DraftInterface.css';
 
 function DraftInterface({ draftId, onExit }) {
@@ -6,9 +6,13 @@ function DraftInterface({ draftId, onExit }) {
   const [playerId, setPlayerId] = useState(null);
   const [currentBooster, setCurrentBooster] = useState([]);
   const [pickedCards, setPickedCards] = useState([]);
-  const [selectedCard, setSelectedCard] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isPicking, setIsPicking] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(null);
+  const [picksThisRound, setPicksThisRound] = useState(0);
+  const [lastBoosterLength, setLastBoosterLength] = useState(0);
+  const currentBoosterRef = useRef([]);
 
   useEffect(() => {
     // Get player ID from localStorage or draft data
@@ -18,13 +22,81 @@ function DraftInterface({ draftId, onExit }) {
     }
 
     fetchDraftStatus();
-    const interval = setInterval(fetchDraftStatus, 1500);
+    // Poll frequently to catch rapid bot picks (but pause during picks)
+    const interval = setInterval(() => {
+      if (!isPicking) {
+        fetchDraftStatus();
+      }
+    }, 300);
     return () => clearInterval(interval);
-  }, [draftId]);
+  }, [draftId, isPicking]);
 
   useEffect(() => {
     if (draft && playerId) {
       updatePlayerView();
+    }
+  }, [draft, playerId]);
+
+  // Keep ref in sync with current booster
+  useEffect(() => {
+    currentBoosterRef.current = currentBooster;
+  }, [currentBooster]);
+
+  // Calculate time limit based on picks made this round
+  const getTimeLimit = (pickCount) => {
+    if (pickCount < 5) return 60; // First 5 picks: 60 seconds
+    if (pickCount < 10) return 30; // Next 5 picks: 30 seconds
+    return 10; // Last 5 picks: 10 seconds
+  };
+
+  // Auto-pick when timer hits 0
+  useEffect(() => {
+    if (timeRemaining === 0 && currentBooster.length > 0 && !isPicking) {
+      const randomCard = currentBooster[Math.floor(Math.random() * currentBooster.length)];
+      handleCardPick(randomCard._id);
+    }
+  }, [timeRemaining]);
+
+  // Timer countdown effect
+  useEffect(() => {
+    if (timeRemaining === null || timeRemaining <= 0 || isPicking) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeRemaining(prev => {
+        if (prev === null || prev <= 0) {
+          return prev;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeRemaining, isPicking]);
+
+  // Start timer when new pack arrives (only when length actually changes)
+  useEffect(() => {
+    if (currentBooster.length > 0 && !isPicking && currentBooster.length !== lastBoosterLength) {
+      const timeLimit = getTimeLimit(picksThisRound);
+      setTimeRemaining(timeLimit);
+      setLastBoosterLength(currentBooster.length);
+    } else if (currentBooster.length === 0) {
+      setLastBoosterLength(0);
+      setTimeRemaining(null);
+    }
+  }, [currentBooster.length, isPicking, lastBoosterLength, picksThisRound]);
+
+  // Track picks per round
+  useEffect(() => {
+    if (draft && playerId) {
+      const player = draft.players.find(p => p.id === playerId);
+      if (player) {
+        // Calculate picks made this round (total picks % 15)
+        const totalPicks = player.pickedCards?.length || 0;
+        const picksInCurrentRound = totalPicks % 15;
+        setPicksThisRound(picksInCurrentRound);
+      }
     }
   }, [draft, playerId]);
 
@@ -86,7 +158,8 @@ function DraftInterface({ draftId, onExit }) {
     for (let i = 0; i < draft.boosters.length; i++) {
       const booster = draft.boosters[i];
       const boosterOwner = (i + draft.currentRound - 1) % totalPlayers;
-      const currentPosition = (boosterOwner + direction * (booster.currentPlayerIndex || 0) + totalPlayers) % totalPlayers;
+      // Use proper modulo to handle negative numbers
+      const currentPosition = ((boosterOwner + direction * (booster.currentPlayerIndex || 0)) % totalPlayers + totalPlayers) % totalPlayers;
 
       if (currentPosition === playerIndex) {
         return booster;
@@ -97,9 +170,13 @@ function DraftInterface({ draftId, onExit }) {
   };
 
   const handleCardPick = async (cardId) => {
-    if (!playerId || !cardId) return;
+    if (!playerId || !cardId || isPicking) return;
 
     try {
+      setIsPicking(true); // Pause polling while picking
+      setError(''); // Clear any previous errors
+      setTimeRemaining(null); // Stop timer
+
       const response = await fetch(`http://localhost:5000/api/drafts/${draftId}/pick`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -109,14 +186,23 @@ function DraftInterface({ draftId, onExit }) {
       if (response.ok) {
         const data = await response.json();
         setDraft(data);
-        setSelectedCard(null);
       } else {
         const data = await response.json();
         setError(data.message || 'Failed to pick card');
       }
     } catch (err) {
       setError('Connection error');
+    } finally {
+      setIsPicking(false); // Resume polling after pick completes
     }
+  };
+
+  const autoPickCard = () => {
+    if (currentBooster.length === 0 || isPicking) return;
+
+    // Pick a random card from the current booster
+    const randomCard = currentBooster[Math.floor(Math.random() * currentBooster.length)];
+    handleCardPick(randomCard._id);
   };
 
   const renderManaCost = (manaCost) => {
@@ -200,8 +286,46 @@ function DraftInterface({ draftId, onExit }) {
             <span className="direction-indicator">
               Passing {draft.direction === 'left' ? '←' : '→'}
             </span>
+            <span>•</span>
+            <span>Current Pack ({currentBooster.length} cards)</span>
           </div>
         </div>
+        {(timeRemaining !== null || isPicking) && (
+          <div className={`timer-display ${timeRemaining <= 10 ? 'timer-display-urgent' : timeRemaining <= 30 ? 'timer-display-warning' : ''}`}>
+            <div className="timer-circle">
+              <svg className="timer-svg" viewBox="0 0 100 100">
+                <circle
+                  className="timer-circle-bg"
+                  cx="50"
+                  cy="50"
+                  r="45"
+                />
+                {!isPicking && (
+                  <circle
+                    className="timer-circle-progress"
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    style={{
+                      strokeDasharray: `${2 * Math.PI * 45}`,
+                      strokeDashoffset: `${2 * Math.PI * 45 * (1 - timeRemaining / getTimeLimit(picksThisRound))}`
+                    }}
+                  />
+                )}
+              </svg>
+              <div className="timer-text">
+                {isPicking ? (
+                  <span className="timer-number">...</span>
+                ) : (
+                  <>
+                    <span className="timer-number">{timeRemaining}</span>
+                    <span className="timer-label">sec</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         <button className="exit-btn-small" onClick={onExit}>Exit</button>
       </div>
 
@@ -209,14 +333,14 @@ function DraftInterface({ draftId, onExit }) {
 
       <div className="draft-main">
         <div className="booster-section">
-          <h3>Current Pack ({currentBooster.length} cards remaining)</h3>
           {currentBooster.length > 0 ? (
             <div className="booster-grid">
               {currentBooster.map((card) => (
                 <div
                   key={card._id}
-                  className={`draft-card ${selectedCard?._id === card._id ? 'selected' : ''}`}
-                  onClick={() => setSelectedCard(card)}
+                  className="draft-card"
+                  onClick={() => !isPicking && handleCardPick(card._id)}
+                  style={{ cursor: isPicking ? 'not-allowed' : 'pointer' }}
                 >
                   {card.imageUrl ? (
                     <img src={card.imageUrl} alt={card.name} />
@@ -236,33 +360,6 @@ function DraftInterface({ draftId, onExit }) {
             </div>
           )}
         </div>
-
-        {selectedCard && (
-          <div className="card-preview">
-            <h3>Card Preview</h3>
-            <div className="preview-content">
-              {selectedCard.imageUrl ? (
-                <img src={selectedCard.imageUrl} alt={selectedCard.name} className="preview-image" />
-              ) : (
-                <div className="preview-details">
-                  <h4>{selectedCard.name}</h4>
-                  {renderManaCost(selectedCard.manaCost)}
-                  <p className="card-type">{selectedCard.type}</p>
-                  <p className="card-text">{selectedCard.oracleText}</p>
-                  {selectedCard.power && selectedCard.toughness && (
-                    <p className="card-stats">{selectedCard.power}/{selectedCard.toughness}</p>
-                  )}
-                </div>
-              )}
-              <button
-                className="pick-btn"
-                onClick={() => handleCardPick(selectedCard._id)}
-              >
-                Pick This Card
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       <div className="picked-section">

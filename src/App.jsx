@@ -9,6 +9,7 @@ import Rules from './pages/Rules';
 import Cards from './pages/Cards';
 import CardDetail from './pages/CardDetail';
 import Play from './pages/Play';
+import DraftPage from './pages/DraftPage';
 import AddCard from './pages/AddCard';
 import Login from './pages/Login';
 import './App.css';
@@ -52,6 +53,7 @@ function App() {
               <Route path="/cards" element={<Cards />} />
               <Route path="/cards/:id" element={<CardDetail />} />
               <Route path="/play" element={<Play />} />
+              <Route path="/draft/:draftId" element={<DraftPage />} />
               <Route path="/login" element={<Login />} />
               <Route
                 path="/add-card"

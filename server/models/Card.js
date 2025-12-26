@@ -64,4 +64,7 @@ const cardSchema = new mongoose.Schema({
   }
 });
 
+// Add index on rarity for faster booster generation queries
+cardSchema.index({ rarity: 1 });
+
 export default mongoose.model('Card', cardSchema);
