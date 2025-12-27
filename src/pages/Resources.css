@@ -10,8 +10,8 @@
 }
 
 .resources-title {
-  font-size: var(--font-size-5xl);
-  font-weight: var(--font-weight-bold);
+  font-size: 4.5rem;
+  font-weight: 800;
   text-align: center;
   color: var(--text-primary);
   margin-bottom: var(--spacing-4xl);

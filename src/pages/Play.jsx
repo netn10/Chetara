@@ -339,14 +339,14 @@ function Play() {
                 <div className="game-modes">
                     <div className="mode-card" onClick={handleStandardModeSelect}>
                         <div className="mode-icon">♔</div>
-                        <h3>Standard Play</h3>
+                        <h3>Magic-Chess</h3>
                         <p className="mode-description">
-                            Classic Chess Magic gameplay. Link cards to pieces and battle for supremacy on both the battlefield and the board.
+                            Classic Chess Magic gameplay. Link cards to pieces and battle on both the battlefield and the board.
                         </p>
                         <div className="mode-details">
                             <p className="player-count">1v1 or Practice</p>
                         </div>
-                        <button className="mode-btn">Play Standard</button>
+                        <button className="mode-btn">Play</button>
                     </div>
 
                     <div className="mode-card" onClick={() => setSelectedMode('draft')}>

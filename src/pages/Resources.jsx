@@ -25,9 +25,10 @@ const Resources = () => {
             </p>
 
             <a
-              href="/downloads/all-cards.pdf"
+              href="https://www.dropbox.com/scl/fi/vmmsvg1yrln4ufkqx0u9e/all_cards_set_1.pdf?rlkey=7x8k6boaxt76vz2mq6y0qblf7&st=dpq0bdkq&dl=1"
               className="resource-button cards-button"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="currentColor"/>

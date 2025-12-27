@@ -8,6 +8,11 @@
   text-align: center;
 }
 
+.cards-hero h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+}
+
 .cards-content {
   padding: 3rem 0;
 }

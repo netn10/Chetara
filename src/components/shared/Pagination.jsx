@@ -36,9 +36,7 @@ export default function Pagination({
     const showRightEllipsis = rightSiblingIndex < totalPages - 1;
 
     // Always show first page
-    if (showFirstLast || currentPage > siblingCount + 1) {
-      pageNumbers.push(1);
-    }
+    pageNumbers.push(1);
 
     // Left ellipsis
     if (showLeftEllipsis) {
@@ -57,8 +55,8 @@ export default function Pagination({
       pageNumbers.push('...');
     }
 
-    // Always show last page
-    if (showFirstLast || currentPage < totalPages - siblingCount) {
+    // Always show last page (only if different from first)
+    if (totalPages > 1) {
       pageNumbers.push(totalPages);
     }
 

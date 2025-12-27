@@ -8,6 +8,11 @@
   text-align: center;
 }
 
+.rules-hero h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+}
+
 .rules-content {
   padding: 4rem 0;
 }

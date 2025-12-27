@@ -57,15 +57,14 @@ function Cards() {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-    setHasScrolled(false);
   }, [sortedCards]);
 
-  // Auto-scroll to pagination after first page loads
+  // Auto-scroll to pagination after first page loads (only once on initial load)
   useEffect(() => {
-    if (!loading && sortedCards.length > 0 && !hasScrolled) {
+    if (!loading && cards.length > 0 && !hasScrolled) {
       performAutoScroll();
     }
-  }, [loading, sortedCards, hasScrolled]);
+  }, [loading, cards, hasScrolled]);
 
   /**
    * Fetches cards from the API with localStorage caching
@@ -206,7 +205,6 @@ function Cards() {
    */
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Calculate pagination
