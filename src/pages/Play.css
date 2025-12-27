@@ -624,6 +624,88 @@
   flex-direction: row;
 }
 
+/* Resume Game Modal */
+.resume-prompt h2 {
+  color: var(--color-gold);
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.resume-prompt > p {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.active-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.active-game-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.active-game-item:hover {
+  border-color: var(--color-accent);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.game-icon {
+  font-size: 2rem;
+}
+
+.game-details h4 {
+  color: var(--color-accent);
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.game-id {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.resume-game-btn {
+  padding: 0.75rem 1.5rem;
+  white-space: nowrap;
+}
+
+.resume-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.choose-new-btn {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
 .continue-btn,
 .new-game-btn {
   margin-top: 15px;

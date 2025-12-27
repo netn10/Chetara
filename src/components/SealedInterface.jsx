@@ -17,6 +17,7 @@ function SealedInterface({ onBack }) {
   const [sideboard, setSideboard] = useState([]);
   const [sideboardPage, setSideboardPage] = useState(1);
   const [deckPage, setDeckPage] = useState(1);
+  const [lastSaved, setLastSaved] = useState(null);
   const cardsPerPage = 20;
   const updateInProgressRef = useRef(false);
   const deckInitializedRef = useRef(false);
@@ -172,8 +173,11 @@ function SealedInterface({ onBack }) {
           sideboard: newSideboard.map(c => c._id)
         })
       });
+      setLastSaved(new Date());
+      console.log('💾 Deck saved automatically');
     } catch (err) {
       console.error('Error updating deck:', err);
+      setError('Failed to save deck');
     } finally {
       updateInProgressRef.current = false;
     }
@@ -245,6 +249,59 @@ function SealedInterface({ onBack }) {
     } catch (err) {
       setError('Connection error');
     }
+  };
+
+  const exportDeckAsTxt = () => {
+    // Count cards by name
+    const countCards = (cards) => {
+      const counts = {};
+      cards.forEach(card => {
+        const name = card.name || 'Unknown Card';
+        counts[name] = (counts[name] || 0) + 1;
+      });
+      return counts;
+    };
+
+    const deckCounts = countCards(deck);
+    const sideboardCounts = countCards(sideboard);
+
+    // Format deck list
+    let txtContent = '=== Chess Magic Sealed Deck ===\n\n';
+
+    // Player info
+    const player = sealed?.players?.find(p => p.id === playerId);
+    if (player) {
+      txtContent += `Player: ${player.name}\n`;
+    }
+    txtContent += `Date: ${new Date().toLocaleDateString()}\n`;
+    txtContent += `Format: Sealed (${sealed?.packsPerPlayer || 6} packs)\n\n`;
+
+    // Main deck
+    txtContent += `DECK (${deck.length} cards):\n`;
+    txtContent += '─'.repeat(40) + '\n';
+    Object.entries(deckCounts).sort().forEach(([name, count]) => {
+      txtContent += `${count}x ${name}\n`;
+    });
+
+    // Sideboard
+    txtContent += `\n\nSIDEBOARD (${sideboard.length} cards):\n`;
+    txtContent += '─'.repeat(40) + '\n';
+    Object.entries(sideboardCounts).sort().forEach(([name, count]) => {
+      txtContent += `${count}x ${name}\n`;
+    });
+
+    txtContent += `\n\nTotal Cards: ${deck.length + sideboard.length}\n`;
+
+    // Create download
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `chess-magic-sealed-${player?.name || 'deck'}-${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const renderSetup = () => (
@@ -555,13 +612,25 @@ function SealedInterface({ onBack }) {
         </div>
 
         <div className="sealed-builder-controls">
-          <button
-            className="sealed-complete-btn"
-            onClick={handleCompleteDeck}
-            disabled={deck.length < 40 || player?.deckBuilt}
-          >
-            {player?.deckBuilt ? 'Deck Complete ✓' : 'Complete Deck (Min 40 cards)'}
-          </button>
+          <div className="sealed-deck-status-row">
+            {lastSaved && (
+              <div className="sealed-deck-saved-message">
+                💾 Saved {new Date(lastSaved).toLocaleTimeString()}
+              </div>
+            )}
+          </div>
+          <div className="sealed-action-buttons">
+            <button className="sealed-save-txt-btn" onClick={exportDeckAsTxt}>
+              📄 Save as TXT
+            </button>
+            <button
+              className="sealed-complete-btn"
+              onClick={handleCompleteDeck}
+              disabled={deck.length < 40 || player?.deckBuilt}
+            >
+              {player?.deckBuilt ? 'Deck Complete ✓' : 'Complete Deck (Min 40 cards)'}
+            </button>
+          </div>
           {sealed?.status === 'ready' && (
             <p className="sealed-ready-text">All players ready! Event complete.</p>
           )}

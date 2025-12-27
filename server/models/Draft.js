@@ -7,7 +7,12 @@ const playerSchema = new mongoose.Schema({
   isConnected: { type: Boolean, default: true },
   currentPick: { type: mongoose.Schema.Types.ObjectId, ref: 'Card' },
   pickedCards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }],
-  seatNumber: { type: Number, required: true }
+  deck: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }],
+  sideboard: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card' }],
+  deckBuilt: { type: Boolean, default: false },
+  seatNumber: { type: Number, required: true },
+  pickStartTime: { type: Date, default: null }, // When the current pick started
+  pickDeadline: { type: Date, default: null } // When the pick must be completed
 });
 
 const boosterSchema = new mongoose.Schema({

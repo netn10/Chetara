@@ -11,7 +11,21 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(heroku apps:info:*)",
+      "Bash(heroku apps:list:*)",
+      "Bash(heroku auth:whoami:*)",
+      "Bash(heroku domains:*)",
+      "Bash(heroku info:*)",
+      "Bash(heroku config:*)",
+      "Bash(npm run build:*)",
+      "Bash(heroku logs:*)",
+      "Bash(heroku restart:*)",
+      "Bash(heroku config:set:*)",
+      "Bash(Select-String -Pattern \"MongoDB|connected|error\")",
+      "Bash(Select-Object -Last 10)",
+      "Bash(node:*)"
     ]
   }
 }

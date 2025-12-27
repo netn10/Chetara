@@ -351,10 +351,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
               disabled={!draft || draft.players.length < 2 || isStarting}
             >
               {isStarting ? (
-                <>
-                  <span className="loading-spinner"></span>
-                  Starting Draft...
-                </>
+                <span className="loading-spinner"></span>
               ) : (
                 'Start Draft'
               )}

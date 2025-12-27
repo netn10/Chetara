@@ -7,18 +7,59 @@ import './Play.css';
 function Play() {
     const navigate = useNavigate();
 
-    // Restore state from localStorage on mount
-    const [selectedMode, setSelectedMode] = useState(() => {
-        return localStorage.getItem('play_selectedMode') || null;
-    });
-    const [draftType, setDraftType] = useState(() => {
-        return localStorage.getItem('play_draftType') || null;
-    });
-    const [showDraftLobby, setShowDraftLobby] = useState(() => {
-        return localStorage.getItem('play_showDraftLobby') === 'true';
-    });
+    // Don't restore state from localStorage yet - check for active games first
+    const [selectedMode, setSelectedMode] = useState(null);
+    const [draftType, setDraftType] = useState(null);
+    const [showDraftLobby, setShowDraftLobby] = useState(false);
     const [showContinuePrompt, setShowContinuePrompt] = useState(false);
     const [continueGame, setContinueGame] = useState(true);
+    const [showResumePrompt, setShowResumePrompt] = useState(false);
+    const [activeGames, setActiveGames] = useState({ drafts: [], sealed: null });
+
+    // Check for active drafts and sealed games on mount
+    useEffect(() => {
+        const checkActiveGames = () => {
+            const games = { drafts: [], sealed: null };
+
+            // Check for set draft
+            const setDraftId = localStorage.getItem('lobby_set_draftId');
+            if (setDraftId) {
+                games.drafts.push({ id: setDraftId, type: 'set', label: 'Set Draft' });
+            }
+
+            // Check for cube draft
+            const cubeDraftId = localStorage.getItem('lobby_cube_draftId');
+            if (cubeDraftId) {
+                games.drafts.push({ id: cubeDraftId, type: 'cube', label: 'Cube Draft' });
+            }
+
+            // Check for active draft in progress (from URL navigation)
+            const activeDraftKeys = Object.keys(localStorage).filter(key => key.startsWith('draft_') && key.endsWith('_playerId'));
+            activeDraftKeys.forEach(key => {
+                const draftId = key.split('_')[1];
+                if (draftId && !games.drafts.find(d => d.id === draftId)) {
+                    games.drafts.push({ id: draftId, type: 'unknown', label: 'Draft in Progress' });
+                }
+            });
+
+            // Check for sealed game
+            // Look for sealed IDs in localStorage
+            const sealedKeys = Object.keys(localStorage).filter(key => key.startsWith('sealed_') && key.endsWith('_playerId'));
+            if (sealedKeys.length > 0) {
+                const sealedId = sealedKeys[0].split('_')[1];
+                games.sealed = { id: sealedId, label: 'Sealed Deck' };
+            }
+
+            setActiveGames(games);
+
+            // Show resume prompt if we're at the main menu and have active games
+            if ((games.drafts.length > 0 || games.sealed) && !selectedMode) {
+                setShowResumePrompt(true);
+            }
+        };
+
+        checkActiveGames();
+    }, [selectedMode]);
 
     // Save state to localStorage whenever it changes
     useEffect(() => {
@@ -105,6 +146,26 @@ function Play() {
         localStorage.removeItem('play_showDraftLobby');
     };
 
+    // Handle resuming a game
+    const handleResumeGame = (gameType, gameId) => {
+        setShowResumePrompt(false);
+        if (gameType === 'draft') {
+            navigate(`/draft/${gameId}`);
+        } else if (gameType === 'sealed') {
+            navigate(`/sealed`);
+        }
+    };
+
+    // Handle choosing new mode
+    const handleChooseNewMode = () => {
+        setShowResumePrompt(false);
+        // Clear all saved play state when choosing new mode
+        localStorage.removeItem('play_selectedMode');
+        localStorage.removeItem('play_draftType');
+        localStorage.removeItem('play_showDraftLobby');
+        // Stay on mode selection screen
+    };
+
     // Render draft lobby
     if (showDraftLobby && draftType) {
         return (
@@ -182,6 +243,68 @@ function Play() {
                 <h1>Chess Magic - Play</h1>
                 <p>Choose your game mode and start playing!</p>
             </div>
+
+            {showResumePrompt && (activeGames.drafts.length > 0 || activeGames.sealed) && (
+                <div className="modal-overlay" onClick={() => setShowResumePrompt(false)}>
+                    <div className="modal-content resume-prompt" onClick={(e) => e.stopPropagation()}>
+                        <h2>🎮 Active Games Found</h2>
+                        <p>You have game(s) in progress. Would you like to resume or start something new?</p>
+
+                        <div className="active-games-list">
+                            {activeGames.drafts.map((draft, index) => (
+                                <div key={index} className="active-game-item">
+                                    <div className="game-info">
+                                        <span className="game-icon">📦</span>
+                                        <div className="game-details">
+                                            <h4>{draft.label}</h4>
+                                            <p className="game-id">ID: {draft.id}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="btn btn-primary resume-game-btn"
+                                        onClick={() => handleResumeGame('draft', draft.id)}
+                                    >
+                                        ▶ Resume
+                                    </button>
+                                </div>
+                            ))}
+                            {activeGames.sealed && (
+                                <div className="active-game-item">
+                                    <div className="game-info">
+                                        <span className="game-icon">🎲</span>
+                                        <div className="game-details">
+                                            <h4>{activeGames.sealed.label}</h4>
+                                            <p className="game-id">ID: {activeGames.sealed.id}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="btn btn-primary resume-game-btn"
+                                        onClick={() => handleResumeGame('sealed', activeGames.sealed.id)}
+                                    >
+                                        ▶ Resume
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="resume-actions">
+                            <button
+                                className="btn btn-secondary choose-new-btn"
+                                onClick={handleChooseNewMode}
+                            >
+                                🆕 Choose Another Mode
+                            </button>
+                        </div>
+
+                        <button
+                            className="modal-close"
+                            onClick={() => setShowResumePrompt(false)}
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {showContinuePrompt && (
                 <div className="modal-overlay" onClick={() => setShowContinuePrompt(false)}>
