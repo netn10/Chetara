@@ -179,12 +179,11 @@ app.use((err, req, res, next) => {
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
   console.log('SIGTERM signal received: closing HTTP server');
-  mongoose.connection.close(false, () => {
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
+  await mongoose.connection.close(false);
+  console.log('MongoDB connection closed');
+  process.exit(0);
 });
 
 app.listen(PORT, () => {
