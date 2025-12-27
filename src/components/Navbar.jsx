@@ -44,6 +44,11 @@ function Navbar() {
             </Link>
           </li>
           <li>
+            <Link to="/resources" className={location.pathname === '/resources' ? 'active' : ''}>
+              Resources
+            </Link>
+          </li>
+          <li>
             <Link to="/cards" className={location.pathname === '/cards' ? 'active' : ''}>
               Cards
             </Link>

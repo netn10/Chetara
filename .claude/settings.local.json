@@ -32,7 +32,11 @@
       "Bash(cat:*)",
       "Bash(find:*)",
       "Bash(deploy-heroku.bat)",
-      "Bash(cmd /c deploy-heroku.bat)"
+      "Bash(cmd /c deploy-heroku.bat)",
+      "Bash(ping:*)",
+      "Bash(dir:*)",
+      "Bash(Select-String \"5000\")",
+      "Bash(powershell:*)"
     ]
   }
 }

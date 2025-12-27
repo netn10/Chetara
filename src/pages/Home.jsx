@@ -18,17 +18,24 @@ function Home() {
 
     const fetchCards = async () => {
       try {
+        logger.info('Fetching cards from:', `${API_BASE_URL}/cards`);
         const response = await fetch(`${API_BASE_URL}/cards`, {
           signal: abortController.signal
         });
 
+        logger.info('Response status:', response.status);
+
         if (response.ok && isMounted) {
           const cards = await response.json();
+          logger.info('Fetched cards count:', cards.length);
           setAllCards(cards);
           // Set initial background cards
           if (cards.length > 0) {
             const shuffled = [...cards].sort(() => Math.random() - 0.5);
-            setBackgroundCards(shuffled.slice(0, 18));
+            const bgCards = shuffled.slice(0, 18);
+            logger.info('Setting background cards:', bgCards.length);
+            logger.info('First card imageUrl:', bgCards[0]?.imageUrl);
+            setBackgroundCards(bgCards);
           }
         }
       } catch (error) {

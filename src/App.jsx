@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Rules from './pages/Rules';
+import Resources from './pages/Resources';
 import Cards from './pages/Cards';
 import CardDetail from './pages/CardDetail';
 import Play from './pages/Play';
@@ -53,6 +54,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/rules" element={<Rules />} />
+                  <Route path="/resources" element={<Resources />} />
                   <Route path="/cards" element={<Cards />} />
                   <Route path="/cards/:id" element={<CardDetail />} />
                   <Route path="/play" element={<Play />} />
