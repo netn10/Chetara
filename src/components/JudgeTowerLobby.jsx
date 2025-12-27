@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeTowerLobby.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function JudgeTowerLobby({ onBack, onGameStart }) {
   const [gameId, setGameId] = useState(null);
@@ -34,7 +35,7 @@ function JudgeTowerLobby({ onBack, onGameStart }) {
         }
       }
     } catch (err) {
-      console.error('Error fetching game status:', err);
+      logger.error('Error fetching game status:', err);
     }
   };
 

@@ -2,22 +2,32 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import './DraftInterface.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
+import DraftPackDisplay from './DraftPackDisplay';
+import DraftPlayerInfo from './DraftPlayerInfo';
+import DraftPickedCards from './DraftPickedCards';
 
+/**
+ * DraftInterface Component
+ * Main interface for conducting a Magic: The Gathering style draft
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.draftId - Unique identifier for the draft
+ * @param {Function} props.onExit - Callback function when exiting the draft
+ * @returns {JSX.Element} Rendered draft interface
+ */
 function DraftInterface({ draftId, onExit }) {
+  // Draft state
   const [draft, setDraft] = useState(null);
   const [playerId, setPlayerId] = useState(null);
   const [currentBooster, setCurrentBooster] = useState([]);
   const [pickedCards, setPickedCards] = useState([]);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Start with false to use cache first
+  const [loading, setLoading] = useState(false);
   const [isPicking, setIsPicking] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [picksThisRound, setPicksThisRound] = useState(0);
   const [lastBoosterLength, setLastBoosterLength] = useState(0);
-  const currentBoosterRef = useRef([]);
-  const skipNextUpdateRef = useRef(false);
-  const abortControllerRef = useRef(null);
-  const draftRef = useRef(null);
 
   // Deck builder state
   const [deck, setDeck] = useState([]);
@@ -27,6 +37,35 @@ function DraftInterface({ draftId, onExit }) {
   const [lastSaved, setLastSaved] = useState(null);
   const cardsPerPage = 20;
 
+  // Refs for non-reactive values to optimize performance
+  const currentBoosterRef = useRef([]);
+  const skipNextUpdateRef = useRef(false);
+  const abortControllerRef = useRef(null);
+  const draftRef = useRef(null);
+  const isPickingRef = useRef(false);
+  const draftStatusRef = useRef(null);
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    currentBoosterRef.current = currentBooster;
+  }, [currentBooster]);
+
+  useEffect(() => {
+    draftRef.current = draft;
+  }, [draft]);
+
+  useEffect(() => {
+    isPickingRef.current = isPicking;
+  }, [isPicking]);
+
+  useEffect(() => {
+    draftStatusRef.current = draft?.status;
+  }, [draft?.status]);
+
+  /**
+   * Initial setup and polling effect
+   * Only recreates interval when draftId changes to fix performance issues
+   */
   useEffect(() => {
     // Get player ID from localStorage or draft data
     const storedPlayerId = localStorage.getItem(`draft_${draftId}_playerId`);
@@ -36,28 +75,32 @@ function DraftInterface({ draftId, onExit }) {
 
     fetchDraftStatus();
 
-    // Adaptive polling based on draft state for better performance
+    /**
+     * Get adaptive polling interval based on draft state
+     * Uses refs to avoid recreating interval on every state change
+     * @returns {number} Polling interval in milliseconds
+     */
     const getPollingInterval = () => {
       // Fast polling when player has cards to pick
-      if (currentBooster.length > 0 && !isPicking) return 200;
-      // Medium polling when waiting for bots
-      if (draft && draft.status === 'active') return 500;
+      if (currentBoosterRef.current.length > 0 && !isPickingRef.current) return 200;
+      // Medium polling when draft is active
+      if (draftStatusRef.current === 'active') return 500;
       // Slow polling for other states
       return 1000;
     };
 
     const interval = setInterval(() => {
       // Poll only when not actively picking
-      if (!isPicking) {
+      if (!isPickingRef.current) {
         fetchDraftStatus();
       }
     }, getPollingInterval());
 
     return () => clearInterval(interval);
-  }, [draftId, isPicking, currentBooster.length, draft?.status]);
+  }, [draftId]); // Only recreate when draftId changes
 
   useEffect(() => {
-    console.log('⚡ [useEffect] Triggered', {
+    logger.debug('⚡ [useEffect] Triggered', {
       hasDraft: !!draft,
       hasPlayerId: !!playerId,
       isPicking,
@@ -67,62 +110,70 @@ function DraftInterface({ draftId, onExit }) {
 
     // Skip if we just manually updated (prevents duplicate update from causing flicker)
     if (skipNextUpdateRef.current) {
-      console.log('⏭️ [useEffect] SKIPPED - manual update flag set');
+      logger.debug('⏭️ [useEffect] SKIPPED - manual update flag set');
       skipNextUpdateRef.current = false;
       return;
     }
     // Skip auto-update during picks to prevent flicker (handleCardPick updates manually)
     if (draft && playerId && !isPicking) {
-      console.log('✅ [useEffect] Calling updatePlayerView');
+      logger.debug('✅ [useEffect] Calling updatePlayerView');
       updatePlayerView();
     } else {
-      console.log('⏭️ [useEffect] SKIPPED - isPicking or missing data');
+      logger.debug('⏭️ [useEffect] SKIPPED - isPicking or missing data');
     }
   }, [draft, playerId, isPicking]);
 
-  // Keep ref in sync with current booster
+  /**
+   * Log currentBooster changes for debugging
+   */
   useEffect(() => {
-    console.log('🎴 [currentBooster CHANGED]', {
+    logger.debug('🎴 [currentBooster CHANGED]', {
       length: currentBooster.length,
       cardNames: currentBooster.map(c => c.name).slice(0, 5).join(', ') || 'EMPTY',
       isPicking
     });
-    currentBoosterRef.current = currentBooster;
-  }, [currentBooster]);
+  }, [currentBooster, isPicking]);
 
-  // Calculate time limit based on picks made this round (memoized)
+  /**
+   * Calculate time limit based on picks made this round
+   * @param {number} pickCount - Number of picks made in current round
+   * @returns {number} Time limit in seconds
+   */
   const getTimeLimit = useMemo(() => (pickCount) => {
     if (pickCount < 5) return 60; // First 5 picks: 60 seconds
     if (pickCount < 10) return 30; // Picks 6-10: 30 seconds
     return 15; // Picks 11-15: 15 seconds
   }, []);
 
-  // Memoize current player data for performance
+  /**
+   * Memoize current player data for performance
+   */
   const currentPlayer = useMemo(() => {
     if (!draft || !playerId) return null;
     return draft.players.find(p => p.id === playerId);
   }, [draft, playerId]);
 
-  // Memoize player index for booster calculations
+  /**
+   * Memoize player index for booster calculations
+   */
   const playerIndex = useMemo(() => {
     if (!draft || !playerId) return -1;
     return draft.players.findIndex(p => p.id === playerId);
   }, [draft, playerId]);
 
-  // Auto-pick when timer hits 0
+  /**
+   * Auto-pick when timer hits 0
+   */
   useEffect(() => {
     if (timeRemaining === 0 && currentBooster.length > 0 && !isPicking) {
       const randomCard = currentBooster[Math.floor(Math.random() * currentBooster.length)];
       handleCardPick(randomCard._id);
     }
-  }, [timeRemaining]);
+  }, [timeRemaining, currentBooster, isPicking]);
 
-  // Keep draftRef in sync with draft state
-  useEffect(() => {
-    draftRef.current = draft;
-  }, [draft]);
-
-  // Timer countdown effect - always calculate from server's pickDeadline in real-time
+  /**
+   * Timer countdown effect - calculates from server's pickDeadline in real-time
+   */
   useEffect(() => {
     if (!playerId || isPicking) {
       return;
@@ -149,7 +200,9 @@ function DraftInterface({ draftId, onExit }) {
     return () => clearInterval(timer);
   }, [playerId, isPicking]);
 
-  // Start timer when new pack arrives (only when length actually changes)
+  /**
+   * Start timer when new pack arrives
+   */
   useEffect(() => {
     if (currentBooster.length > 0 && !isPicking && currentBooster.length !== lastBoosterLength) {
       // Calculate time remaining from server's pickDeadline if it exists
@@ -178,7 +231,9 @@ function DraftInterface({ draftId, onExit }) {
     }
   }, [currentBooster.length, isPicking, lastBoosterLength, picksThisRound, draft, playerId]);
 
-  // Track picks per round
+  /**
+   * Track picks per round
+   */
   useEffect(() => {
     if (draft && playerId) {
       const player = draft.players.find(p => p.id === playerId);
@@ -191,16 +246,26 @@ function DraftInterface({ draftId, onExit }) {
     }
   }, [draft, playerId]);
 
-  // Initialize deck builder when draft completes
+  /**
+   * Initialize deck builder when draft completes
+   */
   useEffect(() => {
-    if (draft && draft.status === 'completed' && pickedCards.length > 0 && sideboard.length === 0 && deck.length === 0) {
-      console.log('🏁 Draft completed, initializing deck builder');
+    const isDraftCompleted = draft && draft.status === 'completed';
+    const hasPickedCards = pickedCards.length > 0;
+    const isBuilderEmpty = sideboard.length === 0 && deck.length === 0;
+
+    if (isDraftCompleted && hasPickedCards && isBuilderEmpty) {
+      logger.debug('🏁 Draft completed, initializing deck builder');
       setSideboard([...pickedCards]);
     }
   }, [draft, pickedCards, sideboard.length, deck.length]);
 
+  /**
+   * Fetches the current draft status from the server
+   * Uses caching to minimize network requests and improve performance
+   */
   const fetchDraftStatus = async () => {
-    console.log('🔄 [POLL] Fetching draft status');
+    logger.debug('🔄 [POLL] Fetching draft status');
 
     // Try to load from cache first for instant display
     const cachedDraft = localStorage.getItem(`draft_${draftId}_data`);
@@ -212,21 +277,21 @@ function DraftInterface({ draftId, onExit }) {
     if (cachedDraft && cacheAge < CACHE_DURATION && !draft) {
       try {
         const parsedCache = JSON.parse(cachedDraft);
-        console.log('⚡ [CACHE] Using cached draft data');
+        logger.debug('⚡ [CACHE] Using cached draft data');
         setDraft(parsedCache);
         setLoading(false);
       } catch (e) {
-        console.error('Error parsing cached draft:', e);
+        logger.error('Error parsing cached draft:', e);
       }
     } else if (cachedDraft && !draft) {
       // Cache exists but is stale, still show it while fetching fresh data
       try {
         const parsedCache = JSON.parse(cachedDraft);
-        console.log('⚡ [CACHE] Using stale cached draft data');
+        logger.debug('⚡ [CACHE] Using stale cached draft data');
         setDraft(parsedCache);
         setLoading(false);
       } catch (e) {
-        console.error('Error parsing cached draft:', e);
+        logger.error('Error parsing cached draft:', e);
         setLoading(true);
       }
     } else if (!draft && !cachedDraft) {
@@ -236,7 +301,7 @@ function DraftInterface({ draftId, onExit }) {
 
     // Cancel previous fetch if still running (but not during initial load)
     if (abortControllerRef.current && !loading) {
-      console.log('🚫 [POLL] Cancelling previous fetch');
+      logger.debug('🚫 [POLL] Cancelling previous fetch');
       abortControllerRef.current.abort();
     }
 
@@ -249,11 +314,11 @@ function DraftInterface({ draftId, onExit }) {
         signal: controller.signal
       });
 
-      console.log('📡 [POLL] Response received, status:', response.status);
+      logger.debug('📡 [POLL] Response received, status:', response.status);
 
       if (response.ok) {
         const data = await response.json();
-        console.log('📥 [POLL] Draft data received', {
+        logger.debug('📥 [POLL] Draft data received', {
           status: data.status,
           currentRound: data.currentRound,
           boostersCount: data.boosters?.length || 0
@@ -268,18 +333,18 @@ function DraftInterface({ draftId, onExit }) {
 
         // If draft is completed, could show final deck
         if (data.status === 'completed') {
-          console.log('🏁 [POLL] Draft completed');
+          logger.debug('🏁 [POLL] Draft completed');
           // Handle completion
         }
       } else {
-        console.error('❌ [POLL] Bad response:', response.status);
+        logger.error('❌ [POLL] Bad response:', response.status);
         setLoading(false);
       }
     } catch (err) {
       if (err.name === 'AbortError') {
-        console.log('🚫 [POLL] Fetch cancelled');
+        logger.debug('🚫 [POLL] Fetch cancelled');
       } else {
-        console.error('❌ [POLL] Error fetching draft:', err);
+        logger.error('❌ [POLL] Error fetching draft:', err);
         // Only show error if we don't have cached data
         if (!cachedDraft) {
           setError('Connection error');
@@ -289,8 +354,11 @@ function DraftInterface({ draftId, onExit }) {
     }
   };
 
+  /**
+   * Updates the player's view with their current booster and picked cards
+   */
   const updatePlayerView = () => {
-    console.log('🔄 [updatePlayerView] Called', {
+    logger.debug('🔄 [updatePlayerView] Called', {
       hasDraft: !!draft,
       hasPlayerId: !!playerId,
       isPicking,
@@ -321,7 +389,7 @@ function DraftInterface({ draftId, onExit }) {
     const playerIndex = draft.players.findIndex(p => p.id === playerId);
     const booster = findPlayerBooster(draft, playerIndex);
 
-    console.log('📦 [updatePlayerView] Booster found:', {
+    logger.debug('📦 [updatePlayerView] Booster found:', {
       playerIndex,
       boosterCards: booster ? booster.cards.length : 0,
       cardNames: booster ? booster.cards.map(c => c.name).join(', ') : 'none',
@@ -329,26 +397,32 @@ function DraftInterface({ draftId, onExit }) {
     });
 
     if (booster) {
-      console.log('✅ [updatePlayerView] Setting booster with', booster.cards.length, 'cards');
+      logger.debug('✅ [updatePlayerView] Setting booster with', booster.cards.length, 'cards');
       setCurrentBooster(booster.cards || []);
     } else if (!isPicking) {
-      console.log('⚠️ [updatePlayerView] No booster found, clearing');
+      logger.debug('⚠️ [updatePlayerView] No booster found, clearing');
       // Only clear booster if we're not currently picking (prevents flicker)
       setCurrentBooster([]);
     }
   };
 
-  const findPlayerBooster = (draft, playerIndex) => {
-    const totalPlayers = draft.players.length;
-    const direction = draft.direction === 'left' ? 1 : -1;
+  /**
+   * Finds the booster that belongs to the specified player
+   * @param {Object} draftData - Draft object
+   * @param {number} playerIdx - Index of the player
+   * @returns {Object|null} Booster object or null if not found
+   */
+  const findPlayerBooster = (draftData, playerIdx) => {
+    const totalPlayers = draftData.players.length;
+    const direction = draftData.direction === 'left' ? 1 : -1;
 
-    for (let i = 0; i < draft.boosters.length; i++) {
-      const booster = draft.boosters[i];
-      const boosterOwner = (i + draft.currentRound - 1) % totalPlayers;
+    for (let i = 0; i < draftData.boosters.length; i++) {
+      const booster = draftData.boosters[i];
+      const boosterOwner = (i + draftData.currentRound - 1) % totalPlayers;
       // Use proper modulo to handle negative numbers
       const currentPosition = ((boosterOwner + direction * (booster.currentPlayerIndex || 0)) % totalPlayers + totalPlayers) % totalPlayers;
 
-      if (currentPosition === playerIndex) {
+      if (currentPosition === playerIdx) {
         return booster;
       }
     }
@@ -356,34 +430,38 @@ function DraftInterface({ draftId, onExit }) {
     return null;
   };
 
+  /**
+   * Handles card selection during draft
+   * @param {string} cardId - ID of the card to pick
+   */
   const handleCardPick = async (cardId) => {
     const pickedCardName = currentBooster.find(c => c._id === cardId)?.name;
-    console.log('👆 [PICK START]', pickedCardName, {
+    logger.debug('👆 [PICK START]', pickedCardName, {
       cardId,
       currentBoosterLength: currentBooster.length,
       isPicking
     });
 
     if (!playerId || !cardId || isPicking) {
-      console.log('❌ [PICK BLOCKED] Already picking or invalid');
+      logger.debug('❌ [PICK BLOCKED] Already picking or invalid');
       return;
     }
 
     // Cancel any in-flight polling to prevent stale data from overwriting
     if (abortControllerRef.current) {
-      console.log('🚫 [PICK] Cancelling in-flight polls');
+      logger.debug('🚫 [PICK] Cancelling in-flight polls');
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
 
     // Immediately hide booster (via isPicking) to prevent clicks on old cards
-    console.log('🚫 [PICK] Setting isPicking=true, hiding booster');
+    logger.debug('🚫 [PICK] Setting isPicking=true, hiding booster');
     flushSync(() => {
       setIsPicking(true);
       setError('');
       setTimeRemaining(null);
     });
-    console.log('✅ [PICK] Booster hidden, sending request');
+    logger.debug('✅ [PICK] Booster hidden, sending request');
 
     try {
       const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/pick`, {
@@ -392,7 +470,7 @@ function DraftInterface({ draftId, onExit }) {
         body: JSON.stringify({ playerId, cardId })
       });
 
-      console.log('📨 [PICK] Server response received');
+      logger.debug('📨 [PICK] Server response received');
 
       if (response.ok) {
         const data = await response.json();
@@ -402,7 +480,7 @@ function DraftInterface({ draftId, onExit }) {
           const playerIndex = data.players.findIndex(p => p.id === playerId);
           const booster = findPlayerBooster(data, playerIndex);
 
-          console.log('📦 [PICK] New booster found:', {
+          logger.debug('📦 [PICK] New booster found:', {
             newBoosterCards: booster ? booster.cards.length : 0,
             newCardNames: booster ? booster.cards.map(c => c.name).slice(0, 5).join(', ') : 'none',
             totalPicked: player.pickedCards.length
@@ -411,7 +489,7 @@ function DraftInterface({ draftId, onExit }) {
           // Skip the next useEffect update to prevent duplicate render
           skipNextUpdateRef.current = true;
 
-          console.log('🔄 [PICK] Updating states with flushSync');
+          logger.debug('🔄 [PICK] Updating states with flushSync');
           // Force synchronous update to show new booster immediately
           flushSync(() => {
             setPickedCards(player.pickedCards || []);
@@ -419,30 +497,26 @@ function DraftInterface({ draftId, onExit }) {
             setDraft(data);
             setIsPicking(false);
           });
-          console.log('✅ [PICK COMPLETE] New booster set, isPicking=false');
+          logger.debug('✅ [PICK COMPLETE] New booster set, isPicking=false');
         }
       } else {
         const data = await response.json();
-        console.error('❌ [PICK ERROR]', data.message);
+        logger.error('❌ [PICK ERROR]', data.message);
         setError(data.message || 'Failed to pick card');
         setIsPicking(false);
       }
     } catch (err) {
-      console.error('❌ [PICK EXCEPTION]', err);
+      logger.error('❌ [PICK EXCEPTION]', err);
       setError('Connection error');
       setIsPicking(false);
     }
   };
 
-  const autoPickCard = () => {
-    if (currentBooster.length === 0 || isPicking) return;
-
-    // Pick a random card from the current booster
-    const randomCard = currentBooster[Math.floor(Math.random() * currentBooster.length)];
-    handleCardPick(randomCard._id);
-  };
-
-  // Deck builder functions
+  /**
+   * Groups cards by name for deck builder display
+   * @param {Array} cards - Array of card objects
+   * @returns {Array} Array of card groups
+   */
   const groupCardsByName = (cards) => {
     const groups = {};
     cards.forEach((card, index) => {
@@ -455,6 +529,11 @@ function DraftInterface({ draftId, onExit }) {
     return Object.values(groups);
   };
 
+  /**
+   * Updates deck configuration on the server
+   * @param {Array} newDeck - Updated deck array
+   * @param {Array} newSideboard - Updated sideboard array
+   */
   const updateDeck = async (newDeck, newSideboard) => {
     try {
       await fetch(`${API_BASE_URL}/drafts/${draftId}/update-deck`, {
@@ -467,13 +546,17 @@ function DraftInterface({ draftId, onExit }) {
         })
       });
       setLastSaved(new Date());
-      console.log('💾 Deck saved automatically');
+      logger.debug('💾 Deck saved automatically');
     } catch (err) {
-      console.error('Error saving deck:', err);
+      logger.error('Error saving deck:', err);
       setError('Failed to save deck');
     }
   };
 
+  /**
+   * Moves a card from sideboard to deck
+   * @param {number} cardIndex - Index of card in sideboard
+   */
   const moveToDeck = (cardIndex) => {
     if (cardIndex < 0 || cardIndex >= sideboard.length) return;
 
@@ -489,6 +572,10 @@ function DraftInterface({ draftId, onExit }) {
     updateDeck(newDeck, newSideboard);
   };
 
+  /**
+   * Moves a card from deck to sideboard
+   * @param {number} cardIndex - Index of card in deck
+   */
   const moveToSideboard = (cardIndex) => {
     if (cardIndex < 0 || cardIndex >= deck.length) return;
 
@@ -504,8 +591,10 @@ function DraftInterface({ draftId, onExit }) {
     updateDeck(newDeck, newSideboard);
   };
 
+  /**
+   * Exports the deck as a text file
+   */
   const exportDeckAsTxt = () => {
-    // Count cards by name
     const countCards = (cards) => {
       const counts = {};
       cards.forEach(card => {
@@ -557,13 +646,16 @@ function DraftInterface({ draftId, onExit }) {
     URL.revokeObjectURL(url);
   };
 
+  /**
+   * Debug function to pick 45 cards instantly (development only)
+   */
   const handleDebugPick45 = async () => {
     if (!playerId || isPicking) return;
 
     const confirmed = window.confirm('DEBUG: Pick 45 random cards and complete draft?');
     if (!confirmed) return;
 
-    console.log('🔧 [DEBUG] Picking 45 cards instantly');
+    logger.debug('🔧 [DEBUG] Picking 45 cards instantly');
     setIsPicking(true);
     setError('');
 
@@ -576,7 +668,7 @@ function DraftInterface({ draftId, onExit }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('✅ [DEBUG] Got 45 cards, draft completed');
+        logger.debug('✅ [DEBUG] Got 45 cards, draft completed');
 
         // Update draft state
         setDraft(data);
@@ -585,35 +677,18 @@ function DraftInterface({ draftId, onExit }) {
         setIsPicking(false);
       } else {
         const data = await response.json();
-        console.error('❌ [DEBUG ERROR]', data.message);
+        logger.error('❌ [DEBUG ERROR]', data.message);
         setError(data.message || 'Debug pick failed');
         setIsPicking(false);
       }
     } catch (err) {
-      console.error('❌ [DEBUG EXCEPTION]', err);
+      logger.error('❌ [DEBUG EXCEPTION]', err);
       setError('Connection error');
       setIsPicking(false);
     }
   };
 
-  const renderManaCost = (manaCost) => {
-    if (!manaCost) return null;
-
-    const symbols = manaCost.match(/\{[^}]+\}/g) || [];
-    return (
-      <div className="mana-cost">
-        {symbols.map((symbol, index) => {
-          const cleaned = symbol.replace(/[{}]/g, '');
-          return (
-            <span key={index} className={`mana-symbol mana-${cleaned.toLowerCase()}`}>
-              {cleaned}
-            </span>
-          );
-        })}
-      </div>
-    );
-  };
-
+  // Loading state
   if (loading) {
     return (
       <div className="draft-interface loading-screen">
@@ -623,6 +698,7 @@ function DraftInterface({ draftId, onExit }) {
     );
   }
 
+  // Draft not found
   if (!draft) {
     return (
       <div className="draft-interface error-screen">

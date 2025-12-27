@@ -22,7 +22,10 @@
   min-height: 80vh;
   padding: 40px;
 }
-
+.linked-card-sidebar-wrapper {
+  grid-area: linked;
+  align-self: start;
+}
 .start-screen-content {
   text-align: center;
   max-width: 600px;
@@ -1313,10 +1316,6 @@
   .linked-card-sidebar,
   .cards-area {
     padding: 15px;
-  }
-
-  .linked-card-sidebar {
-    top: 140px;
   }
 
   .linked-card-sidebar h3,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CardSearch.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function CardSearch({ onCardSelect, selectedCard }) {
   const [cards, setCards] = useState([]);
@@ -36,7 +37,7 @@ function CardSearch({ onCardSelect, selectedCard }) {
         setLoading(false);
         // Still fetch fresh data in background to keep cache updated
       } catch (e) {
-        console.error('Error parsing cached cards:', e);
+        logger.error('Error parsing cached cards:', e);
       }
     } else if (cachedCards) {
       // Cache exists but is stale, still show it while fetching fresh data
@@ -46,7 +47,7 @@ function CardSearch({ onCardSelect, selectedCard }) {
         setFilteredCards(parsedCache);
         setLoading(false);
       } catch (e) {
-        console.error('Error parsing cached cards:', e);
+        logger.error('Error parsing cached cards:', e);
         setLoading(true);
       }
     } else {

@@ -64,7 +64,12 @@ const cardSchema = new mongoose.Schema({
   }
 });
 
-// Add index on rarity for faster booster generation queries
-cardSchema.index({ rarity: 1 });
+// Indexes for faster queries
+cardSchema.index({ rarity: 1 }); // For booster generation
+cardSchema.index({ chessPiece: 1 }); // For chess piece filtering
+cardSchema.index({ chessPiece: 1, rarity: 1 }); // Compound index for chess+rarity queries
+cardSchema.index({ name: 'text' }); // Text search on card names
+cardSchema.index({ colors: 1 }); // For color filtering
+cardSchema.index({ type: 1 }); // For type filtering
 
 export default mongoose.model('Card', cardSchema);

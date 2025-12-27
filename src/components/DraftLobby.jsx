@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './DraftLobby.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function DraftLobby({ draftType, onBack, onDraftStart }) {
   // Restore state from localStorage
@@ -64,7 +65,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
         }
       }
     } catch (err) {
-      console.error('Error fetching draft status:', err);
+      logger.error('Error fetching draft status:', err);
     }
   };
 
@@ -162,7 +163,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
         setError(data.message || 'Failed to add bots');
       }
     } catch (err) {
-      console.error('Error adding bots:', err);
+      logger.error('Error adding bots:', err);
       setError('Connection error');
     }
   };

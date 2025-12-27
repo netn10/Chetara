@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function Home() {
   const [boosterOpening, setBoosterOpening] = useState(false);
@@ -32,7 +33,7 @@ function Home() {
         }
       } catch (error) {
         if (error.name !== 'AbortError') {
-          console.error('Error fetching cards:', error);
+          logger.error('Error fetching cards:', error);
         }
       }
     };
@@ -79,7 +80,7 @@ function Home() {
         }, index * 150);
       });
     } catch (error) {
-      console.error('Error fetching cards:', error);
+      logger.error('Error fetching cards:', error);
     }
   };
 

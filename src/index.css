@@ -1,3 +1,6 @@
+/* Import design tokens from central design system */
+@import './styles/design-tokens.css';
+
 :root {
   --color-white: #F0E6D2;
   --color-blue: #2B5F9E;

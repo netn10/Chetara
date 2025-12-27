@@ -1,39 +1,59 @@
 import express from 'express';
 import Card from '../models/Card.js';
+import { authMiddleware, isAdmin } from '../middleware/auth.js';
+import { cardValidationRules, idValidationRules, searchValidationRules, validate } from '../middleware/validation.js';
+import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
+import logger from '../utils/logger.js';
 
 const router = express.Router();
 
-// Get all cards
-router.get('/', async (req, res) => {
+/**
+ * @route GET /api/cards
+ * @desc Get all cards with optional filters
+ * @access Public
+ * @query {string} [color] - Filter by card color
+ * @query {string} [rarity] - Filter by card rarity
+ * @query {string} [chessPiece] - Filter by chess piece type
+ * @query {string} [search] - Search cards by name
+ * @returns {Array} Array of card objects
+ */
+router.get('/', searchValidationRules, validate, asyncHandler(async (req, res) => {
+  const { color, rarity, chessPiece, search } = req.query;
+  let query = {};
+
+  // Build query filters
+  if (color) {
+    query.colors = color;
+  }
+  if (rarity) {
+    query.rarity = rarity;
+  }
+  if (chessPiece && chessPiece !== 'all') {
+    query.chessPiece = chessPiece;
+  }
+  if (search) {
+    query.name = { $regex: search, $options: 'i' };
+  }
+
+  logger.debug('Fetching cards with query:', query);
+
   try {
-    const { color, rarity, chessPiece, search } = req.query;
-    let query = {};
-
-    if (color) {
-      query.colors = color;
-    }
-    if (rarity) {
-      query.rarity = rarity;
-    }
-    if (chessPiece && chessPiece !== 'all') {
-      query.chessPiece = chessPiece;
-    }
-    if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { text: { $regex: search, $options: 'i' } }
-      ];
-    }
-
-    const cards = await Card.find(query).sort({ name: 1 });
+    const cards = await Card.find(query).sort({ name: 1 }).limit(1000);
+    logger.info(`Fetched ${cards.length} cards`);
     res.json(cards);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    logger.error('Error fetching cards:', error);
+    throw Errors.cardsFetchError();
   }
-});
+}));
 
-// Get random chess card (must be before /:id to avoid route conflict)
-router.get('/random/chess', async (req, res) => {
+/**
+ * @route GET /api/cards/random/chess
+ * @desc Get a random card with a chess piece designation
+ * @access Public
+ * @returns {object} Random chess card object
+ */
+router.get('/random/chess', asyncHandler(async (req, res) => {
   try {
     // Get a random card that has a chessPiece designation (not 'none')
     const cards = await Card.aggregate([
@@ -42,77 +62,164 @@ router.get('/random/chess', async (req, res) => {
     ]);
 
     if (cards.length === 0) {
-      return res.status(404).json({ message: 'No chess cards found' });
+      logger.warn('No chess cards found in database');
+      throw Errors.resourceNotFound('Chess card');
     }
 
+    logger.debug(`Random chess card selected: ${cards[0].name}`);
     res.json(cards[0]);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error.isOperational) throw error;
+    logger.error('Error fetching random chess card:', error);
+    throw Errors.cardsFetchError();
   }
-});
+}));
 
-// Get single card
-router.get('/:id', async (req, res) => {
+/**
+ * @route GET /api/cards/:id
+ * @desc Get a single card by ID
+ * @access Public
+ * @param {string} id - Card ID
+ * @returns {object} Card object
+ */
+router.get('/:id', idValidationRules, validate, asyncHandler(async (req, res) => {
   try {
     const card = await Card.findById(req.params.id);
+
     if (!card) {
-      return res.status(404).json({ message: 'Card not found' });
+      logger.warn(`Card not found: ${req.params.id}`);
+      throw Errors.cardNotFound();
     }
+
+    logger.debug(`Card fetched: ${card.name}`);
     res.json(card);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error.isOperational) throw error;
+    logger.error('Error fetching card:', error);
+    throw processDbError(error, 'card');
   }
-});
+}));
 
-// Create card
-router.post('/', async (req, res) => {
-  const card = new Card(req.body);
+/**
+ * @route POST /api/cards
+ * @desc Create a new card
+ * @access Private (Admin only)
+ * @body {object} Card data (validated by cardValidationRules)
+ * @returns {object} Created card object
+ */
+router.post('/', authMiddleware, isAdmin, cardValidationRules, validate, asyncHandler(async (req, res) => {
   try {
+    const card = new Card(req.body);
     const newCard = await card.save();
+
+    logger.info(`Card created: ${newCard.name} (${newCard._id})`);
     res.status(201).json(newCard);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    logger.error('Error creating card:', error);
+    throw processDbError(error, 'card');
   }
-});
+}));
 
-// Update card
-router.put('/:id', async (req, res) => {
+/**
+ * @route PUT /api/cards/:id
+ * @desc Update an existing card
+ * @access Private (Admin only)
+ * @param {string} id - Card ID
+ * @body {object} Updated card data (validated by cardValidationRules)
+ * @returns {object} Updated card object
+ */
+router.put('/:id', authMiddleware, isAdmin, idValidationRules, cardValidationRules, validate, asyncHandler(async (req, res) => {
   try {
     const card = await Card.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true }
     );
+
     if (!card) {
-      return res.status(404).json({ message: 'Card not found' });
+      logger.warn(`Card not found for update: ${req.params.id}`);
+      throw Errors.cardNotFound();
     }
+
+    logger.info(`Card updated: ${card.name} (${card._id})`);
     res.json(card);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.isOperational) throw error;
+    logger.error('Error updating card:', error);
+    throw processDbError(error, 'card');
   }
-});
+}));
 
-// Delete card
-router.delete('/:id', async (req, res) => {
+/**
+ * @route DELETE /api/cards/:id
+ * @desc Delete a card
+ * @access Private (Admin only)
+ * @param {string} id - Card ID
+ * @returns {object} Success message
+ */
+router.delete('/:id', authMiddleware, isAdmin, idValidationRules, validate, asyncHandler(async (req, res) => {
   try {
     const card = await Card.findByIdAndDelete(req.params.id);
-    if (!card) {
-      return res.status(404).json({ message: 'Card not found' });
-    }
-    res.json({ message: 'Card deleted' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
-// Bulk create cards (for initial setup)
-router.post('/bulk', async (req, res) => {
-  try {
-    const cards = await Card.insertMany(req.body.cards);
-    res.status(201).json(cards);
+    if (!card) {
+      logger.warn(`Card not found for deletion: ${req.params.id}`);
+      throw Errors.cardNotFound();
+    }
+
+    logger.info(`Card deleted: ${card.name} (${card._id})`);
+    res.json({ message: 'Card deleted successfully' });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.isOperational) throw error;
+    logger.error('Error deleting card:', error);
+    throw Errors.cardsDeleteError();
   }
-});
+}));
+
+/**
+ * @route POST /api/cards/bulk
+ * @desc Create multiple cards at once
+ * @access Private (Admin only)
+ * @body {Array} cards - Array of card objects (max 100)
+ * @returns {object} Created cards and count
+ */
+router.post('/bulk', authMiddleware, isAdmin, asyncHandler(async (req, res) => {
+  if (!req.body.cards || !Array.isArray(req.body.cards)) {
+    throw Errors.missingField('cards array');
+  }
+
+  if (req.body.cards.length > 100) {
+    throw Errors.invalidAction('bulk create more than 100 cards');
+  }
+
+  try {
+    const cards = await Card.insertMany(req.body.cards, { ordered: false });
+
+    logger.info(`Bulk card creation: ${cards.length} cards created`);
+
+    res.status(201).json({
+      message: `Successfully created ${cards.length} cards`,
+      cards
+    });
+  } catch (error) {
+    // Handle partial success in bulk operations
+    if (error.code === 11000) {
+      const insertedCount = error.insertedDocs?.length || 0;
+      logger.warn(`Bulk card creation partial success: ${insertedCount} cards created, some duplicates skipped`);
+
+      if (insertedCount > 0) {
+        return res.status(201).json({
+          message: 'Some cards already exist. Duplicates were skipped.',
+          insertedCount,
+          cards: error.insertedDocs
+        });
+      }
+
+      throw processDbError(error, 'card');
+    }
+
+    logger.error('Error creating cards in bulk:', error);
+    throw Errors.cardsCreateError();
+  }
+}));
 
 export default router;

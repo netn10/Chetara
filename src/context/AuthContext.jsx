@@ -1,46 +1,66 @@
+/**
+ * Authentication context provider for managing user authentication state
+ * @module AuthContext
+ */
+
 import { createContext, useContext, useState, useEffect } from 'react';
 import API_BASE_URL from '../config/api';
 
 const AuthContext = createContext(null);
 
+/**
+ * Authentication provider component
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Child components
+ */
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session on mount
-    const sessionId = localStorage.getItem('sessionId');
-    if (sessionId) {
-      verifySession(sessionId);
+    // Check for existing token on mount
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      verifyToken(token);
     } else {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, []);
 
-  const verifySession = async (sessionId) => {
+  /**
+   * Verifies the authentication token with the server
+   * @param {string} token - JWT token to verify
+   */
+  const verifyToken = async (token) => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sessionId })
+        body: JSON.stringify({ token })
       });
 
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
       } else {
-        localStorage.removeItem('sessionId');
+        // Token is invalid or expired
+        localStorage.removeItem('authToken');
       }
     } catch (error) {
-      console.error('Session verification error:', error);
-      localStorage.removeItem('sessionId');
+      localStorage.removeItem('authToken');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
+  /**
+   * Logs in a user with username and password
+   * @param {string} username - User's username
+   * @param {string} password - User's password
+   * @throws {Error} If login fails
+   */
   const login = async (username, password) => {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
@@ -56,36 +76,49 @@ export function AuthProvider({ children }) {
     }
 
     const data = await response.json();
-    localStorage.setItem('sessionId', data.sessionId);
+    localStorage.setItem('authToken', data.token);
     setUser(data.user);
   };
 
+  /**
+   * Logs out the current user
+   */
   const logout = async () => {
-    const sessionId = localStorage.getItem('sessionId');
+    const token = localStorage.getItem('authToken');
 
-    if (sessionId) {
+    if (token) {
       try {
         await fetch(`${API_BASE_URL}/auth/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ sessionId })
+            'Authorization': `Bearer ${token}`
+          }
         });
       } catch (error) {
-        console.error('Logout error:', error);
+        // Ignore logout errors
       }
     }
 
-    localStorage.removeItem('sessionId');
+    localStorage.removeItem('authToken');
     setUser(null);
+  };
+
+  /**
+   * Gets authorization header for API requests
+   * @returns {Object} Headers object with Authorization if token exists
+   */
+  const getAuthHeader = () => {
+    const token = localStorage.getItem('authToken');
+    return token ? { 'Authorization': `Bearer ${token}` } : {};
   };
 
   const value = {
     user,
-    loading,
+    isLoading,
     login,
     logout,
+    getAuthHeader,
     isAdmin: user?.isAdmin || false
   };
 
@@ -96,6 +129,11 @@ export function AuthProvider({ children }) {
   );
 }
 
+/**
+ * Hook to access authentication context
+ * @returns {Object} Authentication context value
+ * @throws {Error} If used outside of AuthProvider
+ */
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

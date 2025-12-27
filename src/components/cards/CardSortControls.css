@@ -1,0 +1,132 @@
+/* Sort Section */
+.sort-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--color-bg);
+  border-radius: 8px;
+  border: 2px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sort-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sort-label {
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.add-sort-btn {
+  padding: 0.5rem 1rem;
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-accent);
+  border-radius: 6px;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.add-sort-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.sort-controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  background: var(--color-bg-light);
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.sort-priority {
+  font-weight: 700;
+  color: var(--color-accent);
+  font-size: 1rem;
+  min-width: 25px;
+}
+
+.sort-select {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sort-select:hover {
+  border-color: var(--color-accent);
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(207, 181, 59, 0.1);
+}
+
+.sort-order-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sort-order-btn {
+  padding: 0.6rem 1rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.sort-order-btn:hover {
+  border-color: var(--color-accent);
+}
+
+.sort-order-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+.remove-sort-btn {
+  padding: 0.6rem 0.75rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-red);
+  border-radius: 6px;
+  color: var(--color-red);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 700;
+  min-width: 45px;
+}
+
+.remove-sort-btn:hover {
+  background: var(--color-red);
+  color: white;
+}

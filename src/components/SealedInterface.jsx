@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './SealedInterface.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function SealedInterface({ onBack }) {
   const [sealedId, setSealedId] = useState(null);
@@ -42,14 +43,14 @@ function SealedInterface({ onBack }) {
         // Only sync deck and sideboard on initial load, not during active deck building
         const player = data.players.find(p => p.id === playerId);
         if (player && !deckInitializedRef.current && player.sideboard && player.sideboard.length > 0) {
-          console.log('Fetching - Player data:', player);
+          logger.debug('Fetching - Player data:', player);
           setDeck(player.deck || []);
           setSideboard(player.sideboard || []);
           deckInitializedRef.current = true;
         }
       }
     } catch (err) {
-      console.error('Error fetching sealed:', err);
+      logger.error('Error fetching sealed:', err);
     }
   };
 
@@ -140,8 +141,8 @@ function SealedInterface({ onBack }) {
         setSealed(data);
         const player = data.players.find(p => p.id === playerId);
         if (player) {
-          console.log('Player data:', player);
-          console.log('Sideboard:', player.sideboard);
+          logger.debug('Player data:', player);
+          logger.debug('Sideboard:', player.sideboard);
           setDeck(player.deck || []);
           setSideboard(player.sideboard || []);
           deckInitializedRef.current = true;
@@ -174,9 +175,9 @@ function SealedInterface({ onBack }) {
         })
       });
       setLastSaved(new Date());
-      console.log('💾 Deck saved automatically');
+      logger.debug('💾 Deck saved automatically');
     } catch (err) {
-      console.error('Error updating deck:', err);
+      logger.error('Error updating deck:', err);
       setError('Failed to save deck');
     } finally {
       updateInProgressRef.current = false;

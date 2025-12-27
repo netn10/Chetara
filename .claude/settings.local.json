@@ -25,7 +25,14 @@
       "Bash(heroku config:set:*)",
       "Bash(Select-String -Pattern \"MongoDB|connected|error\")",
       "Bash(Select-Object -Last 10)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run generate-jwt-secret:*)",
+      "Bash(exit 0)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(deploy-heroku.bat)",
+      "Bash(cmd /c deploy-heroku.bat)"
     ]
   }
 }

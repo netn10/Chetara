@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Rules.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function Rules() {
   const [exampleCard, setExampleCard] = useState(null);
@@ -37,7 +38,7 @@ function Rules() {
         }
       } catch (error) {
         if (error.name !== 'AbortError') {
-          console.error('Error fetching random chess card:', error);
+          logger.error('Error fetching random chess card:', error);
         }
       } finally {
         if (isMounted) {

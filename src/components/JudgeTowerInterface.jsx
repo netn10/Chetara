@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './JudgeTowerInterface.css';
 import API_BASE_URL from '../config/api';
+import logger from '../utils/logger';
 
 function JudgeTowerInterface({ gameId, onExit }) {
   const [game, setGame] = useState(null);
@@ -29,7 +30,7 @@ function JudgeTowerInterface({ gameId, onExit }) {
         setLoading(false);
       }
     } catch (err) {
-      console.error('Error fetching game:', err);
+      logger.error('Error fetching game:', err);
       setError('Connection error');
     }
   };

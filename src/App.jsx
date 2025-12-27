@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -41,34 +42,38 @@ function ProtectedRoute({ children }) {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="app">
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/rules" element={<Rules />} />
-              <Route path="/cards" element={<Cards />} />
-              <Route path="/cards/:id" element={<CardDetail />} />
-              <Route path="/play" element={<Play />} />
-              <Route path="/draft/:draftId" element={<DraftPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/add-card"
-                element={
-                  <ProtectedRoute>
-                    <AddCard />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <Router>
+          <div className="app">
+            <Navbar />
+            <main>
+              <ErrorBoundary>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/rules" element={<Rules />} />
+                  <Route path="/cards" element={<Cards />} />
+                  <Route path="/cards/:id" element={<CardDetail />} />
+                  <Route path="/play" element={<Play />} />
+                  <Route path="/draft/:draftId" element={<DraftPage />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route
+                    path="/add-card"
+                    element={
+                      <ProtectedRoute>
+                        <AddCard />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+              </ErrorBoundary>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
