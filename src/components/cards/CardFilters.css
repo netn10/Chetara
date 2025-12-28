@@ -38,25 +38,25 @@
 
 .mode-btn {
   padding: 0.4rem 0.8rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  color: var(--color-text);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.85rem;
-  font-weight: 500;
+  transition: all var(--transition-base);
+  font-size: var(--font-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .mode-btn:hover {
-  border-color: var(--color-accent);
+  border-color: var(--accent-primary);
 }
 
 .mode-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-black);
-  font-weight: 600;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--bg-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Filter Groups */
@@ -100,8 +100,9 @@
 
 .mode-selector {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .filter-options {
@@ -120,34 +121,29 @@
 
 /* Filter Buttons */
 .filter-btn {
-  padding: 0.5rem 1rem;
-  background: var(--color-bg);
-  border: 2px solid var(--color-border);
-  border-radius: 6px;
-  color: var(--color-text);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-primary);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-base);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  font-weight: 500;
+  transition: all var(--transition-slow);
+  font-size: var(--font-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .filter-btn:hover {
-  border-color: var(--color-accent);
+  border-color: var(--accent-primary);
   transform: translateY(-2px);
 }
 
 .filter-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--bg-primary);
+accent);
   color: var(--color-black);
-}
-
-/* Color-specific buttons */
-.filter-btn.color-white:not(.active) { border-color: var(--color-white); }
-.filter-btn.color-blue:not(.active) { border-color: var(--color-blue); }
-.filter-btn.color-black:not(.active) { border-color: #666; }
-.filter-btn.color-red:not(.active) { border-color: var(--color-red); }
-.filter-btn.color-green:not(.active) { border-color: var(--color-green); }
+r-color: var(--color-green); }
 .filter-btn.color-colorless:not(.active) { border-color: #9e9e9e; }
 .filter-btn.color-gold:not(.active) { border-color: var(--color-gold); }
 
