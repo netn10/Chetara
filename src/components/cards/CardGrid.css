@@ -123,3 +123,42 @@
     height: 320px;
   }
 }
+
+@media (max-width: 640px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 200px));
+    gap: 0.625rem;
+    padding: 0 0.75rem;
+  }
+
+  .card-display-minimal {
+    width: 200px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .card-display-minimal {
+    width: 100%;
+    height: 230px;
+    min-width: 165px;
+  }
+
+  .card-fallback {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .card-fallback h3 {
+    font-size: 1rem;
+  }
+
+  .card-type-badge {
+    font-size: 0.8rem;
+  }
+}
