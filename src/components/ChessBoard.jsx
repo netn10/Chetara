@@ -127,9 +127,12 @@ function ChessBoard() {
     const movable = getMovablePieces(state.game);
     dispatch({ type: CHESS_ACTIONS.UPDATE_MOVABLE_PIECES, payload: movable });
 
-    // Set active timer
-    if (!state.game.isGameOver() && !state.activeTimer) {
-      dispatch({ type: CHESS_ACTIONS.SET_ACTIVE_TIMER, payload: state.game.turn() });
+    // Set/update active timer to match current turn
+    if (!state.game.isGameOver() && state.isGameStarted) {
+      const currentTurn = state.game.turn();
+      if (state.activeTimer !== currentTurn) {
+        dispatch({ type: CHESS_ACTIONS.SET_ACTIVE_TIMER, payload: currentTurn });
+      }
     }
   }, [state.game, state.isGameStarted, state.winner, state.activeTimer, dispatch]);
 

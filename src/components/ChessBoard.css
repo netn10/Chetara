@@ -84,7 +84,6 @@
 /* Light mode text colors */
 .chess-magic-game.white-turn .linked-card-sidebar,
 .chess-magic-game.white-turn .cards-area,
-.chess-magic-game.white-turn .player-timer,
 .chess-magic-game.white-turn .status-display,
 .chess-magic-game.white-turn .material-balance,
 .chess-magic-game.white-turn .captured-pieces,
@@ -109,10 +108,6 @@
   backdrop-filter: blur(10px);
 }
 
-.chess-magic-game.white-turn .player-timer {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(21, 101, 192, 0.3);
-}
 
 .chess-magic-game.white-turn .status-display {
   background: rgba(255, 255, 255, 0.8);
@@ -134,13 +129,8 @@
   color: #212121;
 }
 
-.chess-magic-game.white-turn .timer-label,
 .chess-magic-game.white-turn .balance-label {
   color: #616161;
-}
-
-.chess-magic-game.white-turn .timer-value {
-  color: #212121;
 }
 
 .chess-magic-game.white-turn .viewed-card-details,
@@ -323,16 +313,31 @@
   align-items: center;
   padding: 12px 20px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   min-width: 100px;
 }
 
+.player-timer-white {
+  background: #ffffff;
+  border: 2px solid #cccccc;
+}
+
+.player-timer-white .timer-value {
+  color: #000000;
+}
+
+.player-timer-black {
+  background: #1a1a1a;
+  border: 2px solid #333333;
+}
+
+.player-timer-black .timer-value {
+  color: #ffffff;
+}
+
 .player-timer.active {
-  background: rgba(76, 175, 80, 0.2);
   border-color: #4caf50;
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
 }
 
 .timer-label {
@@ -347,7 +352,6 @@
   font-size: 1.5rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  color: #fff;
 }
 
 .timer-value.low-time {

@@ -337,7 +337,7 @@ function Play() {
 
             <div className="mode-selection">
                 <div className="game-modes">
-                    <div className="mode-card" onClick={handleStandardModeSelect}>
+                    <div className="mode-card featured" onClick={handleStandardModeSelect}>
                         <div className="mode-icon">♔</div>
                         <h3>Magic-Chess</h3>
                         <p className="mode-description">
@@ -361,7 +361,7 @@ function Play() {
                         <button className="mode-btn">Start Draft</button>
                     </div>
 
-                    <div className="mode-card">
+                    <div className="mode-card mode-card-disabled">
                         <div className="mode-icon">🎲</div>
                         <h3>Sealed Deck</h3>
                         <p className="mode-description">
@@ -373,7 +373,7 @@ function Play() {
                         <button className="mode-btn" disabled>Coming Soon</button>
                     </div>
 
-                    <div className="mode-card">
+                    <div className="mode-card mode-card-disabled">
                         <div className="mode-icon">⚖️</div>
                         <h3>Judge's Tower</h3>
                         <p className="mode-description">

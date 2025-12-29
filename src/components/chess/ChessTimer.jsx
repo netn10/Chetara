@@ -29,15 +29,13 @@ const ChessTimer = memo(({ gameTime, activeTimer }) => {
 
   return (
     <div className="timer-display">
-      <div className={`player-timer ${isWhiteActive ? 'active' : ''}`}>
-        <span className="timer-label">White</span>
+      <div className={`player-timer player-timer-white ${isWhiteActive ? 'active' : ''}`}>
         <span className={`timer-value ${isWhiteLowTime ? 'low-time' : ''}`}>
           {formatTime(gameTime.white)}
         </span>
       </div>
 
-      <div className={`player-timer ${isBlackActive ? 'active' : ''}`}>
-        <span className="timer-label">Black</span>
+      <div className={`player-timer player-timer-black ${isBlackActive ? 'active' : ''}`}>
         <span className={`timer-value ${isBlackLowTime ? 'low-time' : ''}`}>
           {formatTime(gameTime.black)}
         </span>
