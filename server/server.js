@@ -60,8 +60,17 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Rate limiting - General API
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 500, // Limit each IP to 500 requests per windowMs (increased for draft polling)
+  max: 500, // Limit each IP to 500 requests per windowMs
   message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limiting - Draft routes (very lenient for polling)
+const draftLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 2000, // Very high limit for draft polling (allows ~2 req/sec sustained)
+  message: 'Too many draft requests, please slow down.',
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -75,10 +84,11 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Apply rate limiting
-app.use('/api/', apiLimiter);
+// Apply rate limiting (draft routes get their own limiter)
+app.use('/api/draft', draftLimiter);
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
+app.use('/api/', apiLimiter); // General limiter applies to everything else
 
 // MongoDB Connection with better error handling
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/chess-magic', {
