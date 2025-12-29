@@ -36,7 +36,8 @@
       "Bash(ping:*)",
       "Bash(dir:*)",
       "Bash(Select-String \"5000\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(Select-Object -Last 50)"
     ]
   }
 }

@@ -1,19 +1,17 @@
 import express from 'express';
-import Draft from '../models/Draft.js';
 import Card from '../models/Card.js';
 import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
 import logger from '../utils/logger.js';
 
 const router = express.Router();
 
+// In-memory draft storage (no database)
+const drafts = new Map();
+
 /**
  * @route POST /api/draft/create
  * @desc Create a new draft session
  * @access Public
- * @body {string} draftType - Type of draft (set or cube)
- * @body {string} playerName - Name of the player creating the draft
- * @body {number} [numBots=0] - Number of bot players to add
- * @returns {object} Created draft object
  */
 router.post('/create', asyncHandler(async (req, res) => {
   const { draftType, playerName, numBots = 0 } = req.body;
@@ -48,29 +46,30 @@ router.post('/create', asyncHandler(async (req, res) => {
     });
   }
 
-  try {
-    const draft = new Draft({
-      draftType,
-      players,
-      status: 'waiting'
-    });
+  const draftId = generateDraftId();
+  const draft = {
+    _id: draftId,
+    draftType,
+    players,
+    status: 'waiting',
+    currentRound: 0,
+    totalRounds: 3,
+    cardsPerBooster: 15,
+    direction: 'left',
+    boosters: [],
+    usedCards: [],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
 
-    await draft.save();
-    logger.info(`Draft created with ID: ${draft._id}, total players: ${draft.players.length}`);
-    res.status(201).json(draft);
-  } catch (error) {
-    logger.error('Error creating draft:', error);
-    throw processDbError(error, 'draft');
-  }
+  drafts.set(draftId, draft);
+  logger.info(`Draft created with ID: ${draftId}, total players: ${draft.players.length}`);
+  res.status(201).json(draft);
 }));
 
 /**
  * @route POST /api/draft/:id/join
  * @desc Join an existing draft session
- * @access Public
- * @param {string} id - Draft ID
- * @body {string} playerName - Name of the joining player
- * @returns {object} Updated draft and player ID
  */
 router.post('/:id/join', asyncHandler(async (req, res) => {
   const { playerName } = req.body;
@@ -79,7 +78,7 @@ router.post('/:id/join', asyncHandler(async (req, res) => {
     throw Errors.missingField('playerName');
   }
 
-  const draft = await Draft.findById(req.params.id);
+  const draft = drafts.get(req.params.id);
 
   if (!draft) {
     throw Errors.draftNotFound();
@@ -105,24 +104,15 @@ router.post('/:id/join', asyncHandler(async (req, res) => {
   };
 
   draft.players.push(newPlayer);
+  draft.updatedAt = new Date();
 
-  try {
-    await draft.save();
-    logger.info(`Player ${playerName} joined draft ${draft._id}`);
-    res.json({ draft, playerId: newPlayer.id });
-  } catch (error) {
-    logger.error('Error joining draft:', error);
-    throw processDbError(error, 'draft');
-  }
+  logger.info(`Player ${playerName} joined draft ${draft._id}`);
+  res.json({ draft, playerId: newPlayer.id });
 }));
 
 /**
  * @route POST /api/draft/:id/add-bots
  * @desc Add bot players to a draft
- * @access Public
- * @param {string} id - Draft ID
- * @body {number} count - Number of bots to add
- * @returns {object} Updated draft object
  */
 router.post('/:id/add-bots', asyncHandler(async (req, res) => {
   const { count } = req.body;
@@ -131,7 +121,7 @@ router.post('/:id/add-bots', asyncHandler(async (req, res) => {
     throw Errors.missingField('count');
   }
 
-  const draft = await Draft.findById(req.params.id);
+  const draft = drafts.get(req.params.id);
 
   if (!draft) {
     throw Errors.draftNotFound();
@@ -165,25 +155,17 @@ router.post('/:id/add-bots', asyncHandler(async (req, res) => {
     });
   }
 
-  try {
-    await draft.save();
-    logger.info(`Added ${count} bots to draft ${draft._id}`);
-    res.json(draft);
-  } catch (error) {
-    logger.error('Error adding bots to draft:', error);
-    throw processDbError(error, 'draft');
-  }
+  draft.updatedAt = new Date();
+  logger.info(`Added ${count} bots to draft ${draft._id}`);
+  res.json(draft);
 }));
 
 /**
  * @route POST /api/draft/:id/start
  * @desc Start the draft and generate initial boosters
- * @access Public
- * @param {string} id - Draft ID
- * @returns {object} Updated draft with boosters
  */
 router.post('/:id/start', asyncHandler(async (req, res) => {
-  const draft = await Draft.findById(req.params.id);
+  const draft = drafts.get(req.params.id);
 
   if (!draft) {
     throw Errors.draftNotFound();
@@ -196,40 +178,26 @@ router.post('/:id/start', asyncHandler(async (req, res) => {
   logger.info(`Starting draft ${draft._id} with ${draft.players.length} players`);
 
   // Generate first round of boosters
-  try {
-    const boosters = await generateBoosters(draft);
-    draft.boosters = boosters;
-    draft.status = 'drafting';
-    draft.currentRound = 1;
+  const boosters = await generateBoosters(draft);
+  draft.boosters = boosters;
+  draft.status = 'drafting';
+  draft.currentRound = 1;
 
-    // Set initial pick deadlines for all players
-    setPickDeadlines(draft);
+  // Set initial pick deadlines for all players
+  setPickDeadlines(draft);
+  draft.updatedAt = new Date();
 
-    await draft.save();
+  logger.info(`Draft started! Round ${draft.currentRound}, generated ${boosters.length} boosters`);
 
-    logger.info(`Draft started! Round ${draft.currentRound}, generated ${boosters.length} boosters`);
-
-    res.json(draft);
-  } catch (error) {
-    logger.error('Error starting draft:', error);
-    if (error.message.includes('Not enough cards')) {
-      throw Errors.cardsInsufficient();
-    }
-    throw processDbError(error, 'draft');
-  }
+  res.json(draft);
 }));
 
 /**
  * @route GET /api/draft/:id
- * @desc Get draft status and handle expired picks
- * @access Public
- * @param {string} id - Draft ID
- * @returns {object} Draft object with populated data
+ * @desc Get draft status
  */
 router.get('/:id', asyncHandler(async (req, res) => {
-  const draft = await Draft.findById(req.params.id)
-    .populate('boosters.cards')
-    .populate('players.pickedCards');
+  const draft = drafts.get(req.params.id);
 
   if (!draft) {
     throw Errors.draftNotFound();
@@ -237,119 +205,17 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
   // Check for expired picks and auto-pick if needed
   if (draft.status === 'drafting') {
-    // Verify and correct the current round based on actual picks
-    if (draft.players.length > 0) {
-      const firstPlayer = draft.players[0];
-      const totalPicks = firstPlayer.pickedCards?.length || 0;
-      const expectedRound = Math.floor(totalPicks / 15) + 1;
-
-      // If boosters are empty but we haven't started the expected round yet, start it
-      if (draft.boosters.length === 0 && expectedRound > draft.currentRound && expectedRound <= draft.totalRounds) {
-        logger.info(`Starting missing round ${expectedRound} (player has ${totalPicks} picks)`);
-        draft.currentRound = expectedRound;
-        draft.direction = expectedRound % 2 === 0 ? 'right' : 'left';
-        const newBoosters = await generateBoosters(draft);
-        draft.boosters = newBoosters;
-        await draft.populate('boosters.cards');
-      }
-      // Otherwise just correct the round number if it's wrong (and we have boosters)
-      else if (expectedRound !== draft.currentRound && draft.boosters.length > 0 && expectedRound <= draft.totalRounds) {
-        logger.debug(`Correcting round: ${draft.currentRound} → ${expectedRound}`);
-        draft.currentRound = expectedRound;
-      }
-    }
-
     await checkExpiredPicks(draft);
-
-    // Set deadlines for players who need to pick (if not already set)
     setPickDeadlines(draft);
-    await draft.save();
+    draft.updatedAt = new Date();
   }
 
   res.json(draft);
 }));
 
-// DEBUG: Admin pick 45 cards instantly
-router.post('/:id/debug-pick-45', async (req, res) => {
-  try {
-    const { playerId } = req.body;
-    const draft = await Draft.findById(req.params.id);
-
-    if (!draft) {
-      return res.status(404).json({ message: 'Draft not found' });
-    }
-
-    const playerIndex = draft.players.findIndex(p => p.id === playerId);
-    if (playerIndex === -1) {
-      return res.status(404).json({ message: 'Player not found' });
-    }
-
-    // Only allow for seat 0 (admin/first player)
-    if (draft.players[playerIndex].seatNumber !== 0) {
-      return res.status(403).json({ message: 'Debug feature only available for admin (seat 0)' });
-    }
-
-    console.log(`\n🔧 DEBUG: Admin picking 45 cards instantly`);
-
-    // Get 45 random cards from the database
-    const allCards = await Card.find({}).lean();
-    const shuffled = shuffleArray([...allCards]);
-    const selectedCards = shuffled.slice(0, 45);
-
-    // Add all cards to player's picked cards
-    draft.players[playerIndex].pickedCards = selectedCards.map(c => c._id);
-
-    // Mark draft as completed
-    draft.status = 'completed';
-    draft.boosters = [];
-
-    await draft.save();
-    await draft.populate('players.pickedCards');
-
-    console.log(`✅ DEBUG: Admin now has 45 cards, draft marked as completed`);
-
-    res.json(draft);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Update player's deck
-router.post('/:id/update-deck', async (req, res) => {
-  try {
-    const { playerId, deck, sideboard } = req.body;
-    const draft = await Draft.findById(req.params.id);
-
-    if (!draft) {
-      return res.status(404).json({ message: 'Draft not found' });
-    }
-
-    const player = draft.players.find(p => p.id === playerId);
-    if (!player) {
-      return res.status(404).json({ message: 'Player not found' });
-    }
-
-    player.deck = deck;
-    player.sideboard = sideboard;
-    player.deckBuilt = deck.length >= 40;
-
-    draft.updatedAt = Date.now();
-    await draft.save();
-
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 /**
  * @route POST /api/draft/:id/pick
- * @desc Make a card pick from the current booster
- * @access Public
- * @param {string} id - Draft ID
- * @body {string} playerId - ID of the player making the pick
- * @body {string} cardId - ID of the card to pick
- * @returns {object} Updated draft with new pick
+ * @desc Make a card pick - NEW SIMPLIFIED VERSION
  */
 router.post('/:id/pick', asyncHandler(async (req, res) => {
   const { playerId, cardId } = req.body;
@@ -358,7 +224,7 @@ router.post('/:id/pick', asyncHandler(async (req, res) => {
     throw Errors.missingField('playerId and cardId');
   }
 
-  const draft = await Draft.findById(req.params.id).populate('boosters.cards');
+  const draft = drafts.get(req.params.id);
 
   if (!draft) {
     throw Errors.draftNotFound();
@@ -382,70 +248,128 @@ router.post('/:id/pick', asyncHandler(async (req, res) => {
     throw Errors.cardNotInBooster();
   }
 
-  // Add card to player's picked cards
-  const pickedCardName = booster.cards[cardIndex]?.name;
-  draft.players[playerIndex].pickedCards.push(booster.cards[cardIndex]);
-  draft.players[playerIndex].currentPick = null;
+  const pickedCard = booster.cards[cardIndex];
+  logger.info(`${draft.players[playerIndex].name} picked: ${pickedCard.name}`);
 
-  // Clear pick deadline for this player
+  // Make the pick
+  draft.players[playerIndex].pickedCards.push(pickedCard);
   draft.players[playerIndex].pickStartTime = null;
   draft.players[playerIndex].pickDeadline = null;
-
-  // Remove card from booster
   booster.cards.splice(cardIndex, 1);
 
-  logger.info(`${draft.players[playerIndex].name} picked: ${pickedCardName}`);
+  // DON'T remove empty boosters yet - bots still need to pick from them!
 
-  // Auto-pick for bots INSTANTLY (pass draft object directly, no DB round-trips)
-  const newRoundStarted = await autoPickForBots(draft);
+  // Now have ALL players (including bots) pick simultaneously
+  // They all pick from the current state BEFORE any boosters are removed
+  await makeSimultaneousPicks(draft);
 
-  // Set new deadlines for players who now need to pick
-  setPickDeadlines(draft);
+  // After all picks are made, pass ALL boosters together
+  passAllBoosters(draft);
 
-  // Always populate picked cards so completion screen shows them
-  await draft.populate('players.pickedCards');
+  // NOW remove empty boosters (after passing)
+  for (let i = draft.boosters.length - 1; i >= 0; i--) {
+    if (draft.boosters[i].cards.length === 0) {
+      draft.boosters.splice(i, 1);
+    }
+  }
+
+  // Check if round is complete
+  if (draft.boosters.length === 0) {
+    if (draft.currentRound < draft.totalRounds) {
+      // Start new round
+      draft.currentRound++;
+      draft.direction = draft.direction === 'left' ? 'right' : 'left';
+      const newBoosters = await generateBoosters(draft);
+      draft.boosters = newBoosters;
+      logger.info(`Round ${draft.currentRound}/${draft.totalRounds} started`);
+    } else {
+      // Draft complete
+      draft.status = 'completed';
+      logger.info(`Draft complete!`);
+    }
+  }
+
+  draft.updatedAt = new Date();
 
   res.json(draft);
 }));
 
-// Helper functions
+// Debug endpoint
+router.post('/:id/debug-pick-45', asyncHandler(async (req, res) => {
+  const { playerId } = req.body;
+  const draft = drafts.get(req.params.id);
+
+  if (!draft) {
+    throw Errors.draftNotFound();
+  }
+
+  const playerIndex = draft.players.findIndex(p => p.id === playerId);
+  if (playerIndex === -1) {
+    throw Errors.playerNotFound();
+  }
+
+  if (draft.players[playerIndex].seatNumber !== 0) {
+    throw Errors.invalidAction('Debug feature only available for admin (seat 0)');
+  }
+
+  const allCards = await Card.find({}).lean();
+  const shuffled = shuffleArray([...allCards]);
+  const selectedCards = shuffled.slice(0, 45);
+
+  draft.players[playerIndex].pickedCards = selectedCards;
+  draft.status = 'completed';
+  draft.boosters = [];
+  draft.updatedAt = new Date();
+
+  res.json(draft);
+}));
+
+// Update player's deck
+router.post('/:id/update-deck', asyncHandler(async (req, res) => {
+  const { playerId, deck, sideboard } = req.body;
+  const draft = drafts.get(req.params.id);
+
+  if (!draft) {
+    throw Errors.draftNotFound();
+  }
+
+  const player = draft.players.find(p => p.id === playerId);
+  if (!player) {
+    throw Errors.playerNotFound();
+  }
+
+  player.deck = deck;
+  player.sideboard = sideboard;
+  player.deckBuilt = deck.length >= 40;
+  draft.updatedAt = new Date();
+
+  res.json({ success: true });
+}));
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+function generateDraftId() {
+  return `draft-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
 function generatePlayerId() {
   return `player-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-function getBoosterCurrentPlayer(draft, boosterIndex) {
-  const totalPlayers = draft.players.length;
-  const direction = draft.direction === 'left' ? 1 : -1;
-  const booster = draft.boosters[boosterIndex];
-
-  // The booster owner is determined by which round we're in
-  const boosterOwner = (boosterIndex + draft.currentRound - 1) % totalPlayers;
-
-  // Calculate which player currently has this booster based on how many times it's been passed
-  const currentPlayerIndex = booster.currentPlayerIndex || 0;
-  // Use proper modulo to handle negative numbers correctly
-  const currentPosition = ((boosterOwner + direction * currentPlayerIndex) % totalPlayers + totalPlayers) % totalPlayers;
-
-  return currentPosition;
-}
-
+/**
+ * Find which booster belongs to a player
+ */
 function findPlayerBooster(draft, playerIndex) {
   const totalPlayers = draft.players.length;
   const direction = draft.direction === 'left' ? 1 : -1;
 
   for (let i = 0; i < draft.boosters.length; i++) {
     const booster = draft.boosters[i];
-    // The booster owner is determined by which round we're in
-    // Round 1: booster 0 → player 0, booster 1 → player 1, etc.
-    // Round 2: booster 0 → player 1, booster 1 → player 2, etc. (rotating)
     const boosterOwner = (i + draft.currentRound - 1) % totalPlayers;
-    // Calculate which player currently has this booster based on how many times it's been passed
-    // currentPlayerIndex tracks how many picks have been made from this booster
-    // When currentPlayerIndex = 0, the pack is with the owner
-    // When currentPlayerIndex = 1, the pack has been passed once (to the next player)
-    const currentPlayerIndex = booster.currentPlayerIndex || 0;
-    // Use proper modulo to handle negative numbers correctly
-    const currentPosition = ((boosterOwner + direction * currentPlayerIndex) % totalPlayers + totalPlayers) % totalPlayers;
+    const passCount = booster.currentPlayerIndex || 0;
+    const currentPosition = ((boosterOwner + direction * passCount) % totalPlayers + totalPlayers) % totalPlayers;
 
     if (currentPosition === playerIndex) {
       return i;
@@ -455,16 +379,88 @@ function findPlayerBooster(draft, playerIndex) {
   return -1;
 }
 
+/**
+ * NEW: Make simultaneous picks for all bots
+ */
+async function makeSimultaneousPicks(draft) {
+  console.log(`🤖 Simultaneous bot picks (Round ${draft.currentRound})`);
+
+  // Collect all bot decisions BEFORE modifying anything
+  const picks = [];
+
+  for (let playerIndex = 0; playerIndex < draft.players.length; playerIndex++) {
+    const player = draft.players[playerIndex];
+
+    // Only bots pick automatically
+    if (!player.isBot) continue;
+
+    const boosterIndex = findPlayerBooster(draft, playerIndex);
+    if (boosterIndex === -1) continue;
+
+    const booster = draft.boosters[boosterIndex];
+    if (booster.cards.length === 0) continue;
+
+    // Bot picks a random card
+    const randomIndex = Math.floor(Math.random() * booster.cards.length);
+    const card = booster.cards[randomIndex];
+
+    picks.push({
+      playerIndex,
+      boosterIndex,
+      cardIndex: randomIndex,
+      card
+    });
+
+    console.log(`  ${player.name} will pick: ${card.name}`);
+  }
+
+  console.log(`  Total picks: ${picks.length}`);
+
+  // Sort to avoid index shifting (remove from end first)
+  picks.sort((a, b) => {
+    if (a.boosterIndex !== b.boosterIndex) {
+      return b.boosterIndex - a.boosterIndex;
+    }
+    return b.cardIndex - a.cardIndex;
+  });
+
+  // Apply all picks atomically
+  for (const pick of picks) {
+    const player = draft.players[pick.playerIndex];
+    const booster = draft.boosters[pick.boosterIndex];
+
+    player.pickedCards.push(pick.card);
+    player.pickStartTime = null;
+    player.pickDeadline = null;
+    booster.cards.splice(pick.cardIndex, 1);
+
+    console.log(`  ✓ ${player.name} picked: ${pick.card.name} (${player.pickedCards.length} total)`);
+  }
+
+  // DON'T remove empty boosters here - let the caller handle it
+  // This prevents duplicate removal and index issues
+}
+
+/**
+ * Pass all boosters to the next player
+ */
+function passAllBoosters(draft) {
+  for (let i = 0; i < draft.boosters.length; i++) {
+    const oldIndex = draft.boosters[i].currentPlayerIndex || 0;
+    draft.boosters[i].currentPlayerIndex = oldIndex + 1;
+  }
+}
+
+/**
+ * Generate boosters for a new round
+ */
 async function generateBoosters(draft) {
   const boosters = [];
 
   if (draft.draftType === 'set') {
-    // Set draft - generate boosters with rarity distribution
-    // OPTIMIZED: Fetch all cards once, then build multiple boosters from them
     const numBoosters = draft.players.length;
     const cardsPerBooster = draft.cardsPerBooster || 15;
 
-    // Fetch all cards of each rarity in parallel (3 queries instead of 4+ per booster)
     const [allCommons, allUncommons, allRares, allMythics] = await Promise.all([
       Card.find({ rarity: 'Common' }).lean(),
       Card.find({ rarity: 'Uncommon' }).lean(),
@@ -472,7 +468,6 @@ async function generateBoosters(draft) {
       Card.find({ rarity: 'Mythic' }).lean()
     ]);
 
-    // Generate all boosters
     for (let i = 0; i < numBoosters; i++) {
       const boosterCards = generateSetBoosterFromPool(
         allCommons,
@@ -487,14 +482,13 @@ async function generateBoosters(draft) {
       });
     }
   } else {
-    // Cube draft - singleton cards
+    // Cube draft
     const allCards = await Card.find({ _id: { $nin: draft.usedCards } }).lean();
 
     if (allCards.length < draft.players.length * draft.cardsPerBooster) {
       throw new Error('Not enough cards for cube draft');
     }
 
-    // Shuffle cards
     const shuffled = shuffleArray([...allCards]);
 
     for (let i = 0; i < draft.players.length; i++) {
@@ -503,11 +497,10 @@ async function generateBoosters(draft) {
         (i + 1) * draft.cardsPerBooster
       );
 
-      // Mark cards as used
       draft.usedCards.push(...boosterCards.map(c => c._id));
 
       boosters.push({
-        cards: boosterCards.map(c => c._id),
+        cards: boosterCards, // Store full card objects, not IDs
         currentPlayerIndex: 0
       });
     }
@@ -517,31 +510,25 @@ async function generateBoosters(draft) {
 }
 
 function generateSetBoosterFromPool(commons, uncommons, rares, mythics, count = 15) {
-  // Play booster distribution: 10 commons, 3 uncommons, 1 rare/mythic, 1 extra common
   const boosterCards = [];
 
-  // 10 random commons
-  const selectedCommons = getRandomCards(commons, 10);
-  boosterCards.push(...selectedCommons);
+  // 10 commons
+  boosterCards.push(...getRandomCards(commons, 10));
 
-  // 3 random uncommons
-  const selectedUncommons = getRandomCards(uncommons, 3);
-  boosterCards.push(...selectedUncommons);
+  // 3 uncommons
+  boosterCards.push(...getRandomCards(uncommons, 3));
 
-  // 1 rare or mythic (1/8 chance for mythic)
+  // 1 rare/mythic (1/8 chance for mythic)
   const isMythic = Math.random() < 0.125;
   const rarePool = isMythic && mythics.length > 0 ? mythics : rares;
-  const selectedRare = getRandomCards(rarePool, 1);
-  boosterCards.push(...selectedRare);
+  boosterCards.push(...getRandomCards(rarePool, 1));
 
-  // Fill remaining slots with commons
+  // Fill remaining
   const remaining = count - boosterCards.length;
   if (remaining > 0) {
-    const extraCommons = getRandomCards(commons, remaining);
-    boosterCards.push(...extraCommons);
+    boosterCards.push(...getRandomCards(commons, remaining));
   }
 
-  // Shuffle and return FULL CARD OBJECTS (not IDs) for instant client access
   return shuffleArray(boosterCards);
 }
 
@@ -549,14 +536,8 @@ function getRandomCards(pool, count) {
   if (pool.length === 0) return [];
   if (pool.length <= count) return [...pool];
 
-  const selected = [];
   const shuffled = shuffleArray([...pool]);
-
-  for (let i = 0; i < count && i < shuffled.length; i++) {
-    selected.push(shuffled[i]);
-  }
-
-  return selected;
+  return shuffled.slice(0, count);
 }
 
 function shuffleArray(array) {
@@ -568,14 +549,12 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Get pick time limit based on picks made this round
 function getPickTimeLimit(picksThisRound) {
-  if (picksThisRound < 5) return 60; // 60 seconds for first 5 picks
-  if (picksThisRound < 10) return 30; // 30 seconds for picks 6-10
-  return 15; // 15 seconds for picks 11-15
+  if (picksThisRound < 5) return 60;
+  if (picksThisRound < 10) return 30;
+  return 15;
 }
 
-// Set pick deadlines for all players who need to pick
 function setPickDeadlines(draft) {
   const now = new Date();
 
@@ -585,32 +564,26 @@ function setPickDeadlines(draft) {
     if (boosterIndex !== -1) {
       const booster = draft.boosters[boosterIndex];
 
-      // Player has a booster to pick from
       if (booster.cards.length > 0) {
-        // Calculate picks made this round
         const totalPicks = player.pickedCards?.length || 0;
         const picksThisRound = totalPicks % 15;
         const timeLimit = getPickTimeLimit(picksThisRound);
 
-        // Set deadline if not already set or if it's a new pick
         if (!player.pickDeadline || !player.pickStartTime) {
           player.pickStartTime = now;
           player.pickDeadline = new Date(now.getTime() + (timeLimit * 1000));
         }
       } else {
-        // No cards to pick, clear deadline
         player.pickStartTime = null;
         player.pickDeadline = null;
       }
     } else {
-      // No booster, clear deadline
       player.pickStartTime = null;
       player.pickDeadline = null;
     }
   });
 }
 
-// Check for expired picks and auto-pick
 async function checkExpiredPicks(draft) {
   if (!draft || draft.status !== 'drafting') return false;
 
@@ -620,10 +593,8 @@ async function checkExpiredPicks(draft) {
   for (let i = 0; i < draft.players.length; i++) {
     const player = draft.players[i];
 
-    // Skip bots - they pick instantly
     if (player.isBot) continue;
 
-    // Check if this player's pick has expired
     if (player.pickDeadline && now > player.pickDeadline) {
       const boosterIndex = findPlayerBooster(draft, i);
 
@@ -633,20 +604,16 @@ async function checkExpiredPicks(draft) {
         if (booster.cards.length > 0) {
           console.log(`⏰ Time expired for ${player.name}, auto-picking...`);
 
-          // Auto-pick random card
           const randomIndex = Math.floor(Math.random() * booster.cards.length);
           const pickedCard = booster.cards[randomIndex];
 
           player.pickedCards.push(pickedCard);
           booster.cards.splice(randomIndex, 1);
-
-          // Clear deadline after pick
           player.pickStartTime = null;
           player.pickDeadline = null;
 
           anyExpired = true;
 
-          // Remove empty booster
           if (booster.cards.length === 0) {
             draft.boosters.splice(boosterIndex, 1);
           }
@@ -655,142 +622,15 @@ async function checkExpiredPicks(draft) {
     }
   }
 
-  // If any picks were made due to expiration, pass boosters and check for bot picks
   if (anyExpired) {
-    // Pass all remaining boosters
-    for (let i = 0; i < draft.boosters.length; i++) {
-      const oldIndex = draft.boosters[i].currentPlayerIndex || 0;
-      draft.boosters[i].currentPlayerIndex = oldIndex + 1;
-    }
-
-    await draft.save();
-
-    // Set new deadlines for players who now need to pick
+    await makeSimultaneousPicks(draft);
+    passAllBoosters(draft);
+    draft.updatedAt = new Date();
     setPickDeadlines(draft);
-
-    // Auto-pick for bots
-    await autoPickForBots(draft);
-
     return true;
   }
 
   return false;
-}
-
-async function autoPickForBots(draftOrId, retryCount = 0) {
-  try {
-    // Accept either draft object or ID for instant bot picks
-    let draft;
-    if (typeof draftOrId === 'string') {
-      // Fetch fresh draft if given ID
-      draft = await Draft.findById(draftOrId).populate('boosters.cards');
-    } else {
-      // Use draft object directly (already populated) for instant picks
-      draft = draftOrId;
-    }
-
-    if (!draft || draft.status !== 'drafting') {
-      if (!draft) console.log(`   ⚠️  Draft not found`);
-      if (draft?.status !== 'drafting') console.log(`   ⏸️  Draft status: ${draft?.status}\n`);
-      return;
-    }
-
-    // Minimal logging for performance
-    console.log(`\n🤖 Bot picks (Round ${draft.currentRound})`);
-
-    // Pick for ALL bots simultaneously (in one pass)
-    let anyBotPicked = false;
-    const boostersToRemove = [];
-
-    for (let i = 0; i < draft.players.length; i++) {
-      const player = draft.players[i];
-
-      if (player.isBot) {
-        const boosterIndex = findPlayerBooster(draft, i);
-
-        if (boosterIndex !== -1 && !boostersToRemove.includes(boosterIndex)) {
-          const booster = draft.boosters[boosterIndex];
-
-          if (booster.cards.length > 0) {
-            // Bot picks a random card (simple AI)
-            const randomIndex = Math.floor(Math.random() * booster.cards.length);
-            const pickedCard = booster.cards[randomIndex];
-
-            // Push full card object to keep it populated (Mongoose will store as ID)
-            player.pickedCards.push(pickedCard);
-            booster.cards.splice(randomIndex, 1);
-            anyBotPicked = true;
-
-            // Mark empty boosters for removal
-            if (booster.cards.length === 0) {
-              boostersToRemove.push(boosterIndex);
-            }
-          }
-        }
-      }
-    }
-
-    // Find ALL empty boosters (not just ones bots picked from)
-    const allEmptyBoosters = [];
-    for (let i = draft.boosters.length - 1; i >= 0; i--) {
-      if (draft.boosters[i].cards.length === 0) {
-        allEmptyBoosters.push(i);
-      }
-    }
-
-    // Remove all empty boosters (already in reverse order)
-    for (const index of allEmptyBoosters) {
-      draft.boosters.splice(index, 1);
-    }
-
-    // If bots picked, pass ALL remaining boosters
-    if (anyBotPicked) {
-      for (let i = 0; i < draft.boosters.length; i++) {
-        const oldIndex = draft.boosters[i].currentPlayerIndex || 0;
-        draft.boosters[i].currentPlayerIndex = oldIndex + 1;
-      }
-    }
-
-    // Check if round is complete (all boosters are empty)
-    let newRoundStarted = false;
-    if (draft.boosters.length === 0) {
-      if (draft.currentRound < draft.totalRounds) {
-        // Start new round
-        draft.currentRound++;
-        draft.direction = draft.direction === 'left' ? 'right' : 'left';
-        const newBoosters = await generateBoosters(draft);
-        draft.boosters = newBoosters;
-        newRoundStarted = true;
-        console.log(`Round ${draft.currentRound}/${draft.totalRounds} started`);
-      } else {
-        // Draft complete
-        draft.status = 'completed';
-        console.log(`Draft complete!`);
-      }
-    }
-
-    await draft.save();
-
-    // If new round started, populate the new boosters (Mongoose converted objects to IDs during save)
-    if (newRoundStarted) {
-      await draft.populate('boosters.cards');
-      console.log(`✅ Populated new round boosters`);
-    }
-
-    return newRoundStarted;
-
-  } catch (error) {
-    console.error(`\n❌ Error in auto-pick (attempt ${retryCount + 1}):`, error.message);
-    // Retry on any error (network issues, etc.)
-    if (retryCount < 3) {
-      console.log(`   🔄 Retrying...\n`);
-      // On retry, use draft ID to get fresh data
-      const draftId = typeof draftOrId === 'string' ? draftOrId : draftOrId._id.toString();
-      setImmediate(() => autoPickForBots(draftId, retryCount + 1));
-    } else {
-      console.log(`   ⛔ Max retries reached, stopping auto-pick\n`);
-    }
-  }
 }
 
 export default router;

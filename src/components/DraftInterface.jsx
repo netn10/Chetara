@@ -8,6 +8,27 @@ import DraftPlayerInfo from './DraftPlayerInfo';
 import DraftPickedCards from './DraftPickedCards';
 
 /**
+ * Renders a single mana cost symbol
+ */
+const renderManaCost = (manaCost) => {
+  if (!manaCost) return null;
+
+  const symbols = manaCost.match(/\{[^}]+\}/g) || [];
+  return (
+    <div className="mana-cost">
+      {symbols.map((symbol, index) => {
+        const cleaned = symbol.replace(/[{}]/g, '');
+        return (
+          <span key={index} className={`mana-symbol mana-${cleaned.toLowerCase()}`}>
+            {cleaned}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+/**
  * DraftInterface Component
  * Main interface for conducting a Magic: The Gathering style draft
  *
@@ -63,6 +84,20 @@ function DraftInterface({ draftId, onExit }) {
   }, [draft?.status]);
 
   /**
+   * Get adaptive polling interval based on draft state
+   * Uses refs to avoid recreating interval on every state change
+   * @returns {number} Polling interval in milliseconds
+   */
+  const getPollingInterval = () => {
+    // Fast polling when player has cards to pick
+    if (currentBoosterRef.current.length > 0 && !isPickingRef.current) return 1000;
+    // Medium polling when draft is active
+    if (draftStatusRef.current === 'active') return 2000;
+    // Slow polling for other states
+    return 3000;
+  };
+
+  /**
    * Initial setup and polling effect
    * Only recreates interval when draftId changes to fix performance issues
    */
@@ -75,29 +110,53 @@ function DraftInterface({ draftId, onExit }) {
 
     fetchDraftStatus();
 
-    /**
-     * Get adaptive polling interval based on draft state
-     * Uses refs to avoid recreating interval on every state change
-     * @returns {number} Polling interval in milliseconds
-     */
-    const getPollingInterval = () => {
-      // Fast polling when player has cards to pick
-      if (currentBoosterRef.current.length > 0 && !isPickingRef.current) return 200;
-      // Medium polling when draft is active
-      if (draftStatusRef.current === 'active') return 500;
-      // Slow polling for other states
-      return 1000;
+    let pollTimeout;
+    let isActive = true;
+
+    const schedulePoll = () => {
+      // Don't schedule if effect has been cleaned up or currently picking
+      if (!isActive || isPickingRef.current) {
+        return;
+      }
+
+      pollTimeout = setTimeout(() => {
+        if (!isActive) return;
+
+        fetchDraftStatus().finally(() => {
+          // Schedule next poll after this one completes
+          if (isActive) {
+            schedulePoll();
+          }
+        });
+      }, getPollingInterval());
     };
 
-    const interval = setInterval(() => {
-      // Poll only when not actively picking
-      if (!isPickingRef.current) {
-        fetchDraftStatus();
-      }
-    }, getPollingInterval());
+    // Start polling
+    schedulePoll();
 
-    return () => clearInterval(interval);
+    return () => {
+      isActive = false;
+      if (pollTimeout) {
+        clearTimeout(pollTimeout);
+      }
+    };
   }, [draftId]); // Only recreate when draftId changes
+
+  /**
+   * Resume polling when picking finishes
+   */
+  useEffect(() => {
+    if (!isPicking && draft && playerId) {
+      // Delay to ensure bots have time to pick on server
+      const resumeTimer = setTimeout(() => {
+        if (!isPickingRef.current) {
+          fetchDraftStatus();
+        }
+      }, 1000); // Increased delay to reduce requests
+
+      return () => clearTimeout(resumeTimer);
+    }
+  }, [isPicking]);
 
   useEffect(() => {
     logger.debug('⚡ [useEffect] Triggered', {
@@ -336,6 +395,15 @@ function DraftInterface({ draftId, onExit }) {
           logger.debug('🏁 [POLL] Draft completed');
           // Handle completion
         }
+      } else if (response.status === 404) {
+        // Draft not found - clear localStorage and exit
+        logger.error('❌ [POLL] Draft not found, clearing cache and exiting');
+        localStorage.removeItem(`draft_${draftId}_data`);
+        localStorage.removeItem(`draft_${draftId}_timestamp`);
+        localStorage.removeItem(`draft_${draftId}_playerId`);
+        localStorage.removeItem(`draft_${draftId}_playerName`);
+        setError('Draft not found. Please start a new draft.');
+        setTimeout(() => onExit(), 2000);
       } else {
         logger.error('❌ [POLL] Bad response:', response.status);
         setLoading(false);
@@ -498,6 +566,7 @@ function DraftInterface({ draftId, onExit }) {
             setIsPicking(false);
           });
           logger.debug('✅ [PICK COMPLETE] New booster set, isPicking=false');
+          // Note: polling will automatically resume when isPicking becomes false
         }
       } else {
         const data = await response.json();
