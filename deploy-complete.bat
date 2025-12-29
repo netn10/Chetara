@@ -46,6 +46,15 @@ echo Committing with message: %COMMIT_MSG%
 git commit -m "%COMMIT_MSG%"
 echo.
 
+echo Pushing to GitHub (origin/main)...
+git push origin main
+if errorlevel 1 (
+    echo.
+    echo WARNING: Push to GitHub failed!
+    echo Continuing with Heroku deployment...
+)
+echo.
+
 echo Pushing to Heroku (this will take a few minutes)...
 git push heroku main
 if errorlevel 1 (

@@ -18,7 +18,16 @@ if [ $? -ne 0 ]; then
 fi
 echo ""
 
-echo "[3/4] Pushing to Heroku..."
+echo "[3/5] Pushing to GitHub (origin/main)..."
+git push origin main
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "WARNING: Push to GitHub failed!"
+    echo "Continuing with Heroku deployment..."
+fi
+echo ""
+
+echo "[4/5] Pushing to Heroku..."
 echo "This may take a few minutes while Heroku builds the app..."
 git push heroku main
 if [ $? -ne 0 ]; then
@@ -30,7 +39,7 @@ if [ $? -ne 0 ]; then
 fi
 echo ""
 
-echo "[4/4] Opening Heroku app..."
+echo "[5/5] Opening Heroku app..."
 if command -v xdg-open > /dev/null; then
     xdg-open https://chetara-8df1a70b756d.herokuapp.com/play
 elif command -v open > /dev/null; then

@@ -846,9 +846,6 @@ function DraftInterface({ draftId, onExit }) {
                         )}
                       </div>
                     ))}
-                    {cardGroup.length > 1 && (
-                      <div className="card-count-badge">{cardGroup.length}</div>
-                    )}
                   </div>
                 ))}
             </div>
@@ -905,9 +902,6 @@ function DraftInterface({ draftId, onExit }) {
                         )}
                       </div>
                     ))}
-                    {cardGroup.length > 1 && (
-                      <div className="card-count-badge">{cardGroup.length}</div>
-                    )}
                   </div>
                 ))}
             </div>

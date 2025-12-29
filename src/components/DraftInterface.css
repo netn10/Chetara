@@ -758,25 +758,6 @@
   font-weight: 600;
 }
 
-.card-count-badge {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: var(--color-accent);
-  color: var(--color-black);
-  font-weight: 700;
-  font-size: 0.9rem;
-  padding: 4px 10px;
-  border-radius: 50%;
-  min-width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-family: 'Cinzel', serif;
-}
-
 .zone-pagination {
   display: flex;
   justify-content: center;

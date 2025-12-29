@@ -8,6 +8,9 @@ const router = express.Router();
 // In-memory draft storage (no database)
 const drafts = new Map();
 
+// Cleanup configuration
+const CLEANUP_DELAY_MS = 5 * 60 * 1000; // 5 minutes after completion
+
 /**
  * @route POST /api/draft/create
  * @desc Create a new draft session
@@ -193,6 +196,25 @@ router.post('/:id/start', asyncHandler(async (req, res) => {
 }));
 
 /**
+ * @route GET /api/draft/active
+ * @desc Get list of active drafts (for debugging)
+ */
+router.get('/active', asyncHandler(async (req, res) => {
+  const activeDrafts = Array.from(drafts.values()).map(draft => ({
+    id: draft._id,
+    status: draft.status,
+    players: draft.players.length,
+    round: draft.currentRound,
+    createdAt: draft.createdAt
+  }));
+
+  res.json({
+    count: activeDrafts.length,
+    drafts: activeDrafts
+  });
+}));
+
+/**
  * @route GET /api/draft/:id
  * @desc Get draft status
  */
@@ -286,6 +308,7 @@ router.post('/:id/pick', asyncHandler(async (req, res) => {
       // Draft complete
       draft.status = 'completed';
       logger.info(`Draft complete!`);
+      scheduleCleanup(draft._id);
     }
   }
 
@@ -320,6 +343,7 @@ router.post('/:id/debug-pick-45', asyncHandler(async (req, res) => {
   draft.status = 'completed';
   draft.boosters = [];
   draft.updatedAt = new Date();
+  scheduleCleanup(draft._id);
 
   res.json(draft);
 }));
@@ -356,6 +380,21 @@ function generateDraftId() {
 
 function generatePlayerId() {
   return `player-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
+/**
+ * Schedule a draft for automatic cleanup after completion
+ */
+function scheduleCleanup(draftId) {
+  setTimeout(() => {
+    if (drafts.has(draftId)) {
+      const draft = drafts.get(draftId);
+      if (draft.status === 'completed') {
+        drafts.delete(draftId);
+        logger.info(`🗑️ Cleaned up completed draft: ${draftId}`);
+      }
+    }
+  }, CLEANUP_DELAY_MS);
 }
 
 /**
@@ -511,22 +550,36 @@ async function generateBoosters(draft) {
 
 function generateSetBoosterFromPool(commons, uncommons, rares, mythics, count = 15) {
   const boosterCards = [];
+  const usedCardIds = new Set(); // Track used card IDs to prevent duplicates
+
+  // Helper function to get random unique cards
+  const getUniqueRandomCards = (pool, needed) => {
+    const available = pool.filter(card => !usedCardIds.has(card._id.toString()));
+    if (available.length === 0) return [];
+
+    const shuffled = shuffleArray(available);
+    const selected = shuffled.slice(0, Math.min(needed, available.length));
+
+    // Mark these cards as used
+    selected.forEach(card => usedCardIds.add(card._id.toString()));
+    return selected;
+  };
 
   // 10 commons
-  boosterCards.push(...getRandomCards(commons, 10));
+  boosterCards.push(...getUniqueRandomCards(commons, 10));
 
   // 3 uncommons
-  boosterCards.push(...getRandomCards(uncommons, 3));
+  boosterCards.push(...getUniqueRandomCards(uncommons, 3));
 
   // 1 rare/mythic (1/8 chance for mythic)
   const isMythic = Math.random() < 0.125;
   const rarePool = isMythic && mythics.length > 0 ? mythics : rares;
-  boosterCards.push(...getRandomCards(rarePool, 1));
+  boosterCards.push(...getUniqueRandomCards(rarePool, 1));
 
-  // Fill remaining
+  // Fill remaining with commons if needed
   const remaining = count - boosterCards.length;
   if (remaining > 0) {
-    boosterCards.push(...getRandomCards(commons, remaining));
+    boosterCards.push(...getUniqueRandomCards(commons, remaining));
   }
 
   return shuffleArray(boosterCards);

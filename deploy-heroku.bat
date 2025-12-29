@@ -17,7 +17,16 @@ if errorlevel 1 (
 )
 echo.
 
-echo [3/4] Pushing to Heroku...
+echo [3/5] Pushing to GitHub (origin/main)...
+git push origin main
+if errorlevel 1 (
+    echo.
+    echo WARNING: Push to GitHub failed!
+    echo Continuing with Heroku deployment...
+)
+echo.
+
+echo [4/5] Pushing to Heroku...
 echo This may take a few minutes while Heroku builds the app...
 git push heroku main
 if errorlevel 1 (
@@ -30,7 +39,7 @@ if errorlevel 1 (
 )
 echo.
 
-echo [4/4] Opening Heroku app in browser...
+echo [5/5] Opening Heroku app in browser...
 start https://chetara-8df1a70b756d.herokuapp.com/play
 echo.
 
