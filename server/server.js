@@ -29,11 +29,11 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:", "http:"], // Allow external images from any HTTPS source
       connectSrc: ["'self'"],
-      fontSrc: ["'self'", "data:"],
+      fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
       frameSrc: ["'none'"],
@@ -60,7 +60,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Rate limiting - General API
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: 500, // Limit each IP to 500 requests per windowMs (increased for draft polling)
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
@@ -104,7 +104,7 @@ mongoose.connection.on('disconnected', () => {
 // Routes
 app.use('/api/cards', cardRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/drafts', draftRoutes);
+app.use('/api/draft', draftRoutes);
 app.use('/api/judge-tower', judgeTowerRoutes);
 app.use('/api/sealed', sealedRoutes);
 
