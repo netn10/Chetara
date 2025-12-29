@@ -54,7 +54,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
 
   const fetchDraftStatus = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}`);
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}`);
       if (response.ok) {
         const data = await response.json();
         setDraft(data);
@@ -79,7 +79,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/create`, {
+      const response = await fetch(`${API_BASE_URL}/draft/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -122,7 +122,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${joinCode}/join`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${joinCode}/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: playerName.trim() })
@@ -148,7 +148,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
 
   const handleAddBots = async (count) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/add-bots`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}/add-bots`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ count })
@@ -173,7 +173,7 @@ function DraftLobby({ draftType, onBack, onDraftStart }) {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/start`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}/start`, {
         method: 'POST'
       });
 

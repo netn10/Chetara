@@ -369,7 +369,7 @@ function DraftInterface({ draftId, onExit }) {
     abortControllerRef.current = controller;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}`, {
         signal: controller.signal
       });
 
@@ -532,7 +532,7 @@ function DraftInterface({ draftId, onExit }) {
     logger.debug('✅ [PICK] Booster hidden, sending request');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/pick`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}/pick`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId, cardId })
@@ -605,7 +605,7 @@ function DraftInterface({ draftId, onExit }) {
    */
   const updateDeck = async (newDeck, newSideboard) => {
     try {
-      await fetch(`${API_BASE_URL}/drafts/${draftId}/update-deck`, {
+      await fetch(`${API_BASE_URL}/draft/${draftId}/update-deck`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -729,7 +729,7 @@ function DraftInterface({ draftId, onExit }) {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/drafts/${draftId}/debug-pick-45`, {
+      const response = await fetch(`${API_BASE_URL}/draft/${draftId}/debug-pick-45`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerId })
