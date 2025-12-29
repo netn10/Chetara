@@ -37,14 +37,6 @@
   box-sizing: border-box;
 }
 
-/* Safe area support for mobile devices with notches */
-@supports (padding: max(0px)) {
-  body {
-    padding-left: max(0px, env(safe-area-inset-left));
-    padding-right: max(0px, env(safe-area-inset-right));
-  }
-}
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   background-color: var(--bg-primary);
@@ -54,8 +46,6 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  max-width: 100vw;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -84,19 +74,6 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 12px;
-  }
 }
 
 /* Minimal animations */
@@ -108,18 +85,6 @@ main {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
-}
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }
 
 /* Buttons */
@@ -201,26 +166,5 @@ section {
 
   .section-title {
     font-size: 1.75rem;
-  }
-
-  .btn {
-    min-height: 48px;
-    padding: 0.875rem 1.25rem;
-  }
-}
-
-/* Touch-friendly improvements */
-@media (max-width: 480px) and (hover: none) {
-  button,
-  .btn,
-  a {
-    /* Larger touch targets on mobile */
-    min-height: 44px;
-  }
-
-  /* Prevent double-tap zoom on buttons */
-  button,
-  .btn {
-    touch-action: manipulation;
   }
 }

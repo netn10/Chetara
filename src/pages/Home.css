@@ -694,16 +694,6 @@
   .story {
     padding: 2rem 1.5rem;
   }
-
-  /* Disable floating card animations on mobile for performance */
-  .floating-card {
-    animation: none !important;
-  }
-
-  /* Reduce opacity for better performance */
-  .hero-chess-pattern {
-    opacity: 0.01;
-  }
 }
 
 /* Booster Pack Section */

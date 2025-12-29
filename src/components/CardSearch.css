@@ -458,13 +458,6 @@
   right: 105%;
 }
 
-/* Hide hover tooltips on mobile/touch devices */
-@media (max-width: 768px), (hover: none) {
-  .card-hover-details {
-    display: none;
-  }
-}
-
 .card-detail-header {
   display: flex;
   justify-content: space-between;

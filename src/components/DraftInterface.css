@@ -641,12 +641,10 @@
 
   .booster-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
   }
 
   .picked-card-mini {
     width: 60px;
-    min-height: 48px;
   }
 
   .completion-message {
@@ -655,17 +653,6 @@
 
   .completion-message h2 {
     font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .booster-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .booster-card {
-    min-height: 48px;
   }
 }
 
