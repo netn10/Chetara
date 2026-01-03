@@ -37,7 +37,9 @@
       "Bash(dir:*)",
       "Bash(Select-String \"5000\")",
       "Bash(powershell:*)",
-      "Bash(Select-Object -Last 50)"
+      "Bash(Select-Object -Last 50)",
+      "Bash(mkdir:*)",
+      "Skill(frontend-design)"
     ]
   }
 }

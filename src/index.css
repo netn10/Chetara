@@ -1,7 +1,15 @@
+/* Import premium fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 /* Import design tokens from central design system */
 @import './styles/design-tokens.css';
 
 :root {
+  /* Premium Typography */
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Magic Colors (for card types) */
   --color-white: #F0E6D2;
   --color-blue: #2B5F9E;
   --color-black: #1C1C1E;
@@ -9,18 +17,30 @@
   --color-green: #2D5F4F;
   --color-gold: #CFB53B;
 
-  /* New clean palette */
-  --bg-primary: #0A0A0B;
+  /* Premium Palette - Refined Chess/Magic Fusion */
+  --rich-black: #0D0D0F;
+  --chess-white: #FDFBF7;
+  --grandmaster-gold: #C9A961;
+  --deep-bronze: #6B4423;
+
+  /* Magic Accent Colors */
+  --royal-blue: #1E3A5F;
+  --emerald-shadow: #1A3A2E;
+  --crimson-depth: #4A1C1C;
+  --ethereal-purple: #2D1B3D;
+
+  /* Semantic Color System */
+  --bg-primary: var(--rich-black);
   --bg-secondary: #141416;
   --bg-tertiary: #1C1C1E;
-  --text-primary: #FAFAFA;
-  --text-secondary: #A8A8A8;
-  --text-muted: #6E6E73;
+  --text-primary: var(--chess-white);
+  --text-secondary: #C8C8C8;
+  --text-muted: #8A8A8A;
   --border-subtle: #2C2C2E;
   --border-medium: #3A3A3C;
-  --accent-primary: #8B5A3C;
-  --accent-secondary: #5A7D6B;
-  --accent-highlight: #D4A574;
+  --accent-primary: var(--deep-bronze);
+  --accent-secondary: var(--royal-blue);
+  --accent-highlight: var(--grandmaster-gold);
 
   /* Legacy support */
   --color-bg: var(--bg-primary);
@@ -38,10 +58,10 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -49,9 +69,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 #root {
@@ -87,84 +108,111 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Buttons */
+/* Premium Buttons */
 .btn {
-  padding: 0.875rem 1.75rem;
+  padding: 1rem 2.5rem;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 50px;
   font-weight: 600;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: inline-block;
-  font-size: 1rem;
-  border: 2px solid transparent;
+  font-size: 0.875rem;
+  border: 3px solid transparent;
   cursor: pointer;
-  font-family: inherit;
-  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn-primary {
-  background: var(--accent-primary);
-  color: var(--text-primary);
-  border-color: var(--accent-primary);
+  background: var(--grandmaster-gold);
+  color: var(--rich-black);
+  border-color: var(--grandmaster-gold);
+  box-shadow: 0 4px 20px rgba(201, 169, 97, 0.3);
 }
 
 .btn-primary:hover {
-  background: var(--accent-highlight);
-  border-color: var(--accent-highlight);
+  background: var(--chess-white);
+  border-color: var(--chess-white);
+  box-shadow: 0 6px 30px rgba(201, 169, 97, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--accent-primary);
-  border-color: var(--border-medium);
+  color: var(--grandmaster-gold);
+  border-color: var(--grandmaster-gold);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--accent-primary);
-  color: var(--accent-highlight);
+  background: var(--grandmaster-gold);
+  color: var(--rich-black);
+  box-shadow: 0 6px 30px rgba(201, 169, 97, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Section styling */
 section {
-  padding: 5rem 0;
+  padding: 6rem 0;
+  position: relative;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: var(--text-primary);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
 }
 
 .section-subtitle {
   text-align: center;
   font-size: 1.125rem;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .btn {
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+    padding: 0.875rem 2rem;
   }
 }
 
 @media (max-width: 480px) {
   section {
-    padding: 3rem 0;
+    padding: 4rem 0;
   }
 
   .section-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }

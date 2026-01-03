@@ -10,8 +10,6 @@
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, var(--rich-black) 0%, #0A0A0D 50%, var(--rich-black) 100%);
-  border-bottom: 1px solid rgba(201, 169, 97, 0.2);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -33,8 +31,6 @@
 }
 
 .floating-card {
-  transform-style: preserve-3d;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: absolute;
   width: 200px;
   height: 280px;
@@ -52,12 +48,6 @@
 }
 
 .floating-card img {
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.8),
-    0 0 2px rgba(201, 169, 97, 0.4),
-    inset 0 0 0 1px rgba(201, 169, 97, 0.2);
-  border: 2px solid rgba(201, 169, 97, 0.3);
-  filter: brightness(0.9) contrast(1.15);
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -68,13 +58,6 @@
 }
 
 .floating-card:hover img {
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.95),
-    0 0 50px rgba(201, 169, 97, 0.7),
-    inset 0 0 0 2px rgba(201, 169, 97, 0.7);
-  border: 2px solid var(--grandmaster-gold);
-  filter: brightness(1.15) contrast(1.25);
-  transform: scale(1.08) translateZ(50px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 165, 116, 0.3);
   border: 2px solid rgba(212, 165, 116, 0.5);
 }
@@ -323,12 +306,6 @@
 }
 
 .hero-title {
-  background: linear-gradient(135deg, var(--chess-white) 0%, var(--grandmaster-gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: var(--font-display);
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
   font-size: 4.5rem;
   margin-bottom: 1.5rem;
   background: linear-gradient(
@@ -390,13 +367,6 @@
 
 /* Home page specific button styles - chess theme */
 .home .btn-primary {
-  background: var(--grandmaster-gold);
-  color: var(--rich-black);
-  border-color: var(--grandmaster-gold);
-  border-radius: 50px;
-  border-width: 3px;
-  padding: 1rem 2.5rem;
-  box-shadow: 0 6px 24px rgba(201, 169, 97, 0.4);
   background: linear-gradient(135deg, #FFFFFF 0%, #E8E8E8 50%, #FFFFFF 100%);
   color: #1C1C1E;
   border-color: #FFFFFF;
@@ -406,10 +376,6 @@
 }
 
 .home .btn-primary:hover {
-  background: var(--chess-white);
-  border-color: var(--chess-white);
-  color: var(--rich-black);
-  box-shadow: 0 8px 32px rgba(201, 169, 97, 0.6);
   background: linear-gradient(135deg, #1C1C1E 0%, #3A3A3C 50%, #1C1C1E 100%);
   color: #FFFFFF;
   border-color: #FFFFFF;
@@ -417,12 +383,6 @@
 }
 
 .home .btn-secondary {
-  background: transparent;
-  color: var(--grandmaster-gold);
-  border-color: var(--grandmaster-gold);
-  border-radius: 50px;
-  border-width: 3px;
-  padding: 1rem 2.5rem;
   background: transparent;
   color: #FFFFFF;
   border-color: #FFFFFF;
@@ -433,9 +393,6 @@
 }
 
 .home .btn-secondary:hover {
-  background: var(--grandmaster-gold);
-  color: var(--rich-black);
-  box-shadow: 0 8px 32px rgba(201, 169, 97, 0.5);
   background: rgba(255, 255, 255, 0.15);
   border-color: #FFFFFF;
   color: #FFFFFF;
@@ -759,11 +716,6 @@
 }
 
 .booster-pack {
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.8),
-    0 0 2px rgba(201, 169, 97, 0.3),
-    inset 0 3px 0 rgba(255, 255, 255, 0.12),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.6);
   width: 320px;
   height: 440px;
   background:
@@ -824,11 +776,6 @@
 }
 
 .booster-pack:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow:
-    0 40px 90px rgba(0, 0, 0, 0.95),
-    0 0 60px rgba(201, 169, 97, 0.5),
-    inset 0 3px 0 rgba(255, 255, 255, 0.18);
   transform: translateY(-8px) scale(1.02);
   box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.7),
@@ -1253,551 +1200,4 @@
   .fan-card:hover {
     z-index: 100;
   }
-}
-
-
-/* Premium Holographic Effect */
-@keyframes holoShine {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-.booster-pack::before {
-  animation: holoShine 3s linear infinite;
-}
-
-/* Enhanced Card Shadows */
-.fan-card img {
-  box-shadow:
-    0 15px 45px rgba(0, 0, 0, 0.85),
-    0 0 2px rgba(201, 169, 97, 0.3),
-    inset 0 0 0 1px rgba(201, 169, 97, 0.2);
-  border: 2px solid rgba(201, 169, 97, 0.3);
-}
-
-.fan-card:hover img {
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.95),
-    0 0 50px rgba(201, 169, 97, 0.6),
-    inset 0 0 0 2px rgba(201, 169, 97, 0.7);
-  border-color: var(--grandmaster-gold);
-}
-
-
-/* Premium Archetype Card Effects */
-.archetype-card {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-  border: 1px solid rgba(201, 169, 97, 0.25);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.archetype-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, var(--mana-glow, rgba(201, 169, 97, 0.15)) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  pointer-events: none;
-}
-
-.archetype-card:hover::before {
-  opacity: 1;
-}
-
-.archetype-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: var(--mana-glow-border, var(--grandmaster-gold));
-  box-shadow: 
-    0 16px 48px rgba(0, 0, 0, 0.6),
-    0 0 40px var(--mana-glow, rgba(201, 169, 97, 0.3));
-}
-
-/* Mana-specific glows */
-.archetype-card[data-colors=wu] {
-  --mana-glow: rgba(43, 95, 158, 0.2);
-  --mana-glow-border: rgba(43, 95, 158, 0.6);
-}
-
-.archetype-card[data-colors=ub] {
-  --mana-glow: rgba(106, 76, 147, 0.2);
-  --mana-glow-border: rgba(106, 76, 147, 0.6);
-}
-
-.archetype-card[data-colors=br] {
-  --mana-glow: rgba(184, 57, 78, 0.2);
-  --mana-glow-border: rgba(184, 57, 78, 0.6);
-}
-
-.archetype-card[data-colors=rg] {
-  --mana-glow: rgba(45, 95, 79, 0.2);
-  --mana-glow-border: rgba(45, 95, 79, 0.6);
-}
-
-.archetype-card[data-colors=gw] {
-  --mana-glow: rgba(240, 230, 210, 0.2);
-  --mana-glow-border: rgba(240, 230, 210, 0.6);
-}
-
-.archetype-card[data-colors=wb] {
-  --mana-glow: rgba(221, 221, 221, 0.2);
-  --mana-glow-border: rgba(221, 221, 221, 0.6);
-}
-
-.archetype-card[data-colors=bg] {
-  --mana-glow: rgba(45, 95, 79, 0.2);
-  --mana-glow-border: rgba(45, 95, 79, 0.6);
-}
-
-.archetype-card[data-colors=gu] {
-  --mana-glow: rgba(43, 95, 158, 0.2);
-  --mana-glow-border: rgba(43, 95, 158, 0.6);
-}
-
-.archetype-card[data-colors=ur] {
-  --mana-glow: rgba(184, 57, 78, 0.2);
-  --mana-glow-border: rgba(184, 57, 78, 0.6);
-}
-
-.archetype-card[data-colors=rw] {
-  --mana-glow: rgba(255, 107, 107, 0.2);
-  --mana-glow-border: rgba(255, 107, 107, 0.6);
-}
-
-/* Enhanced About Cards */
-.about-card {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-  border: 1px solid rgba(201, 169, 97, 0.2);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.about-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--grandmaster-gold), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.about-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--grandmaster-gold);
-  box-shadow: 0 16px 48px rgba(201, 169, 97, 0.25);
-}
-
-.about-card:hover::before {
-  opacity: 1;
-}
-
-/* Contact Cards */
-.contact-card {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-  border: 1px solid rgba(201, 169, 97, 0.2);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.contact-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--grandmaster-gold);
-  box-shadow: 0 12px 40px rgba(201, 169, 97, 0.2);
-}
-
-.story {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-  border-left: 4px solid var(--grandmaster-gold);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-.creator-note {
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-  border-left: 4px solid var(--grandmaster-gold);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-/* ============================================
-   ULTRA-REALISTIC BOOSTER PACK
-   ============================================ */
-
-.booster-pack {
-  width: 360px;
-  height: 500px;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-style: preserve-3d;
-  border-radius: 12px;
-  overflow: hidden;
-  
-  /* Realistic foil wrapper base */
-  background: 
-    linear-gradient(
-      135deg,
-      #1a1a1c 0%,
-      #2d2d30 10%,
-      #1f1f21 20%,
-      #3a3a3e 30%,
-      #252528 40%,
-      #2d2d30 50%,
-      #1f1f21 60%,
-      #3a3a3e 70%,
-      #252528 80%,
-      #2d2d30 90%,
-      #1a1a1c 100%
-    );
-  background-size: 200% 200%;
-  
-  /* Realistic metallic border */
-  border: 3px solid;
-  border-image: linear-gradient(
-    180deg,
-    rgba(201, 169, 97, 0.6) 0%,
-    rgba(201, 169, 97, 0.2) 20%,
-    rgba(201, 169, 97, 0.4) 40%,
-    rgba(201, 169, 97, 0.1) 60%,
-    rgba(201, 169, 97, 0.5) 80%,
-    rgba(201, 169, 97, 0.3) 100%
-  ) 1;
-  
-  /* Realistic shadows */
-  box-shadow:
-    0 35px 70px rgba(0, 0, 0, 0.8),
-    inset 0 3px 6px rgba(255, 255, 255, 0.15),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.7),
-    inset 3px 0 6px rgba(255, 255, 255, 0.08),
-    inset -3px 0 6px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(201, 169, 97, 0.15);
-}
-
-/* Realistic foil shimmer - rainbow effect */
-.booster-pack::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 2px,
-      rgba(255, 50, 50, 0.08) 2px,
-      rgba(255, 50, 50, 0.08) 4px,
-      transparent 4px,
-      transparent 6px,
-      rgba(50, 150, 255, 0.08) 6px,
-      rgba(50, 150, 255, 0.08) 8px,
-      transparent 8px,
-      transparent 10px,
-      rgba(150, 50, 255, 0.08) 10px,
-      rgba(150, 50, 255, 0.08) 12px,
-      transparent 12px,
-      transparent 14px,
-      rgba(255, 200, 50, 0.08) 14px,
-      rgba(255, 200, 50, 0.08) 16px,
-      transparent 16px,
-      transparent 18px,
-      rgba(50, 255, 150, 0.08) 18px,
-      rgba(50, 255, 150, 0.08) 20px
-    ),
-    linear-gradient(
-      110deg,
-      transparent 20%,
-      rgba(255, 100, 100, 0.12) 25%,
-      rgba(100, 150, 255, 0.15) 35%,
-      rgba(255, 200, 100, 0.18) 45%,
-      rgba(150, 100, 255, 0.15) 55%,
-      rgba(100, 255, 200, 0.12) 65%,
-      rgba(255, 150, 100, 0.15) 75%,
-      transparent 80%
-    );
-  animation: realisticFoilShift 4s linear infinite;
-  pointer-events: none;
-  opacity: 0.6;
-  mix-blend-mode: screen;
-}
-
-@keyframes realisticFoilShift {
-  0% {
-    transform: translateX(-50%) translateY(-50%) rotate(0deg);
-  }
-  100% {
-    transform: translateX(50%) translateY(50%) rotate(0deg);
-  }
-}
-
-/* Wrapper texture */
-.pack-content::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 3%),
-    radial-gradient(circle at 60% 70%, rgba(0, 0, 0, 0.04) 0%, transparent 3%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 2%),
-    radial-gradient(circle at 40% 90%, rgba(0, 0, 0, 0.03) 0%, transparent 2%);
-  pointer-events: none;
-  opacity: 0.8;
-  z-index: 1;
-}
-
-/* Realistic tear strip */
-.pack-content::before {
-  content: '';
-  position: absolute;
-  top: -2.5rem;
-  left: -3px;
-  right: -3px;
-  height: 20px;
-  background: 
-    linear-gradient(90deg,
-      var(--grandmaster-gold) 0%,
-      var(--chess-white) 20%,
-      var(--grandmaster-gold) 40%,
-      var(--chess-white) 60%,
-      var(--grandmaster-gold) 80%,
-      var(--chess-white) 100%
-    );
-  box-shadow: 
-    0 2px 8px rgba(201, 169, 97, 0.6),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  z-index: 10;
-}
-
-.booster-pack:hover {
-  transform: translateY(-15px) rotateX(8deg) rotateY(-5deg);
-  background-position: 100% 100%;
-  box-shadow:
-    0 45px 90px rgba(0, 0, 0, 0.95),
-    0 0 70px rgba(201, 169, 97, 0.4),
-    inset 0 4px 8px rgba(255, 255, 255, 0.2),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.8),
-    inset 4px 0 8px rgba(255, 255, 255, 0.12),
-    inset -4px 0 8px rgba(0, 0, 0, 0.5);
-}
-
-.booster-pack:hover::before {
-  opacity: 0.9;
-  animation-duration: 2s;
-}
-
-.pack-content {
-  position: relative;
-  z-index: 3;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 3.5rem 2rem 2.5rem;
-  text-align: center;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(201, 169, 97, 0.03) 0%,
-    transparent 60%
-  );
-}
-
-.pack-logo {
-  font-size: 6rem;
-  filter: 
-    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8))
-    drop-shadow(0 0 20px rgba(201, 169, 97, 0.3));
-  animation: logoGlowRealistic 3s ease-in-out infinite;
-  z-index: 2;
-}
-
-@keyframes logoGlowRealistic {
-  0%, 100% {
-    filter: 
-      drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8))
-      drop-shadow(0 0 20px rgba(201, 169, 97, 0.3));
-  }
-  50% {
-    filter: 
-      drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9))
-      drop-shadow(0 0 30px rgba(201, 169, 97, 0.6));
-  }
-}
-
-.pack-title {
-  font-size: 2.75rem;
-  font-family: var(--font-display);
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.1em;
-  line-height: 1.1;
-  text-shadow: 
-    0 1px 0 rgba(0, 0, 0, 0.8),
-    0 2px 4px rgba(0, 0, 0, 0.6),
-    0 -1px 0 rgba(255, 255, 255, 0.1),
-    0 0 20px rgba(201, 169, 97, 0.3);
-  background: linear-gradient(
-    180deg,
-    var(--chess-white) 0%,
-    var(--text-secondary) 50%,
-    var(--chess-white) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  z-index: 2;
-}
-
-.pack-subtitle {
-  font-size: 1rem;
-  color: var(--grandmaster-gold);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 600;
-  opacity: 0.95;
-  text-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(201, 169, 97, 0.4);
-  z-index: 2;
-}
-
-.pack-count {
-  font-size: 1.125rem;
-  color: var(--rich-black);
-  font-weight: 700;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  background: 
-    linear-gradient(135deg, 
-      var(--grandmaster-gold) 0%,
-      var(--chess-white) 50%,
-      var(--grandmaster-gold) 100%
-    );
-  box-shadow: 
-    0 6px 20px rgba(201, 169, 97, 0.6),
-    inset 0 1px 2px rgba(255, 255, 255, 0.5),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border: 2px solid rgba(201, 169, 97, 0.4);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 2;
-}
-
-.pack-count:hover {
-  transform: scale(1.05);
-  box-shadow: 
-    0 8px 24px rgba(201, 169, 97, 0.7),
-    inset 0 1px 3px rgba(255, 255, 255, 0.6),
-    inset 0 -1px 3px rgba(0, 0, 0, 0.4);
-}
-
-/* AUTHENTIC MTG BOOSTER PACK - 200% REAL */
-
-.booster-pack {
-  width: 280px !important;
-  height: 440px !important;
-  border-radius: 6px !important;
-  background: radial-gradient(ellipse at 30% 40%, rgba(139, 90, 60, 0.15) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 60%, rgba(90, 125, 107, 0.12) 0%, transparent 50%),
-              linear-gradient(180deg, #0a0a0a 0%, #121212 50%, #0a0a0a 100%) !important;
-  border: 1px solid rgba(40, 40, 40, 0.9) !important;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9),
-              inset 1px 1px 0 rgba(255, 255, 255, 0.08),
-              inset -1px -1px 0 rgba(0, 0, 0, 0.8),
-              0 0 40px rgba(201, 169, 97, 0.1) !important;
-}
-
-.booster-pack::before {
-  background-image: repeating-linear-gradient(45deg, transparent 0px, rgba(255, 100, 150, 0.12) 1px, transparent 2px, transparent 6px, rgba(100, 200, 255, 0.15) 7px, transparent 8px, transparent 12px, rgba(255, 220, 100, 0.13) 13px, transparent 14px, transparent 18px, rgba(150, 100, 255, 0.11) 19px, transparent 20px),
-                    repeating-linear-gradient(-45deg, transparent 0px, rgba(100, 255, 200, 0.11) 1px, transparent 2px, transparent 6px, rgba(255, 150, 100, 0.14) 7px, transparent 8px, transparent 12px, rgba(200, 100, 255, 0.12) 13px, transparent 14px, transparent 18px, rgba(255, 255, 100, 0.10) 19px, transparent 20px),
-                    linear-gradient(125deg, transparent 0%, transparent 20%, rgba(255, 50, 100, 0.08) 25%, rgba(100, 150, 255, 0.12) 35%, rgba(255, 200, 50, 0.15) 45%, rgba(150, 50, 255, 0.11) 50%, rgba(50, 255, 150, 0.09) 60%, rgba(255, 100, 200, 0.13) 70%, transparent 75%, transparent 100%) !important;
-  animation: mtgFoilShift 6s ease-in-out infinite !important;
-  opacity: 0.85 !important;
-}
-
-@keyframes mtgFoilShift {
-  0% { background-position: 0% 0%, 0% 0%, -100% 0%; }
-  50% { background-position: 100% 100%, -100% -100%, 200% 100%; }
-  100% { background-position: 0% 0%, 0% 0%, -100% 0%; }
-}
-
-.pack-content::before {
-  height: 28px !important;
-  background: repeating-linear-gradient(90deg, #1a1a1a 0px, #2a2a2a 2px, #1a1a1a 4px),
-              linear-gradient(180deg, rgba(201, 169, 97, 0.3) 0%, rgba(60, 60, 60, 0.8) 30%, rgba(40, 40, 40, 0.9) 70%, rgba(20, 20, 20, 0.95) 100%) !important;
-  background-size: 4px 100%, 100% 100% !important;
-}
-
-.pack-shine {
-  display: block !important;
-  position: absolute !important;
-  bottom: -3px !important;
-  left: -3px !important;
-  right: -3px !important;
-  height: 28px !important;
-  background: repeating-linear-gradient(90deg, #1a1a1a 0px, #2a2a2a 2px, #1a1a1a 4px),
-              linear-gradient(0deg, rgba(201, 169, 97, 0.3) 0%, rgba(60, 60, 60, 0.8) 30%, rgba(40, 40, 40, 0.9) 70%, rgba(20, 20, 20, 0.95) 100%) !important;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.8),
-              inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-              inset 0 1px 0 rgba(0, 0, 0, 0.6) !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.5) !important;
-  z-index: 15 !important;
-  background-size: 4px 100%, 100% 100% !important;
-}
-
-.pack-title {
-  font-size: 2rem !important;
-  background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 30%, #d0d0d0 70%, #c0c0c0 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) !important;
-  -webkit-text-stroke: 0.5px rgba(201, 169, 97, 0.3) !important;
-}
-
-.pack-count {
-  background: linear-gradient(135deg, #d4a574 0%, #f0d9b5 25%, #d4a574 50%, #c9a961 75%, #d4a574 100%) !important;
-  border-radius: 4px !important;
-}
-
-.pack-glint {
-  display: block !important;
-  position: absolute !important;
-  top: -100% !important;
-  left: -100% !important;
-  width: 300% !important;
-  height: 300% !important;
-  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 55%, transparent 70%) !important;
-  pointer-events: none !important;
-  z-index: 20 !important;
-}
-
-.booster-pack:hover .pack-glint {
-  animation: glintSweep 2s ease-in-out infinite !important;
-}
-
-@keyframes glintSweep {
-  0% { opacity: 0; transform: translateX(-50%) translateY(-50%) rotate(-45deg); }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(50%) translateY(50%) rotate(-45deg); }
-}
-
-.booster-pack:hover {
-  transform: translateY(-20px) rotateX(12deg) rotateY(-8deg) scale(1.02) !important;
 }
