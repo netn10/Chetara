@@ -434,7 +434,7 @@
   display: block;
   /* Performance optimizations */
   content-visibility: auto;
-  image-rendering: crisp-edges;
+  image-rendering: auto;
   transform: translateZ(0);
   backface-visibility: hidden;
 }

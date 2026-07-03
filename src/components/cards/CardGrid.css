@@ -39,7 +39,7 @@
   display: block;
   /* Performance optimizations */
   content-visibility: auto;
-  image-rendering: crisp-edges;
+  image-rendering: auto; /* high-quality downscaling; crisp-edges made large card art look blurry in the grid */
   transform: translateZ(0);
   backface-visibility: hidden;
 }

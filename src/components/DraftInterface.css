@@ -233,7 +233,7 @@
   display: block;
   border-radius: 10px;
   /* Performance optimizations */
-  image-rendering: crisp-edges;
+  image-rendering: auto;
   transform: translateZ(0);
 }
 
@@ -452,7 +452,7 @@
   height: auto;
   display: block;
   /* Performance optimizations */
-  image-rendering: crisp-edges;
+  image-rendering: auto;
   transform: translateZ(0);
 }
 
@@ -541,7 +541,7 @@
   height: auto;
   display: block;
   /* Performance optimizations */
-  image-rendering: crisp-edges;
+  image-rendering: auto;
   transform: translateZ(0);
 }
 
