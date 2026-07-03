@@ -4,6 +4,7 @@ import { authMiddleware, isAdmin } from '../middleware/auth.js';
 import { cardValidationRules, idValidationRules, searchValidationRules, validate } from '../middleware/validation.js';
 import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
 import logger from '../utils/logger.js';
+import { mongoConnected, fbFind, fbById, fbRandomChess } from '../utils/fallbackCards.js';
 
 const router = express.Router();
 
@@ -37,6 +38,13 @@ router.get('/', searchValidationRules, validate, asyncHandler(async (req, res) =
 
   logger.debug('Fetching cards with query:', query);
 
+  // No database? Serve the bundled JSON DB so the site still works.
+  if (!mongoConnected()) {
+    const cards = fbFind(req.query);
+    logger.info(`Fetched ${cards.length} cards from JSON fallback (Mongo down)`);
+    return res.json(cards);
+  }
+
   try {
     const cards = await Card.find(query).sort({ name: 1 }).limit(1000);
     logger.info(`Fetched ${cards.length} cards`);
@@ -54,6 +62,11 @@ router.get('/', searchValidationRules, validate, asyncHandler(async (req, res) =
  * @returns {object} Random chess card object
  */
 router.get('/random/chess', asyncHandler(async (req, res) => {
+  if (!mongoConnected()) {
+    const c = fbRandomChess();
+    if (!c) throw Errors.resourceNotFound('Chess card');
+    return res.json(c);
+  }
   try {
     // Get a random card that has a chessPiece designation (not 'none')
     const cards = await Card.aggregate([
@@ -83,6 +96,11 @@ router.get('/random/chess', asyncHandler(async (req, res) => {
  * @returns {object} Card object
  */
 router.get('/:id', idValidationRules, validate, asyncHandler(async (req, res) => {
+  if (!mongoConnected()) {
+    const c = fbById(req.params.id);
+    if (!c) throw Errors.cardNotFound();
+    return res.json(c);
+  }
   try {
     const card = await Card.findById(req.params.id);
 
