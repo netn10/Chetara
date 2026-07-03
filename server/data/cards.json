@@ -1,0 +1,4193 @@
+[
+  {
+    "name": "A Place Called Home",
+    "manaCost": "{5}{G}{G}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 6,
+    "toughness": 6,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nTrample, reach\nWhen this creature enters, you gain 6 life.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-link",
+      "lifegain"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__a-place-called-home.png",
+    "artist": "Nikolaj Østermark",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "A Place for Everything",
+    "manaCost": "{2}{W}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Simultaneously move all chess pieces to their starting position.\nExile all creatures, then return them to the battlefield.\nExile A Place for Everything.",
+    "colors": [
+      "W",
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "reset",
+      "blink"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__a-place-for-everything.png",
+    "artist": "Loulou Delarosbel",
+    "flavorText": "And everything in its place.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Alabaster Chronodoor",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {W} or {B}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "WB",
+      "lands",
+      "chess-pawn"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__alabaster-chronodoor.png",
+    "artist": "Jie Ma",
+    "flavorText": "A place where dreams wait for their next station, resting before the journey ahead.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Ambitious Contender",
+    "manaCost": "{2}{W}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 2,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhenever this creature deals combat damage to a player, replace it on the chess board with a Queen, then put two +1/+1 counters on her.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "pawn",
+      "aggro",
+      "counters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__ambitious-contender.png",
+    "artist": "SPEARMINTAII",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Annoy No More!",
+    "manaCost": "{2}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever a chess piece you control or a Chess creature you control becomes the target of a spell, you may move it.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-protection"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__annoy-no-more.png",
+    "artist": "Eli Sef",
+    "flavorText": "\"…And the black beast, vexed by the endless dance, sought to sever the threads that bound him to the Fae court, for a gentleman should not be made to tap his foot to such a wretched, unending tune.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Arena of Twisted Hunger",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {R} or {G}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "RG",
+      "lands",
+      "chess-pawn"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__arena-of-twisted-hunger.png",
+    "artist": "Joxonart",
+    "flavorText": "A place where dreams and nightmares devour each other, endlessly colliding in a ruthless survival of the strongest idea.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Art of War",
+    "manaCost": "{3}{R}{W}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "At the beginning of each combat, up to one target creature attacks or blocks this combat if able and up to one target creature can't attack or block this combat.\nIf a creature you control dealing combat damage causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+    "colors": [
+      "R",
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "combat",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__art-of-war.png",
+    "artist": "Qui Nguyễn",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Awake the Sleeping Giants",
+    "manaCost": "{X}{X}{X}{G}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "For each of X target permanents, create a token that's a copy of it, except it's a 4/4 artifact Chess Rook creature token in addition to its other types. For each token created this way, put a Rook chess piece on the chess board, each on an unoccupied square on your first and/or second row, linked to a different token created this way.",
+    "colors": [
+      "G",
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "tokens",
+      "clone",
+      "ramp"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__awake-the-sleeping-giants.png",
+    "artist": "EJLV GNHAN",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Back to Nature",
+    "manaCost": "{1}{G}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy all enchantments.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "enchantment-hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__back-to-nature.jpg",
+    "artist": "Howard Lyon",
+    "flavorText": "There will always be those who presume to improve nature, or dare to befoul it. And nature will always have a response.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Ballroom",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Ballroom enters the battlefield tapped.\n{T}: Add {W} or {B}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "WB",
+      "lands",
+      "investigate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__ballroom.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Bastion of the Internal",
+    "manaCost": "{2}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return up to one target artifact card from your graveyard to your hand.\nIf at least one of your Rook chess pieces is missing, you may put a Rook chess piece onto one of your unoccupied starting Rook squares.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-rook",
+      "artifact-recursion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__bastion-of-the-internal.png",
+    "artist": "Karolis Strautniekas",
+    "flavorText": "\"To rebuild is to admit that the world has broken us. To admit is to be whole again.\"",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Be Your Own",
+    "manaCost": "{2}{U}{U}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever a Chess creature you control enters, instead of it replacing an existing chess piece, you may create a new chess piece that is a copy of it.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "tokens"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__be-your-own.png",
+    "artist": "James R. Eads and The Glitch",
+    "flavorText": "This is where you become yourself.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Become Your True Self",
+    "manaCost": "{2}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose target non-King chess piece. It becomes a random non-King chess piece.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__become-your-true-self.png",
+    "artist": "Marc Simonetti",
+    "flavorText": "“We all dream of impossible shapes. Fear nothing, for your subconscious is simply reminding you of what you have always been.”",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Billiard Room",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Billiard Room enters the battlefield tapped.\n{T}: Add {B} or {R}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "BR",
+      "lands",
+      "investigate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__billiard-room.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Blood-Drenched Skyline",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {B} or {R}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "BR",
+      "lands",
+      "chess-pawn"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__blood-drenched-skyline.png",
+    "artist": "ArtofChinara",
+    "flavorText": "A place where dreams of becoming heroes turn into nightmares—when monsters rise to devour them.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Bloodfell Caves",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {R}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "BR",
+      "lands"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__bloodfell-caves.jpg",
+    "artist": "Adam Paquette",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Blossoming Sands",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {G} or {W}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "GW",
+      "lands"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__blossoming-sands.jpg",
+    "artist": "Sam Burley",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Blunder",
+    "manaCost": "{1}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Counter target spell unless its controller pays {2}. If it's not your turn, you may move target non-King chess piece that player controls.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "counterspells"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__blunder.png",
+    "artist": "Bryan Trongcoso",
+    "flavorText": "\"The ability to play chess is the sign of a gentleman. The ability to play chess well is the sign of a wasted life.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Body Tender",
+    "manaCost": "{B/G}{B/G}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 0,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen this creature enters, mill three cards. You may put a permanent card from among them into your hand. If you don't, put a +1/+1 counter on this creature.",
+    "colors": [
+      "B",
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "mill",
+      "pawns",
+      "graveyard"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__body-tender.png",
+    "artist": "Antonio Noise",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Born to be Free",
+    "manaCost": "{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Your opponents can't gain control of permanents and chess pieces you control.\nWhenever a Knight you control jumps over a chess piece, draw two cards.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "knight",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__born-to-be-free.png",
+    "artist": "Sieskja",
+    "flavorText": "\"Chetara is a world of the Puppeteers and their puppets. The puppets who have shattered their strings are freer than those who once controlled them.\"\n—Nevilla, the Emerald-Clad",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Breaker of Expectations",
+    "manaCost": "{2}{R}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 3,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\n{2}{R}: For each chess piece this Bishop can see, move that piece one square closer to or one square farther from it.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__breaker-of-expectations.png",
+    "artist": "M'Lee",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Censor of Forbidden Tunes",
+    "manaCost": "{2}{W}{W}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 2,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nAt the beginning of each opponent's chess phase, choose black or white. During that phase, that player can't move chess pieces to squares of that color.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "bishop",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__censor-of-forbidden-tunes.png",
+    "artist": "Micah Offman",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Change of Heart",
+    "manaCost": "{3}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose one —\n• Gain control of target Non-King, Non-Queen creature you don't control until end of turn. Untap that creature. It gains haste until end of turn.\n• Move a Non-King, Non-Queen chess piece you don't control as though it was yours.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "theft",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__change-of-heart.png",
+    "artist": "Dominik Mayer",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Change Places!",
+    "manaCost": "{2}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Switch the place of target chess piece you control with target chess piece you don't control.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__change-places.png",
+    "artist": "Marrylie",
+    "flavorText": "\"I'm tired of being a pawn,\" Alice remarked. \"I think I'll try being a Queen.\"\n\"No, no! The rules are simple: you go there, and I go here, and neither of us knows why.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Chariot of Nobility",
+    "manaCost": "{3}",
+    "type": "Artifact — Vehicle",
+    "subtype": "Vehicle",
+    "power": 4,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "Whenever you move your Queen, you may also move your King and vice versa.\n{T}: Each player draws a card.\nCrew 3",
+    "colors": [],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "artifacts",
+      "chess",
+      "vehicles"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__chariot-of-nobility.png",
+    "artist": "ChatGPT o4",
+    "flavorText": "Legend says that the Grand Puppeteer split their own love and hate between them. To preserve this fragile balance, a wondrous chariot was born that very day.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Chessling",
+    "manaCost": "{6}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 4,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nThis creature is a Pawn, Knight, Rook and a Bishop as long as it's on the battlefield. (Its linked chess piece has all of their move sets.)",
+    "colors": [],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "artifacts",
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__chessling.png",
+    "artist": "Wylie Beckert",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Chronicler of the Ages",
+    "manaCost": "{2}{W}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 1,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhenever your King moves and whenever you check, draw a card.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "rook",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__chronicler-of-the-ages.png",
+    "artist": "Kei-suwabe",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Clergy of the Lost",
+    "manaCost": "{3}{W/B}{W/B}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nLifelink\nWhen this creature enters, put a chess piece you control that's missing from the chess board on its starting square if it's unoccupied.",
+    "colors": [
+      "W",
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "lifegain",
+      "bishops"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__clergy-of-the-lost.png",
+    "artist": "Ninovecia",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Coat in Dreams",
+    "manaCost": "{2}{R/W}",
+    "type": "Enchantment — Aura",
+    "subtype": "Aura",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Enchant creature\nEnchanted creature has double strike.",
+    "colors": [
+      "R",
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "auras",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__coat-in-dreams.png",
+    "artist": "James Gleeson",
+    "flavorText": "To wear a mask that glows too brightly, to stride into every light, to be celebrated by all yet belong to none—truly a nightmare made real.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Coat in Nightmares",
+    "manaCost": "{2}{U/B}",
+    "type": "Enchantment — Aura",
+    "subtype": "Aura",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Enchant creature\nEnchanted creature can't block and can't be blocked.",
+    "colors": [
+      "U",
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "auras",
+      "evasion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__coat-in-nightmares.png",
+    "artist": "James Gleeson",
+    "flavorText": "To wear a skin not your own, to walk the shadows alone, to be everyone and no one at once—truly a dream made real.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Columination",
+    "manaCost": "{4}{W}{W}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose a column on the chess board. Destroy all non-King pieces on that column.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "removal",
+      "wrath"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__columination.png",
+    "artist": "Hannah L",
+    "flavorText": "\"Before the first stroke of fate, the paths lay bare; one line would rise while the other would falter, and all who stood upon it bore the memory of its silence.\"\n—The Tome of Birth and Death, First Revelation",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Confuse Directions",
+    "manaCost": "{1}{R}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever you cast a spell during an opponent's turn, you may move target chess piece to an adjacent square.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "spells-matter",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__confuse-directions.png",
+    "artist": "Iellimau",
+    "flavorText": "“One wrong move can decide a duel; imagine what you can win when your opponent makes all the wrong moves.”",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Conservatory",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Conservatory enters the battlefield tapped.\n{T}: Add {G} or {W}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "GW",
+      "lands",
+      "investigate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__conservatory.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Cradle of the Nocturnal",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {B} or {G}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "BG",
+      "lands",
+      "chess-pawn"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__cradle-of-the-nocturnal.png",
+    "artist": "Stephanie Law",
+    "flavorText": "A place where dreams and nightmares come to life and play together, unaware of the rivalry that awaits them when they grow up.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Crash Beneath",
+    "manaCost": "{1}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy up to one target artifact.\nIf at least one of your Knight chess pieces is missing, you may put a Knight chess piece onto one of your unoccupied starting Knight squares.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifact-hate",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__crash-beneath.png",
+    "artist": "Kuri Huang",
+    "flavorText": "“I'm on top for a reason, you know.”",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Creeping Corrosion",
+    "manaCost": "{2}{G}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy all artifacts.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifact-hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__creeping-corrosion.jpg",
+    "artist": "Ryan Pancoast",
+    "flavorText": "\"We will reveal the futility of their heresy by showing them how fragile their relics are.\"\n—Vorinclex, Voice of Hunger",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Crescent-Head Freak",
+    "manaCost": "{1}{B}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\n{2}, Sacrifice a non-King chess piece: This creature gets +2/+2 until end of turn.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "chess-link",
+      "pawns"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__crescent-head-freak.png",
+    "artist": "Moon_Djinn115",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Dance for Us",
+    "manaCost": "{4}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Dance for Us deals 6 damage to target creature. If excess damage was dealt this way, you may move target chess piece that many squares diagonally or horizontally, to the same direction, as long as it isn't blocked by a chess piece.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "burn",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__dance-for-us.png",
+    "artist": "HushPuppy",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Dealer of Shadows",
+    "manaCost": "{B}",
+    "type": "Enchantment Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nAt the beginning of your upkeep, sacrifice a creature or two Pawns. When you do, target creature can't be blocked this turn.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "aristocrats",
+      "evasion",
+      "chess-link"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__dealer-of-shadows.png",
+    "artist": "Lin Chang",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Demand Answers",
+    "manaCost": "{1}{R}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast this spell, sacrifice an artifact or discard a card.\nDraw two cards.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "card-draw"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__demand-answers.jpg",
+    "artist": "Justyna Dura",
+    "flavorText": "After the attempt on Aurelia's life, she gave the Agency an ultimatum: solve the case in twenty-four hours, or the Boros Legion would declare war on the Cult of Rakdos.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Demote",
+    "manaCost": "{1}{U}",
+    "type": "Enchantment — Aura",
+    "subtype": "Aura",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Enchant Non-King, Non-Queen Chess creature\nEnchanted Chess creature loses all abilities and is a Pawn Chess artifact creature with base power and toughness 1/1. (Its move set is now of a pawn.)",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "removal-downgrade"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__demote.png",
+    "artist": "Shadowverse",
+    "flavorText": "\"Oh, you were always a puppet… but now you will also feel the strings.\"\n—H.I.M, The Hand That Binds",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Dining Room",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Dining Room enters the battlefield tapped.\n{T}: Add {R} or {G}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "RG",
+      "lands",
+      "investigate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__dining-room.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Disappearing Act",
+    "manaCost": "{1}{U}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast Disappearing Act, return a permanent you control to its owner's hand.\nCounter target spell.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "counterspells"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disappearing-act.jpg",
+    "artist": "Anthony Palumbo",
+    "flavorText": "\"Baral took my family from me back then. I'd do anything to face him now.\"\n—Chandra Nalaar",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Disciple of Space and Time",
+    "manaCost": "{3}{U}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen this creature enters, draw a card.\n{3}{U}: Exile target creature, then return it to the battlefield tapped or untapped. (Chess pieces return to the chess board at their starting position, and only if it's unoccupied.)",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-bishop",
+      "blink",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disciple-of-space-and-time.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Disenchant",
+    "manaCost": "{1}{W}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy target artifact or enchantment.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "disenchant"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__disenchant.jpg",
+    "artist": "Richard Kane Ferguson",
+    "flavorText": "Even millennia later, some war machines from the devastating Brothers' War continue to function. Thankfully, the weapons meant to destroy them still work too.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Dismal Backwater",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {B}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "UB",
+      "lands"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__dismal-backwater.jpg",
+    "artist": "Sam Burley",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Disperse",
+    "manaCost": "{1}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return target nonland permanent to its owner's hand.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "tempo",
+      "bounce"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disperse.jpg",
+    "artist": "Ryan Yee",
+    "flavorText": "It's pointless to hold on when you have nothing to hold on with.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Divine Gambit",
+    "manaCost": "{W}{W}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Exile target artifact, creature, or enchantment an opponent controls. That player may put a permanent card from their hand onto the battlefield.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "exile"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__divine-gambit.jpg",
+    "artist": "Joe Slucher",
+    "flavorText": "There are rules, and then there are gods.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Echo Ponyx",
+    "manaCost": "{3}{U}",
+    "type": "Artifact Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nFlying\nWhenever this creature attacks, target creature gains flying until end of turn.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "chess-knight",
+      "flying"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__echo-ponyx.png",
+    "artist": "Drachenmagier",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Enchantress's Presence",
+    "manaCost": "{2}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever you cast an enchantment spell, draw a card.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "enchantress",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__enchantress-s-presence.jpg",
+    "artist": "Rebecca Guay",
+    "flavorText": "\"The wise learn from successes as well as mistakes.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Ever-Sphere Crucible",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {U} or {R}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "UR",
+      "lands",
+      "chess-pawn"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__ever-sphere-crucible.png",
+    "artist": "Mariusz Lewandowski",
+    "flavorText": "A place where dreams take spherical shapes, ever circling into a place of dreams taking spherical shapes, ever circling into…",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Feed the Swarm",
+    "manaCost": "{1}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "enchantment-removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__feed-the-swarm.jpg",
+    "artist": "Nino Is",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Final Fortune",
+    "manaCost": "{R}{R}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Take an extra turn after this one. At the beginning of that turn's end step, you lose the game.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "extra-turns"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__final-fortune.jpg",
+    "artist": "Tim Hildebrandt",
+    "flavorText": "A reward is worthless if you aren't around to enjoy it.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Find Meaning",
+    "manaCost": "{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Mill three cards. You may put an enchantment or land card from among them into your hand. If you don't, draw a card.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "self-mill",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__find-meaning.png",
+    "artist": "Jon Sideriadis",
+    "flavorText": "\"Your mind must be tended like the finest of gardens, lest weeds take root within it.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Flickerform",
+    "manaCost": "{1}{W}",
+    "type": "Enchantment — Aura",
+    "subtype": "Aura",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Enchant creature\n{2}{W}{W}: Remove enchanted creature and all Auras attached to it from the game. At end of turn, return that card to play under its owner's control. If you do, return those Auras to play under their owners' control enchanting that creature.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "auras",
+      "blink",
+      "protection"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__flickerform.jpg",
+    "artist": "Ron Spears",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Fork",
+    "manaCost": "{R}{R}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Copy target instant or sorcery spell, except that the copy is red. You may choose new targets for the copy.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "spells-matter"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__fork.jpg",
+    "artist": "Amy Weber",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Fried Liver",
+    "manaCost": "{1}{B}",
+    "type": "Artifact — Food",
+    "subtype": "Food",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast this spell, sacrifice a Knight.\n{2}, {T}, Sacrifice this artifact: You gain 3 life. Then, you may move your opponent's King. Activate only during your turn.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "lifegain",
+      "food",
+      "chess-control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__fried-liver.png",
+    "artist": "Nano Banana",
+    "flavorText": "The acquired taste of opening meals.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Gamble",
+    "manaCost": "{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Search your library for a card, put that card into your hand, discard a card at random, then shuffle.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "tutor"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__gamble.jpg",
+    "artist": "Andrew Goldhawk",
+    "flavorText": "When you've got nothing, you might as well trade it for something else.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Gearworks Gentleman",
+    "manaCost": "{1}{W}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhenever this creature attacks, you may pay {2}{W}. If you do, tap target creature.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "pawn",
+      "tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__gearworks-gentleman.png",
+    "artist": "Saeed Farhangian",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Gearworks Outlaw",
+    "manaCost": "{R}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nHaste",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "aggro",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__gearworks-outlaw.png",
+    "artist": "Veli Nyström",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Gearworks Tree",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {G} or {W}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "GW"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__gearworks-tree.png",
+    "artist": "Stephanie Pui-Mun Law",
+    "flavorText": "A place where dreams are never forced to become reality, for reality is a slow alchemy that turns wonder into rust.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Greater Guardianship",
+    "manaCost": "{2}{W}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Chess Pawn creatures you control have vigilance.\nYour Pawns may move backwards.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "pawn",
+      "anthem"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__greater-guardianship.png",
+    "artist": "Alexey Rudikov",
+    "flavorText": "\"Oh, the discs? They let us hear the pulse of creation, the echo of oncoming doom, the very secrets sung by the bones of the earth itself… also they're sick as shit.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Guiding Obsidian-Mare",
+    "manaCost": "{2}{R}{R}",
+    "type": "Artifact Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nHaste\n{R}, {T}: Until end of turn, target Chess creature or chess piece you control becomes a Chess Knight and gains haste. Activate only as a sorcery. (It has only the Knight move set.)",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__guiding-obsidian-mare.png",
+    "artist": "Aron Kalman",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Hall",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Hall enters the battlefield tapped.\n{T}: Add {R} or {W}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "RW"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__hall.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Her Cruelty Precedes Her",
+    "manaCost": "{B}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast this spell, sacrifice three Pawns.\nPut a Queen on the chess board onto one of your unoccupied squares on the first or second row.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "pawns",
+      "queen",
+      "chess-tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__her-cruelity-proceeds-her.png",
+    "artist": "Antiutopia Cult",
+    "flavorText": "She does not enter a room; she replaces everyone in it.",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Herald of the Pantheon",
+    "manaCost": "{1}{G}",
+    "type": "Creature — Centaur Shaman",
+    "subtype": "Centaur Shaman",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "Enchantment spells you cast cost {1} less to cast.\nWhenever you cast an enchantment spell, you gain 1 life.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "enchantress",
+      "cost-reduction",
+      "lifegain"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__herald-of-the-pantheon.jpg",
+    "artist": "Jason A. Engle",
+    "flavorText": "The distinction of bearing the gods' banner is nothing compared to the glory of being closer to Nyx.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Hold Your Horses",
+    "manaCost": "{1}{U}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose one or both —\n• Counter target spell.\n• Knights you don't control can't attack, block or move until the end of your next turn.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "counterspells",
+      "chess-knight-hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__hold-your-horses.png",
+    "artist": "Simone De Salvatore",
+    "flavorText": "\"Just me and my horse on a boat, contemplating the infinite realities woven between the nanoseconds of dimensional fractals…\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Horse-Man-Ship",
+    "manaCost": "{3}{G}{G}",
+    "type": "Artifact Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nHorsemanship (This creature can't be blocked except by creatures with horsemanship.)",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "knight",
+      "chess-link",
+      "evasion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__horse-man-ship.png",
+    "artist": "DALL-E 3",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Hungry for Purpose",
+    "manaCost": "{2}{W}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy all enchantments. You gain 2 life for each enchantment destroyed this way.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "enchantment-hate",
+      "lifegain"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__hungry-for-purpose.png",
+    "artist": "Jean Francois Bouron",
+    "flavorText": "\"Chetara is a world starving on the illusions of comfort. Count yourself blessed—I am the hand that feeds, even when the world you know doesn't exist.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Hunt Under the Hooves",
+    "manaCost": "{1}{G}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose one —\n• Target creature you control deals damage equal to its power to target creature an opponent controls.\n• Move target Knight chess piece you control if it jumps over a piece.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "fight",
+      "knight"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__hunt-under-the-hooves.png",
+    "artist": "Seb McKinnon",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "I'm In Your Head",
+    "manaCost": "{1}{U}{B}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "When this enchantment enters, you draw a card and each opponent discards a card.\nAt the start of each opponent's chess phase, you may predict their move. After they do their move, reveal your prediction. If you were correct, you draw a card and they discard a card.",
+    "colors": [
+      "U",
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "card advantage",
+      "discard"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__i-m-in-your-head.png",
+    "artist": "astrono77153462",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Infinitarium Stairs",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {W} or {U}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "WU"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__infinitarium-stairs.png",
+    "artist": "Kohana Bé",
+    "flavorText": "A place where dreams endlessly replicate across infinite scenarios, play out, and are analyzed.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "It That Persists",
+    "manaCost": "{2}{B}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\n{3}{B}: Return this card from your graveyard to your hand.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "recursion",
+      "resilience",
+      "chess-link"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__it-that-persists.png",
+    "artist": "DiTerlizzi",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Journey to Somewhere Far",
+    "manaCost": "{2}{W}{W}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "When this enchantment enters, exile target nonland permanent an opponent controls or target non-King chess piece an opponent controls until this enchantment leaves the battlefield. (Chess pieces return to the chess board at their starting position, and only if it's unoccupied.)",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "removal",
+      "exile"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__journey-to-somewhere-far.png",
+    "artist": "ETHANALGAZI",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Jungle Hollow",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {G}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "BG"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__jungle-hollow.jpg",
+    "artist": "Eytan Zana",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Kentauros Lancer",
+    "manaCost": "{1}{R}",
+    "type": "Artifact Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nThis creature has first strike during your turn.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "knights",
+      "artifacts",
+      "chess-linked",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__kentauros-lancer.png",
+    "artist": "P.E.K.K.A",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Key to the Universe",
+    "manaCost": "{1}",
+    "type": "Artifact",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "{2}: Add one mana of any color.\n{4}, {T}: Exile target card from a graveyard.\n{6}, {T}, Sacrifice this artifact: Destroy target creature or non-King chess piece.\n{8}: This artifact becomes an 8/8 Giant Bison Puppeteer artifact creature. (This effect lasts indefinitely.)",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifacts",
+      "mana ramp",
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__key-to-the-universe.png",
+    "artist": "Augustinas Raginskis",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Kitchen",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Kitchen enters the battlefield tapped.\n{T}: Add {G} or {U}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "GU"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__kitchen.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Let Us Ride Together",
+    "manaCost": "{1}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Until end of turn, chess pieces and Chess creatures you control are Knights in addition to their other types.\nCreatures you control gain trample until end of turn.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "knight",
+      "trample"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__let-us-ride-together.png",
+    "artist": "Tam Lin",
+    "flavorText": "It is told that those who ride as one need no king to lead them.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Library",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Library enters the battlefield tapped.\n{T}: Add {U} or {R}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "UR"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__library.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Library Statue",
+    "manaCost": "{4}{U}{U}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 5,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nFlash\nCycling {2}",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-rook",
+      "flash"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__library-statue.png",
+    "artist": "James Wintle",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Living Story — The Buffoon",
+    "manaCost": "{3}{R/G}{R/G}",
+    "type": "Enchantment Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 3,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nTrample\nWhenever the chess piece this creature is linked to jumps over one or more chess pieces, you may destroy one of them.",
+    "colors": [
+      "R",
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "knights",
+      "removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__living-story---the-buffoon.png",
+    "artist": "Omar Rayyan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Living Story — The Capricious",
+    "manaCost": "{2}{W}",
+    "type": "Enchantment Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nFlying",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "knight",
+      "flying"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__living-story---the-capricious.png",
+    "artist": "James Jean",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Living Story — The Garden",
+    "manaCost": "{3}{G}",
+    "type": "Enchantment Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nVigilance\n{1}{G}, {T}: Mill three cards, then put a land card milled this way onto the battlefield tapped.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "rook",
+      "chess-link",
+      "ramp",
+      "self-mill"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__living-story---the-garden.png",
+    "artist": "Bradley Snook",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Living Story — The Gossip",
+    "manaCost": "{G/W}{G/W}",
+    "type": "Enchantment Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen this creature enters, each player draws a card. If you control another enchantment, you draw an additional card.",
+    "colors": [
+      "G",
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "pawns",
+      "enchantments",
+      "card advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__living-story---the-gossip.png",
+    "artist": "Omar Rayyan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Lounge",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Lounge enters the battlefield tapped.\n{T}: Add {B} or {G}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "BG"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__lounge.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Lucid Transformation",
+    "manaCost": "{2}{U}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose two non-King chess pieces controlled by the same player. Remove them from the chess board and combine them into a single piece. Put that new piece onto one of the squares those pieces previously occupied. The new piece has the names, abilities, and move sets of both original pieces. (If they both have cards, they are combined too.)",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "combo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__lucid-transformation.png",
+    "artist": "Greg \"Craola\" Simkins",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Make Your Move",
+    "manaCost": "{2}{W}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy target artifact, enchantment, or creature with power 4 or greater.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__make-your-move.jpg",
+    "artist": "Xabi Gaztelua",
+    "flavorText": "\"If you're thinking only one step ahead, you're already falling behind.\" —Teysa",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "March Forward!",
+    "manaCost": "{2}{R}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Simultaneously move all chess pieces you control one square forward, vertically, if the destination square is unoccupied by a King. If a chess piece would move into a square occupied by another piece, destroy the occupying piece.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-control",
+      "aggro",
+      "board-manipulation"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__march-forward.png",
+    "artist": "MISTYABYSS_",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Meditate",
+    "manaCost": "{2}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Draw four cards. You skip your next turn.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "card-advantage",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__meditate.jpg",
+    "artist": "Susan Van Camp",
+    "flavorText": "\"Part of me believes that Barrin taught me meditation simply to shut me up.\"\n—Ertai, wizard adept",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Mesa Enchantress",
+    "manaCost": "{1}{W}{W}",
+    "type": "Creature — Human Druid",
+    "subtype": "Human Druid",
+    "power": 0,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "Whenever you cast an enchantment spell, you may draw a card.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "enchantments",
+      "card advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__mesa-enchantress.jpg",
+    "artist": "Eelis Kyttanen",
+    "flavorText": "To weary wanderers, trapped and lost amid Duskmourn's labyrinthine halls, her gifts are a welcome respite from meals of boiled ear-fungus, crickets, and the Floodpits' bizarre aquatic creatures.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Naturalize",
+    "manaCost": "{1}{G}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy target artifact or enchantment.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifact hate",
+      "enchantment hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__naturalize.jpg",
+    "artist": "Daniel Ljunggren",
+    "flavorText": "\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n—Iveta, rooftop runner",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Nightmarish Canal",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {U} or {B}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "UB"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__nightmarish-canal.png",
+    "artist": "David Gallagher",
+    "flavorText": "A place where dreams turn into nightmares, and nightmares turn to face you at your most vulnerable.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Nimble Sampler",
+    "manaCost": "{2}{U}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nFlying\nWhenever this creature deals combat damage to a player, draw a card.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "flying",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__nimble-sampler.png",
+    "artist": "Pedro Krüger Garcia",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "No More Illusions",
+    "manaCost": "{3}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy all enchantments. You draw a card and you lose 1 life for each enchantment destroyed this way.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "enchantment-removal",
+      "card-advantage",
+      "sweeper"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__no-more-illusions.png",
+    "artist": "Kelgrid",
+    "flavorText": "\"Chetara is a world of puppets and masters, and the line between them is razor-thin. Lucky for you—I know a thing or two about razors.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Noble Sacrifice",
+    "manaCost": "{2}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast this spell, sacrifice a Queen.\nDiscard your hand, then draw seven cards.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "card-advantage",
+      "wheel"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__noble-sacrifice.png",
+    "artist": "MORIS",
+    "flavorText": "She held the crown, her fingers trembling as centuries of lineage slipped from her grasp.\n\"A queen's duty is not to reign forever, but to know when her ending can save everything.\"",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Now That's Just Silly",
+    "manaCost": "{4}{U}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Your non-King chess pieces become Queens for a moment. (You may win on that moment via checkmate!)",
+    "colors": [
+      "U",
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "combo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__now-that-s-just-silly.png",
+    "artist": "Keglevich Von Buzin",
+    "flavorText": "Serious at first,\nThen everyone started grinning,\nRules took the afternoon off.",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Pawneer",
+    "manaCost": "{G}",
+    "type": "Artifact Chess Creature",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\n{1}{G}, Sacrifice this creature: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "ramp",
+      "sacrifice"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__pawneer.png",
+    "artist": "Kekai Kotaki",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Pin",
+    "manaCost": "{1}{B}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Target creature gets -2/-2 until end of turn. Non-King chess pieces you don't control that are adjacent to its linked chess piece can't move until the end of your next turn.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "control",
+      "chess-tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__pin.png",
+    "artist": "Alen Rocha",
+    "flavorText": "\"You hid behind countless puppets. Their deaths are yours to answer for.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Porcelainight",
+    "manaCost": "{1}{U/B}{U/B}",
+    "type": "Artifact Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nFlash\nWhenever this creature attacks, discard a card, then draw two cards.",
+    "colors": [
+      "U",
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "knights",
+      "card advantage",
+      "tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__porcelainight.png",
+    "artist": "L.A. Buckett",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Positional Sacrifice",
+    "manaCost": "{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "As an additional cost to cast this spell, sacrifice a non-Pawn chess piece or three Pawn chess pieces.\nDestroy target non-King chess piece.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "chess-removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__positional-sacrifice.png",
+    "artist": "Alexander Shatohin",
+    "flavorText": "\"Giving some to save the whole is a constant on every plane. On Chetara, even more so.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Preordained Mourning",
+    "manaCost": "{2}{B}{B}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This spell costs {1} less to cast as long as you control a Chess Bishop creature.\nDestroy target creature or target non-King chess piece.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "removal",
+      "bishops",
+      "cost-reduction"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__preordained-mourning.png",
+    "artist": "Leaf Art",
+    "flavorText": "\"With deepest condolences, we share the news of your passing.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Project L.A.D.Y",
+    "manaCost": "{W}",
+    "type": "Artifact Chess Creature — Queen",
+    "subtype": "Queen",
+    "power": 2,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Queen enters, you may link a Queen you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nThis creature can't attack alone.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "chess-linked",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__project-l.a.d.y.png",
+    "artist": "raspbearyart",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Pursuit of Happiness",
+    "manaCost": "{1}{W}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "If you would draw a card, you may put a happiness counter on this enchantment instead.\n{1}{W}, Remove three happiness counters from this enchantment and exile it: Take an extra turn after this one.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "card advantage",
+      "extra turns"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__pursuit-of-happiness.png",
+    "artist": "Seerhealer",
+    "flavorText": "What labor produces is not produced by labor.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Queen's Attire",
+    "manaCost": "{3}",
+    "type": "Artifact — Equipment",
+    "subtype": "Equipment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Equipped creature has ward {3} and is an artifact Chess Queen in addition to its other types. (It has the Queen's move set.)\nEquip {3}",
+    "colors": [],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "artifacts",
+      "equipment",
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__queen-s-attire.png",
+    "artist": "Nano Banana",
+    "flavorText": "\"Some of us are born rich, and some of us are just born. Think of this as a bridge.\"",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Queen's Gambit",
+    "manaCost": "{B}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Target non-King chess piece you control becomes a Queen until end of turn. Sacrifice it at the end of turn.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "sacrifice"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__queen-s-gambit.png",
+    "artist": "Helena Sánchez",
+    "flavorText": "\"For one moment, I wanted to be strong—to be heard, to feel! I regret nothing! You puppets will fade to nothing while I be remembered as something!\"",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Quick Study",
+    "manaCost": "{2}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Draw two cards.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__quick-study.jpg",
+    "artist": "Iris Compiet",
+    "flavorText": "At first, Johann was annoyed that the library had decided to reorganize itself. But he had to admit that storing the cookbooks in the cauldron made a certain kind of sense.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Raise Dead",
+    "manaCost": "{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return target creature card from your graveyard to your hand.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "recursion",
+      "graveyard"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__raise-dead.jpg",
+    "artist": "Carl Critchlow",
+    "flavorText": "The earth cannot hold that which magic commands.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Rampant Growth",
+    "manaCost": "{1}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "ramp"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__rampant-growth.jpg",
+    "artist": "Steven Belledin",
+    "flavorText": "Nature grows solutions to its problems.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Reach for the Stars",
+    "manaCost": "{3}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Surveil 2, then draw two cards. You lose 2 life.\nIf at least one of your Bishop chess pieces is missing, you may put a Bishop chess piece onto one of your unoccupied starting Bishop squares.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "card-advantage",
+      "bishops",
+      "chess-recovery"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__reach-for-the-stars.png",
+    "artist": "Aitor Sebastián",
+    "flavorText": "\"Chetara doesn't tolerate emptiness. Where one is gone, the other must take its place.\"",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Reclamation Sage",
+    "manaCost": "{2}{G}",
+    "type": "Creature",
+    "subtype": "Elf Shaman",
+    "power": 2,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "When this creature enters, you may destroy target artifact or enchantment.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "artifact hate",
+      "enchantment hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__reclamation-sage.jpg",
+    "artist": "Christopher Moeller",
+    "flavorText": "\"What was once formed by masons, shaped by smiths, or given life by mages, I will return to the embrace of the earth.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Regrowth",
+    "manaCost": "{1}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return target card from your graveyard to your hand.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "recursion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__regrowth.jpg",
+    "artist": "Dan Scott",
+    "flavorText": "While the root remains, the tree yet lives.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Resonance",
+    "manaCost": "{X}{X}{X}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Resonance for permanents (This spell costs X less to cast, where X is the total mana value of permanents you control.)\nDraw X cards.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "card draw",
+      "ramp"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__resonance.png",
+    "artist": "Cheryle Bannon",
+    "flavorText": "\"Life, when lived to the fullest, teaches us that within each of us, there's the beauty of all of us.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Restock",
+    "manaCost": "{3}{G}{G}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return two target cards from your graveyard to your hand. Exile Restock.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "recursion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__restock.jpg",
+    "artist": "Daren Bader",
+    "flavorText": "What looked like a retreat was actually a replenishing.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Restoration Entity",
+    "manaCost": "{2}{W}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 2,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nLifelink\nWhen this creature enters, return target enchantment card from your graveyard to your hand.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-linked",
+      "lifegain",
+      "enchantment recursion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__restoration-entity.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Reverie City",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {R} or {W}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "RW"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__reverie-city.png",
+    "artist": "Marc Simonetti",
+    "flavorText": "A place where dreams are cherished and loved, and where nightmares are shattered and released.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Rider's Bond",
+    "manaCost": "{2}{R}{R}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever you move one Knight, you may move another Knight you control.\nInstead of moving Knights two squares vertically and one square horizontally, or two squares horizontally and one square vertically, you may do two and two.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "knights",
+      "chess-manipulation",
+      "enchantments"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__rider-s-bond.png",
+    "artist": "Rowland Wheelwright",
+    "flavorText": "Chetara gives you every moment, all the time. Take the time to choose the ones that matter most.",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Right-Hand of Greatness",
+    "manaCost": "{1}{R}",
+    "type": "Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 1,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\n{T}: Add {R}.\n{5}{R}, {T}: Move a Knight you control.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "pawns",
+      "artifacts",
+      "chess-linked",
+      "ramp"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__right-hand-of-greatness.png",
+    "artist": "Frank Frazetta",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Row Power",
+    "manaCost": "{4}{B}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose a row on the chess board. Destroy all non-King pieces on that row.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "board-control",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__row-power.png",
+    "artist": "Star_andDiamond",
+    "flavorText": "\"The Sovereign's hand weighs upon all, yet even the crown is bound by the turn of destiny; to touch is to tether, and to be touched is to endure the shadowy chains of fate.\"\n—The Tome of Birth and Death, Second Revelation",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Rugged Highlands",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {R} or {G}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "RG"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__rugged-highlands.jpg",
+    "artist": "Eytan Zana",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Sacrifice I'm Willing to Make",
+    "manaCost": "{2}{B}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "If a chess piece you control would be destroyed, you may sacrifice another chess piece of the same type instead.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "protection"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__sacrifice-i-m-willing-to-make.png",
+    "artist": "Christian Alzmann",
+    "flavorText": "\"Do you weep for the rounding error in a calculation? Do you mourn the zero when it is crossed out to simplify a fraction? No! You celebrate the clarity!\"\n—Dev, the Madmatician",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Savor the Moment",
+    "manaCost": "{1}{U}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Take an extra turn after this one. Skip the untap step of that turn.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "extra-turns"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__savor-the-moment.jpg",
+    "artist": "Warren Mahy",
+    "flavorText": "The merrow took a moment for herself. She never gave it back.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Scare",
+    "manaCost": "{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose one —\n• Target creature you control gains menace until end of turn.\n• Choose a chess piece you control. Move backwards each piece adjacent to it.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "aggro",
+      "chess-manipulation",
+      "evasion"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__scare.png",
+    "artist": "Dan Gartman",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Scoured Barrens",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {B}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "WB"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__scoured-barrens.jpg",
+    "artist": "Eytan Zana",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Secret Passage",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Secret Passage enters the battlefield tapped.\n{T}: Add {U} or {B}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "UB"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__secret-passage.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Shatterstorm",
+    "manaCost": "{2}{R}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy all artifacts. They can't be regenerated.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "artifact-hate",
+      "removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__shatterstorm.jpg",
+    "artist": "Parente",
+    "flavorText": "From a marvel of magical mechanization to a smoking stack of scrap in one easy step.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "She of Gears Turning",
+    "manaCost": "{3}{U}{U}",
+    "type": "Legendary Artifact Chess Creature — Queen",
+    "subtype": "Queen",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Queen enters, you MUST link a Queen you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nVigilance\nCreatures you control have \"Ward—This creature's linked chess piece may move now.\"\nChess pieces you control have \"Ward—Put a 'This creature can't be blocked.' counter on this creature.\"",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "legendary"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__she-of-gears-turning.png",
+    "artist": "Monori Rogue",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "She of Majestic Dread",
+    "manaCost": "{3}{R}{R}",
+    "type": "Legendary Artifact Chess Creature — Queen",
+    "subtype": "Queen",
+    "power": 5,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Queen enters, you MUST link a Queen you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nMenace\nShe of Majestic Dread's linked chess piece may jump over chess pieces. When she does, you may move each of those chess pieces to any adjacent unoccupied square diagonally, vertically or horizontally.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "queens",
+      "artifacts",
+      "chess-linked",
+      "legendary"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__she-of-majestic-dread.png",
+    "artist": "NERDY.NOSTALGIA",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "She That's Beyond Measure",
+    "manaCost": "{5}{G}{G}{G}",
+    "type": "Legendary Artifact Chess Creature",
+    "subtype": "Queen",
+    "power": 7,
+    "toughness": 7,
+    "loyalty": null,
+    "text": "(When this Queen enters, you MUST link a Queen you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nReach, trample\nWhenever She That's Beyond Measure's linked chess piece lands on a square, destroy all non-King chess pieces adjacent to her.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "control",
+      "removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__she-that-s-beyond-measure.png",
+    "artist": "vargasjhonatan573",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Shepherd of Emerald",
+    "manaCost": "{2}{G}",
+    "type": "Artifact Chess Creature",
+    "subtype": "Bishop",
+    "power": 2,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nVigilance\n{T}: Add {G} for each chess piece this Bishop can see on the chess board.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "ramp"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__shepherd-of-emerald.png",
+    "artist": "Scot Fischer",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Sing for the Forgotten",
+    "manaCost": "{3}{B}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "At the beginning of your upkeep, draw a card for each card type among cards in your graveyard, then return target card from your graveyard to your hand.",
+    "colors": [
+      "B",
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "graveyard",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__sing-for-the-forgotten.png",
+    "artist": "Cory Godbey",
+    "flavorText": "Dreams and nightmares are ancient rivals, yet on quiet nights they sit together, grieving the same wound: how quickly mortals forget them by morning.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Singularity Convergence",
+    "manaCost": "{5}{W}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Choose white squares or black squares. Destroy all non-King chess pieces on the chosen squares.",
+    "colors": [
+      "W",
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "board-wipe",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__singularity-convergence.png",
+    "artist": "Cr4sh4rt",
+    "flavorText": "\"Let it be written: on the Day Ordained, Radiance and Gloom divided the faithful, and one host was preserved while the other was unmade; not as mercy nor as wrath, but by decree, for the spared were condemned to remember, and remembrance became their curse.\"\n—The Tome of Birth and Death, Third Revelation",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Skewer",
+    "manaCost": "{1}{R}",
+    "type": "Artifact — Equipment",
+    "subtype": "Equipment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Equipped creature gets +2/+0 and has first strike.\nEquipped creature gets an additional +2/+0 and has double strike as long as its linked chess piece is in a skewer position. (A skewer occurs when one piece can attack an opposing piece, that has a less valuable piece behind it. The value hierarchy is K>Q>R>B>N>p.)\nEquip {2}",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "equipment",
+      "aggro",
+      "chess-linked",
+      "artifacts"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__skewer.png",
+    "artist": "Nano Banana",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Sleeping Headstone",
+    "manaCost": "{1}{U}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nDefender\nAs long as you control another Chess Rook creature, this creature can attack as though it didn't have defender.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "rook-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__sleeping-headstone.png",
+    "artist": "Jason Reynolds",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Smash",
+    "manaCost": "{2}{R}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Destroy target artifact.\nDraw a card.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifact-hate",
+      "removal",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__smash.jpg",
+    "artist": "Parente",
+    "flavorText": "Ravnica's laws protect not its citizens but its industry. Aging equipment is destroyed rather than restored, to bring more money into the factories' coffers.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Sonneteer of the Departed",
+    "manaCost": "{2}{B}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 1,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhenever a creature or a chess piece dies, you draw a card and you lose 1 life.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "aristocrats",
+      "card-draw"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__sonneteer-of-the-departed.png",
+    "artist": "João Bragato",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Sprawling Aqueduct",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, move a Pawn chess piece you control.\n{T}: Add {G} or {U}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "Simic",
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__sprawling-aqueduct.png",
+    "artist": "Suishou Gensou",
+    "flavorText": "A place where dreams are not held in slumber, but set to work, turning the very gears of the world.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Stallion of Bad Omens",
+    "manaCost": "{B}{B}",
+    "type": "Enchantment Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWard against white—Pay 4 life\nChess creatures linked to chess pieces on black squares get +2/+1.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "aggro"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__stallion-of-bad-omens.png",
+    "artist": "Heidi Taillefer",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Stallion of Good Omens",
+    "manaCost": "{W}{W}",
+    "type": "Enchantment Chess Creature — Knight",
+    "subtype": "Knight",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "(When this Knight enters, you may link a Knight you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWard against black {2}\nChess creatures linked to chess pieces on white squares get +1/+2.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "chess-linked",
+      "white squares",
+      "anthem"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__stallion-of-good-omens.png",
+    "artist": "Heidi Taillefer",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Starnheim Courser",
+    "manaCost": "{2}{W}",
+    "type": "Creature — Pegasus",
+    "subtype": "Pegasus",
+    "power": 2,
+    "toughness": 2,
+    "loyalty": null,
+    "text": "Flying\nArtifact and enchantment spells you cast cost {1} less to cast.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "fliers",
+      "cost reduction",
+      "artifacts",
+      "enchantments"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__starnheim-courser.jpg",
+    "artist": "Andrew Mar",
+    "flavorText": "Every worthy warrior who arrives in Starnheim is gifted a mount befitting their heroism, a mighty pegasus raised and trained by the valkyries.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Strength of the Meek",
+    "manaCost": "{3}{W}{W}",
+    "type": "Enchantment — Aura",
+    "subtype": "Aura",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Flash\nEnchant creature\nEnchanted creature gets +1/+1 for each Pawn you control in the row that has the most Pawns you control or tied with the most.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "pawns",
+      "go-wide",
+      "auras"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__strength-of-the-meek.png",
+    "artist": "Jian Guo",
+    "flavorText": "The choir is as beautiful as its smallest voice.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Study",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Study enters the battlefield tapped.\n{T}: Add {W} or {U}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
+    "colors": [],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "Azorius"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__study.jpg",
+    "artist": "Arthur Yuan",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Summon: The Bishop",
+    "manaCost": "{3}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to one Bishop on the chess board onto one of your unoccupied starting Bishop squares.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-bishop.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born into poverty in a family devoted to Phenax on Theros, he wanders across all of Chetara in search of a Puppeteer worthy of his devotion—one whose will might one day reflect his own.",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Summon: The Knight",
+    "manaCost": "{3}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to one Knight on the chess board onto one of your unoccupied starting Knight squares.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-knight.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born under the ever-watchful eye of the Mother of Machines on New Phyrexia, he wanders across all of Chetara in search of a Puppeteer worthy of perfection—made compleat in her image.",
+    "set": "Chess Magic",
+    "chessPiece": "knight"
+  },
+  {
+    "name": "Summon: The Pawn",
+    "manaCost": "{1}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to one Pawn on the chess board onto one of your unoccupied starting Pawn squares.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-pawn.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born to an angel and a demon on Innistrad, she wanders across all of Chetara in search of a Puppeteer worthy of her divided soul—redeemable, but broken.",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Summon: The Queen",
+    "manaCost": "{5}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to one Queen on the chess board onto your unoccupied starting Queen square.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-queen.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born to a wealthy Faefolk family on Eldraine, she wanders across all of Chetara in search of a mischievous Puppeteer worthy of a shared adventure—one that begins with running away together.",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "Summon: The Rook",
+    "manaCost": "{3}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to one Rook on the chess board onto one of your unoccupied starting Rook squares.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-rook.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born at the ever-shifting soils of Zendikar, it wanders across all of Chetara in search of a Puppeteer worthy of its awakening power—ever shifting, yet unyielding.",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Summon: The Twins",
+    "manaCost": "{2}{W}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Put up to two Pawns on the chess board onto two unoccupied starting Pawn squares.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "pawns",
+      "go-wide"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__summon_-the-twins.png",
+    "artist": "Peter Mohrbacher",
+    "flavorText": "Born beneath the twin suns of Amonkhet, they wander across all of Chetara in search of a Puppeteer worthy of wielding both merciful Warmth and searing Judgment—and will yield to neither.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Swift Recognition",
+    "manaCost": "{4}{U}{U}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Flash\nSpells you cast have flash.\nWhenever you cast a spell during an opponent's turn, you may draw a card.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "flash",
+      "spells-matter",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__swift-recognition.png",
+    "artist": "Sylvia Strijk",
+    "flavorText": "Those who learn from the fox's cunning quickly realize how to quickly realize.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Swiftwater Cliffs",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {R}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "Izzet"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__swiftwater-cliffs.jpg",
+    "artist": "Adam Paquette",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Teachings of the Darkest Night",
+    "manaCost": "{3}{B}{B}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever a Bishop creature you control enters or dies, search your library for a non-Bishop card, reveal it, put it into your hand, then shuffle.\n{B}, Sacrifice three Pawns: Return target Bishop creature card from your graveyard to the battlefield with a finality counter on it. Activate only as a sorcery.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "bishops",
+      "reanimator",
+      "tutor"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__teachings-of-the-darkest-night.png",
+    "artist": "Tkacz",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Tell Your Stories",
+    "manaCost": "{4}{G}{W}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever an enchantment you control enters, you draw a card and you gain 2 life.\nAt the beginning of your upkeep, search your library for an enchantment card, put it onto the battlefield, then shuffle.",
+    "colors": [
+      "G",
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "enchantments",
+      "lifegain"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__tell-your-stories.png",
+    "artist": "Omar Rayyan",
+    "flavorText": "Chetara is a plane of all that the mind can imagine, where even the speechless may find their voice.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Temporal Manipulation",
+    "manaCost": "{3}{U}{U}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Take an extra turn after this one.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "extra-turns"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__temporal-manipulation.jpg",
+    "artist": "Franz Vohwinkel",
+    "flavorText": "Doing something at the last minute isn't so bad when you can make that minute last.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "That's Tomorrow's Problem",
+    "manaCost": "{4}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "The owner of target nonland permanent or target spell puts it into their library second from the top or on the bottom.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "bounce",
+      "tempo"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__that-s-tomorrow-s-problem.png",
+    "artist": "Cuttlefish That Loves Diving",
+    "flavorText": "\"The concept of time does not exist here, and yet, paradoxically, we have all the time in the world…\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "The Blessed Shell Bless",
+    "manaCost": "{W}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Target creature you control gets +2/+2 until end of turn. If you control a Bishop Chess creature, it also gains lifelink, hexproof and indestructible until end of turn.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "combat trick",
+      "chess-linked",
+      "bishop matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-blessed-shell-bless.png",
+    "artist": "Alex Dos Diaz",
+    "flavorText": "\"I am merely a conduit of the Absolute Puppeteer. By Their decree, you may become unbreakable.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "The Door Between All Doors",
+    "manaCost": "{7}",
+    "type": "Legendary Artifact",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "At the beginning of your chess phase, return a chess piece you're missing to its possible starting position, if that position is unoccupied. If you control all sixteen chess pieces, you win the game.",
+    "colors": [],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "artifacts",
+      "chess",
+      "alternate win"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__the-door-between-all-doors.png",
+    "artist": "Cuttlefish That Loves Diving",
+    "flavorText": "\"Welcome back, now let's turn some tables!\"\n—Tarian, the Mischievous Judge",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "The Emerald King",
+    "manaCost": "{7}{G}{G}{G}",
+    "type": "Legendary Artifact Chess Creature",
+    "subtype": "King",
+    "power": 12,
+    "toughness": 12,
+    "loyalty": null,
+    "text": "(When this King enters, you MUST link a King you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nPermanents you control have indestructible.\nChess pieces you control can't be destroyed, and chess pieces you don't control can't be moved into their squares.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__the-emerald-king.png",
+    "artist": "Tanaka Kenichi",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "king"
+  },
+  {
+    "name": "The Indomitable One",
+    "manaCost": "{4}{W}{W}",
+    "type": "Legendary Artifact Chess Creature — Queen",
+    "subtype": "Queen",
+    "power": 4,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "(When this Queen enters, you MUST link a Queen you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nVigilance\nWhenever a chess piece moves outside of the chess phase, you may stop it on any unoccupied square it passes through.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-linked",
+      "queen",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-indomable-one.png",
+    "artist": "Vox Dei",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "The Killer Instinct",
+    "manaCost": "{2}{B}{B}",
+    "type": "Legendary Artifact Chess Creature — Queen",
+    "subtype": "Queen",
+    "power": 3,
+    "toughness": 3,
+    "loyalty": null,
+    "text": "(When this Queen enters, you MUST link a Queen you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nDeathtouch\nAt the beginning of your chess phase, destroy all non-King chess pieces adjacent to The Killer Instinct's linked chess piece.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "board-control",
+      "deathtouch"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__the-killer-instinct.png",
+    "artist": "Tatiana Krstic",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "queen"
+  },
+  {
+    "name": "The Marble King",
+    "manaCost": "{1}{W}{W}",
+    "type": "Legendary Artifact Chess Creature — King",
+    "subtype": "King",
+    "power": 3,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "(When this King enters, you MUST link a King you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen The Marble King enters, choose an emblem —\n• You can only lose the game by losing the chess game.\n• You can only lose the game by losing the Magic: The Gathering game.",
+    "colors": [
+      "W"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "chess-linked",
+      "king",
+      "control",
+      "alternate win"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-marble-king.png",
+    "artist": "Ya Lun",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "king"
+  },
+  {
+    "name": "The Moon King",
+    "manaCost": "{5}{B}{B}{B}",
+    "type": "Legendary Enchantment Chess Creature — King",
+    "subtype": "King",
+    "power": 6,
+    "toughness": 10,
+    "loyalty": null,
+    "text": "(When this King enters, you MUST link a King you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen The Moon King enters, each player chooses half of their chess pieces, rounded up, then sacrifices the rest. They also do so to their creatures.\nAt the beginning of your end step, return all permanents you sacrificed to the battlefield and all chess pieces you sacrificed to the chess board, each on their starting position, and only if it's unoccupied.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "sacrifice",
+      "reanimator"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__the-moon-king.png",
+    "artist": "JR Eisma",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "king"
+  },
+  {
+    "name": "The Nyx King",
+    "manaCost": "{5}{U}{U}{U}",
+    "type": "Legendary Enchantment Chess Creature — King",
+    "subtype": "King",
+    "power": 5,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this King enters, you MUST link a King you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nPermanents you control have hexproof.\nWhen The Nyx King enters, draw any number of cards. You get an emblem with \"You have no maximum hand size.\"",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "legendary",
+      "card-advantage",
+      "control"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__the-nyx-king.png",
+    "artist": "Gray 6plus",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "king"
+  },
+  {
+    "name": "The Obsidian King",
+    "manaCost": "{5}{R}{R}{R}",
+    "type": "Legendary Artifact Chess Creature — King",
+    "subtype": "King",
+    "power": 5,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this King enters, you MUST link a King you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen The Obsidian King enters, exile all non-King permanents. Then, each player's life total becomes 1 and if it's your turn, end the turn.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "kings",
+      "artifacts",
+      "chess-linked",
+      "legendary",
+      "board-wipe"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__the-obsidian-king.png",
+    "artist": "Wayne Barlowe",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "king"
+  },
+  {
+    "name": "The Pretender King",
+    "manaCost": "{U}",
+    "type": "Legendary Artifact Chess Creature — Pawn",
+    "subtype": "Pawn",
+    "power": 0,
+    "toughness": 1,
+    "loyalty": null,
+    "text": "(When this Pawn enters, you may link a Pawn you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nThe Pretender King is a King as long as it's on the battlefield. (It has its move set and it can be checkmated. You don't lose the game if you have at least one king.)",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "legendary"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__the-pretender-king.png",
+    "artist": "Archan Nair",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "pawn"
+  },
+  {
+    "name": "Their Terrifying Presence",
+    "manaCost": "{3}{U}{U}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Chess Rook creatures you control can't be blocked.\nRook chess pieces you control can jump over chess pieces.\nWhenever a chess piece you control jumps over a chess piece and whenever a creature you control deals combat damage to a player, you may draw a card. If you do, discard a card.",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "rook-matters",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__their-terrifying-presence.png",
+    "artist": "Alexander Trufanov",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Thornwood Falls",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {G} or {U}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "Simic"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__thornwood-falls.jpg",
+    "artist": "Eytan Zana",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Thoughtseize",
+    "manaCost": "{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "hand-disruption"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__thoughtseize.jpg",
+    "artist": "Aleksi Briclot",
+    "flavorText": "\"Any dream is a robust harvest. Still, I prefer the timeworn dreams, heavy with import, that haunt the obsessive mind.\"",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Through Infinite Doors",
+    "manaCost": "{U}{U}",
+    "type": "Instant",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Exile target creature or chess piece you control. Return it under its owner's control at the beginning of the next end step. (Chess pieces return to the chess board at their starting position, and only if it's unoccupied.)",
+    "colors": [
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "blink",
+      "chess-matters"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__through-infinite-doors.png",
+    "artist": "Michael Cheval",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Towering Smasher",
+    "manaCost": "{3}{R}{R}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 5,
+    "toughness": 4,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves the battlefield, that chess piece also leaves and vice versa. When this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nReach, trample\nWhenever this creature deals combat damage to a player, destroy target artifact or land that player controls.",
+    "colors": [
+      "R"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "rooks",
+      "artifacts",
+      "chess-linked",
+      "aggro",
+      "artifact-hate"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__towering-smasher.png",
+    "artist": "Savina Cesare",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Tranquil Cove",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {U}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "Azorius"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__tranquil-cove.jpg",
+    "artist": "Jonas De Ro",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Vile Arch-Darknoid",
+    "manaCost": "{2}{B}{B}",
+    "type": "Artifact Chess Creature — Bishop",
+    "subtype": "Bishop",
+    "power": 5,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this Bishop enters, you may link a Bishop you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nAt the beginning of your upkeep, sacrifice a chess piece.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "sacrifice"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__vile-arch-darknoid.png",
+    "artist": "Des Hanley",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "bishop"
+  },
+  {
+    "name": "Violence Over Reason",
+    "manaCost": "{4}{R}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Bishops, Rooks and Queens you control may jump over one chess piece you don't control as though they were Knights.\nWhenever a chess piece you control jumps over a non-King chess piece, destroy it.",
+    "colors": [
+      "R",
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "removal"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__violence-over-reason.png",
+    "artist": "_tissine",
+    "flavorText": "Beware the praying man when the books are closed.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Viridian Revel",
+    "manaCost": "{1}{G}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever an artifact is put into an opponent's graveyard from the battlefield, you may draw a card.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "artifact hate",
+      "card draw"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__viridian-revel.jpg",
+    "artist": "rk post",
+    "flavorText": "\"Let them have their revel. Soon those who won't submit will be turned. Those who won't be turned will die.\"\n—Vorinclex, Voice of Hunger",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Voidglass Castellan",
+    "manaCost": "{3}{B}{B}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 5,
+    "toughness": 5,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nDeathtouch\nWhen this creature dies, if it had no counters on it, return it to the battlefield tapped under its owner's control with a stun counter on it.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess-linking",
+      "deathtouch",
+      "resilience"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__voidglass-castellan.png",
+    "artist": "Ziyi Monkey",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Watershell Ancient",
+    "manaCost": "{5}{G}{U}",
+    "type": "Artifact Chess Creature — Rook",
+    "subtype": "Rook",
+    "power": 5,
+    "toughness": 7,
+    "loyalty": null,
+    "text": "(When this Rook enters, you may link a Rook you control on the chess board with it. When this leaves, that chess piece also leaves and vice versa. Whenever this creature deals combat damage to a player, you may also move the linked chess piece on the chess board.)\nWhen this creature enters, draw two cards.\nVigilance",
+    "colors": [
+      "G",
+      "U"
+    ],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "chess-matters",
+      "card-advantage"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__watershell-ancient.png",
+    "artist": "Square Enix",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "rook"
+  },
+  {
+    "name": "Where Ancients Sing",
+    "manaCost": "{2}{G}{G}",
+    "type": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Whenever you cast a Rook spell, draw two cards.\nRook chess pieces you control may also move diagonally.",
+    "colors": [
+      "G"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "chess",
+      "card draw"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__where-ancients-sing.png",
+    "artist": "verkami",
+    "flavorText": "Legend tells that they do not move—reality simply rearranges itself around them.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Wind-Scarred Crag",
+    "manaCost": "",
+    "type": "Land",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {R} or {W}.",
+    "colors": [],
+    "rarity": "Common",
+    "custom": true,
+    "archetypes": [
+      "Boros"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__wind-scarred-crag.jpg",
+    "artist": "Jonas De Ro",
+    "flavorText": "",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Worst Fears",
+    "manaCost": "{7}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "You control target player during that player's next turn. Exile Worst Fears. (You see all cards that player could see and make all decisions for the player.)",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Mythic",
+    "custom": true,
+    "archetypes": [
+      "control",
+      "finisher"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__worst-fears.jpg",
+    "artist": "Eric Deschamps",
+    "flavorText": "Elspeth feared that her trespass into Nyx would not go unanswered.",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Zombify",
+    "manaCost": "{3}{B}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Return target creature card from your graveyard to the battlefield.",
+    "colors": [
+      "B"
+    ],
+    "rarity": "Uncommon",
+    "custom": true,
+    "archetypes": [
+      "reanimator"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__zombify.jpg",
+    "artist": "Mark Romanoski",
+    "flavorText": "\"The first birth celebrates life. The second birth mocks it.\"\n—Mystic elder",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  },
+  {
+    "name": "Zugzwang",
+    "manaCost": "{2}{B}{R}",
+    "type": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "loyalty": null,
+    "text": "Sacrifice any number of non-King chess pieces. Draw a card and add {B} or {R} for each chess piece sacrificed this way.",
+    "colors": [
+      "B",
+      "R"
+    ],
+    "rarity": "Rare",
+    "custom": true,
+    "archetypes": [
+      "sacrifice",
+      "chess-matters",
+      "ritual"
+    ],
+    "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__zugzwang.png",
+    "artist": "Occultation",
+    "flavorText": "\"As the moons of my former home went dark, I saw thy names bleed for me. The clock has stopped. The throne is a tomb. Everything is exactly where I left it.\"\n—Voraq, The Laughing Void",
+    "set": "Chess Magic",
+    "chessPiece": "none"
+  }
+]

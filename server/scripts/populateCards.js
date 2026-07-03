@@ -92,9 +92,29 @@ async function populateDatabase() {
     console.log('🗑️  Clearing existing cards...');
     await Card.deleteMany({});
 
-    // Get base directory (two levels up from this script to reach project root)
-    const baseDir = path.join(__dirname, '../../../');
+    // Preferred path: seed from the fully transcribed DB (real card data +
+    // hosted GitHub-Release imageUrls). Falls back to a folder scan if absent.
+    const dbFile = path.join(__dirname, '../data/cards.json');
+    if (fs.existsSync(dbFile)) {
+      const cards = JSON.parse(fs.readFileSync(dbFile, 'utf-8'));
+      console.log(`📥 Seeding from data/cards.json (${cards.length} cards)`);
+      await Card.insertMany(cards);
+      console.log(`✅ Inserted ${cards.length} cards from data/cards.json`);
+      await mongoose.disconnect();
+      return;
+    }
+    console.log('ℹ️  data/cards.json not found — falling back to folder scan.');
+
+    // Card art lives outside the repo (6+ GB). Point at it via CARD_IMAGES_DIR;
+    // defaults to the local D: stash. The images themselves are hosted on a
+    // GitHub Release (see gh_release_map.json) so deploys don't need the files.
+    const baseDir = process.env.CARD_IMAGES_DIR || 'D:/נתי/Chess Magic';
     const colorFolders = ['Black', 'Blue', 'Colorless', 'Gold', 'Green', 'Land', 'Red', 'White'];
+
+    // Map of "<Color>/<file>" -> hosted release URL, built by the art uploader.
+    const mapPath = path.join(__dirname, 'gh_release_map.json');
+    const artMap = fs.existsSync(mapPath) ? JSON.parse(fs.readFileSync(mapPath, 'utf-8')) : {};
+    console.log(`🔗 Loaded ${Object.keys(artMap).length} hosted image URLs`);
 
     const cardsToInsert = [];
 
@@ -138,7 +158,7 @@ async function populateDatabase() {
           colors: colors,
           custom: true,
           archetypes: [],
-          imageUrl: `file:///${filePath.replace(/\\/g, '/')}`, // Local file path for now
+          imageUrl: artMap[`${folder}/${file}`] || `file:///${filePath.replace(/\\/g, '/')}`, // hosted URL, else local
           flavorText: '',
           artist: 'DALL-E 3',
           set: 'Set 1',
