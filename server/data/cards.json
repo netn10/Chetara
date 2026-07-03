@@ -14,8 +14,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-link",
-      "lifegain"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__a-place-called-home.png",
     "artist": "Nikolaj Østermark",
@@ -38,8 +37,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "reset",
-      "blink"
+      "Blink"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__a-place-for-everything.png",
     "artist": "Loulou Delarosbel",
@@ -59,9 +57,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "WB",
-      "lands",
-      "chess-pawn"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__alabaster-chronodoor.png",
     "artist": "Jie Ma",
@@ -84,10 +81,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "pawn",
-      "aggro",
-      "counters"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__ambitious-contender.png",
     "artist": "SPEARMINTAII",
@@ -109,7 +103,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-protection"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__annoy-no-more.png",
     "artist": "Eli Sef",
@@ -129,9 +123,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "RG",
-      "lands",
-      "chess-pawn"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__arena-of-twisted-hunger.png",
     "artist": "Joxonart",
@@ -154,8 +147,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "combat",
-      "aggro"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__art-of-war.png",
     "artist": "Qui Nguyễn",
@@ -178,9 +170,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "tokens",
-      "clone",
-      "ramp"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__awake-the-sleeping-giants.png",
     "artist": "EJLV GNHAN",
@@ -201,9 +191,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "enchantment-hate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__back-to-nature.jpg",
     "artist": "Howard Lyon",
     "flavorText": "There will always be those who presume to improve nature, or dare to befoul it. And nature will always have a response.",
@@ -221,11 +209,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "WB",
-      "lands",
-      "investigate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__ballroom.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -246,8 +230,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-rook",
-      "artifact-recursion"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__bastion-of-the-internal.png",
     "artist": "Karolis Strautniekas",
@@ -269,8 +252,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "tokens"
+      "Blink"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__be-your-own.png",
     "artist": "James R. Eads and The Glitch",
@@ -291,9 +273,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess-matters"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__become-your-true-self.png",
     "artist": "Marc Simonetti",
     "flavorText": "“We all dream of impossible shapes. Fear nothing, for your subconscious is simply reminding you of what you have always been.”",
@@ -311,11 +291,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "BR",
-      "lands",
-      "investigate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__billiard-room.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -334,9 +310,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "BR",
-      "lands",
-      "chess-pawn"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__blood-drenched-skyline.png",
     "artist": "ArtofChinara",
@@ -355,10 +330,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "BR",
-      "lands"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__bloodfell-caves.jpg",
     "artist": "Adam Paquette",
     "flavorText": "",
@@ -376,10 +348,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "GW",
-      "lands"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__blossoming-sands.jpg",
     "artist": "Sam Burley",
     "flavorText": "",
@@ -400,8 +369,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "control",
-      "counterspells"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__blunder.png",
     "artist": "Bryan Trongcoso",
@@ -425,9 +393,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "mill",
-      "pawns",
-      "graveyard"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__body-tender.png",
     "artist": "Antonio Noise",
@@ -449,8 +415,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "knight",
-      "card-advantage"
+      "Enchantments",
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__born-to-be-free.png",
     "artist": "Sieskja",
@@ -473,8 +439,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "aggro"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__breaker-of-expectations.png",
     "artist": "M'Lee",
@@ -497,9 +462,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "bishop",
-      "control"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__censor-of-forbidden-tunes.png",
     "artist": "Micah Offman",
@@ -521,8 +484,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "theft",
-      "chess-matters"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__change-of-heart.png",
     "artist": "Dominik Mayer",
@@ -543,10 +505,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "tempo"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__change-places.png",
     "artist": "Marrylie",
     "flavorText": "\"I'm tired of being a pawn,\" Alice remarked. \"I think I'll try being a Queen.\"\n\"No, no! The rules are simple: you go there, and I go here, and neither of us knows why.\"",
@@ -566,9 +525,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "artifacts",
-      "chess",
-      "vehicles"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__chariot-of-nobility.png",
     "artist": "ChatGPT o4",
@@ -589,8 +546,9 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "artifacts",
-      "chess"
+      "Knights-Jumping Matter",
+      "Pawns & Bishops",
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__chessling.png",
     "artist": "Wylie Beckert",
@@ -613,9 +571,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "rook",
-      "card-advantage"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__chronicler-of-the-ages.png",
     "artist": "Kei-suwabe",
@@ -639,8 +595,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "lifegain",
-      "bishops"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__clergy-of-the-lost.png",
     "artist": "Ninovecia",
@@ -664,8 +619,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "auras",
-      "aggro"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__coat-in-dreams.png",
     "artist": "James Gleeson",
@@ -689,8 +643,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "auras",
-      "evasion"
+      "Evasion"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__coat-in-nightmares.png",
     "artist": "James Gleeson",
@@ -711,11 +664,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "removal",
-      "wrath"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__columination.png",
     "artist": "Hannah L",
     "flavorText": "\"Before the first stroke of fate, the paths lay bare; one line would rise while the other would falter, and all who stood upon it bore the memory of its silence.\"\n—The Tome of Birth and Death, First Revelation",
@@ -736,8 +685,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "spells-matter",
-      "chess-matters"
+      "Extra Moves",
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__confuse-directions.png",
     "artist": "Iellimau",
@@ -756,11 +705,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "GW",
-      "lands",
-      "investigate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__conservatory.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -779,9 +724,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "BG",
-      "lands",
-      "chess-pawn"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__cradle-of-the-nocturnal.png",
     "artist": "Stephanie Law",
@@ -803,8 +747,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "artifact-hate",
-      "chess-matters"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__crash-beneath.png",
     "artist": "Kuri Huang",
@@ -825,9 +768,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "artifact-hate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__creeping-corrosion.jpg",
     "artist": "Ryan Pancoast",
     "flavorText": "\"We will reveal the futility of their heresy by showing them how fragile their relics are.\"\n—Vorinclex, Voice of Hunger",
@@ -849,9 +790,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "chess-link",
-      "pawns"
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__crescent-head-freak.png",
     "artist": "Moon_Djinn115",
@@ -873,8 +813,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "burn",
-      "chess-matters"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__dance-for-us.png",
     "artist": "HushPuppy",
@@ -897,10 +836,9 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "aristocrats",
-      "evasion",
-      "chess-link"
+      "Evasion",
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__dealer-of-shadows.png",
     "artist": "Lin Chang",
@@ -922,7 +860,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "card-draw"
+      "Instant Speed",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__demand-answers.jpg",
     "artist": "Justyna Dura",
@@ -944,10 +883,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "removal-downgrade"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__demote.png",
     "artist": "Shadowverse",
     "flavorText": "\"Oh, you were always a puppet… but now you will also feel the strings.\"\n—H.I.M, The Hand That Binds",
@@ -965,11 +901,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "RG",
-      "lands",
-      "investigate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__dining-room.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -990,8 +922,8 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "control",
-      "counterspells"
+      "Blink",
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disappearing-act.jpg",
     "artist": "Anthony Palumbo",
@@ -1014,9 +946,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-bishop",
-      "blink",
-      "card-advantage"
+      "Blink"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disciple-of-space-and-time.png",
     "artist": "Peter Mohrbacher",
@@ -1037,10 +967,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "disenchant"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__disenchant.jpg",
     "artist": "Richard Kane Ferguson",
     "flavorText": "Even millennia later, some war machines from the devastating Brothers' War continue to function. Thankfully, the weapons meant to destroy them still work too.",
@@ -1058,10 +985,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "UB",
-      "lands"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__dismal-backwater.jpg",
     "artist": "Sam Burley",
     "flavorText": "",
@@ -1082,8 +1006,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "tempo",
-      "bounce"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__disperse.jpg",
     "artist": "Ryan Yee",
@@ -1104,10 +1027,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "exile"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__divine-gambit.jpg",
     "artist": "Joe Slucher",
     "flavorText": "There are rules, and then there are gods.",
@@ -1129,8 +1049,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "chess-knight",
-      "flying"
+      "Evasion"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__echo-ponyx.png",
     "artist": "Drachenmagier",
@@ -1152,8 +1071,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "enchantress",
-      "card-advantage"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__enchantress-s-presence.jpg",
     "artist": "Rebecca Guay",
@@ -1173,9 +1091,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "UR",
-      "lands",
-      "chess-pawn"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__ever-sphere-crucible.png",
     "artist": "Mariusz Lewandowski",
@@ -1196,10 +1113,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "enchantment-removal"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__feed-the-swarm.jpg",
     "artist": "Nino Is",
     "flavorText": "",
@@ -1220,7 +1134,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "extra-turns"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__final-fortune.jpg",
     "artist": "Tim Hildebrandt",
@@ -1242,8 +1156,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "self-mill",
-      "card-advantage"
+      "Enchantments",
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__find-meaning.png",
     "artist": "Jon Sideriadis",
@@ -1266,9 +1180,8 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "auras",
-      "blink",
-      "protection"
+      "Blink",
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__flickerform.jpg",
     "artist": "Ron Spears",
@@ -1290,7 +1203,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "spells-matter"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__fork.jpg",
     "artist": "Amy Weber",
@@ -1313,10 +1226,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "lifegain",
-      "food",
-      "chess-control"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__fried-liver.png",
     "artist": "Nano Banana",
@@ -1337,9 +1247,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "tutor"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__gamble.jpg",
     "artist": "Andrew Goldhawk",
     "flavorText": "When you've got nothing, you might as well trade it for something else.",
@@ -1361,9 +1269,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "pawn",
-      "tempo"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__gearworks-gentleman.png",
     "artist": "Saeed Farhangian",
@@ -1385,10 +1291,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "aggro",
-      "chess-matters"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__gearworks-outlaw.png",
     "artist": "Veli Nyström",
     "flavorText": "",
@@ -1407,7 +1310,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "GW"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__gearworks-tree.png",
     "artist": "Stephanie Pui-Mun Law",
@@ -1429,9 +1333,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "pawn",
-      "anthem"
+      "Enchantments",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__greater-guardianship.png",
     "artist": "Alexey Rudikov",
@@ -1454,8 +1357,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "aggro"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__guiding-obsidian-mare.png",
     "artist": "Aron Kalman",
@@ -1474,9 +1376,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "RW"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__hall.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -1497,10 +1397,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "pawns",
-      "queen",
-      "chess-tempo"
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__her-cruelity-proceeds-her.png",
     "artist": "Antiutopia Cult",
@@ -1523,9 +1421,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "enchantress",
-      "cost-reduction",
-      "lifegain"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__herald-of-the-pantheon.jpg",
     "artist": "Jason A. Engle",
@@ -1547,9 +1443,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "control",
-      "counterspells",
-      "chess-knight-hate"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__hold-your-horses.png",
     "artist": "Simone De Salvatore",
@@ -1572,9 +1466,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "knight",
-      "chess-link",
-      "evasion"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__horse-man-ship.png",
     "artist": "DALL-E 3",
@@ -1595,11 +1487,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "enchantment-hate",
-      "lifegain"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__hungry-for-purpose.png",
     "artist": "Jean Francois Bouron",
     "flavorText": "\"Chetara is a world starving on the illusions of comfort. Count yourself blessed—I am the hand that feeds, even when the world you know doesn't exist.\"",
@@ -1620,8 +1508,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "fight",
-      "knight"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__hunt-under-the-hooves.png",
     "artist": "Seb McKinnon",
@@ -1643,11 +1530,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "control",
-      "card advantage",
-      "discard"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__i-m-in-your-head.png",
     "artist": "astrono77153462",
     "flavorText": "",
@@ -1666,7 +1549,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "WU"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__infinitarium-stairs.png",
     "artist": "Kohana Bé",
@@ -1689,9 +1573,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "recursion",
-      "resilience",
-      "chess-link"
+      "Graveyard",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__it-that-persists.png",
     "artist": "DiTerlizzi",
@@ -1713,9 +1596,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "removal",
-      "exile"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__journey-to-somewhere-far.png",
     "artist": "ETHANALGAZI",
@@ -1734,9 +1615,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "BG"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__jungle-hollow.jpg",
     "artist": "Eytan Zana",
     "flavorText": "",
@@ -1758,10 +1637,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "knights",
-      "artifacts",
-      "chess-linked",
-      "aggro"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__kentauros-lancer.png",
     "artist": "P.E.K.K.A",
@@ -1781,9 +1657,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "artifacts",
-      "mana ramp",
-      "chess"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__key-to-the-universe.png",
     "artist": "Augustinas Raginskis",
@@ -1802,9 +1676,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "GU"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__kitchen.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -1825,8 +1697,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "knight",
-      "trample"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__let-us-ride-together.png",
     "artist": "Tam Lin",
@@ -1845,9 +1716,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "UR"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__library.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -1869,8 +1738,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-rook",
-      "flash"
+      "Instant Speed",
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__library-statue.png",
     "artist": "James Wintle",
@@ -1894,8 +1763,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "knights",
-      "removal"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__living-story---the-buffoon.png",
     "artist": "Omar Rayyan",
@@ -1918,9 +1786,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "knight",
-      "flying"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__living-story---the-capricious.png",
     "artist": "James Jean",
@@ -1943,10 +1809,9 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "rook",
-      "chess-link",
-      "ramp",
-      "self-mill"
+      "Enchantments",
+      "Graveyard",
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__living-story---the-garden.png",
     "artist": "Bradley Snook",
@@ -1970,9 +1835,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "pawns",
-      "enchantments",
-      "card advantage"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__living-story---the-gossip.png",
     "artist": "Omar Rayyan",
@@ -1991,9 +1854,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "BG"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__lounge.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -2013,10 +1874,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "combo"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__lucid-transformation.png",
     "artist": "Greg \"Craola\" Simkins",
     "flavorText": "",
@@ -2036,10 +1894,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "control"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__make-your-move.jpg",
     "artist": "Xabi Gaztelua",
     "flavorText": "\"If you're thinking only one step ahead, you're already falling behind.\" —Teysa",
@@ -2060,9 +1915,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-control",
-      "aggro",
-      "board-manipulation"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__march-forward.png",
     "artist": "MISTYABYSS_",
@@ -2084,8 +1937,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "card-advantage",
-      "control"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__meditate.jpg",
     "artist": "Susan Van Camp",
@@ -2108,8 +1960,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "enchantments",
-      "card advantage"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__mesa-enchantress.jpg",
     "artist": "Eelis Kyttanen",
@@ -2130,10 +1981,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "artifact hate",
-      "enchantment hate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__naturalize.jpg",
     "artist": "Daniel Ljunggren",
     "flavorText": "\"And if you threaten me again, your shiny steel trousers will be sprouting daggerthorn vines.\"\n—Iveta, rooftop runner",
@@ -2152,7 +2000,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "UB"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__nightmarish-canal.png",
     "artist": "David Gallagher",
@@ -2175,9 +2024,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "flying",
-      "card-advantage"
+      "Evasion"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__nimble-sampler.png",
     "artist": "Pedro Krüger Garcia",
@@ -2198,11 +2045,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "enchantment-removal",
-      "card-advantage",
-      "sweeper"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__no-more-illusions.png",
     "artist": "Kelgrid",
     "flavorText": "\"Chetara is a world of puppets and masters, and the line between them is razor-thin. Lucky for you—I know a thing or two about razors.\"",
@@ -2223,9 +2066,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "card-advantage",
-      "wheel"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__noble-sacrifice.png",
     "artist": "MORIS",
@@ -2247,10 +2088,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess",
-      "combo"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__now-that-s-just-silly.png",
     "artist": "Keglevich Von Buzin",
     "flavorText": "Serious at first,\nThen everyone started grinning,\nRules took the afternoon off.",
@@ -2272,9 +2110,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess",
-      "ramp",
-      "sacrifice"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__pawneer.png",
     "artist": "Kekai Kotaki",
@@ -2295,11 +2131,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "removal",
-      "control",
-      "chess-tempo"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__pin.png",
     "artist": "Alen Rocha",
     "flavorText": "\"You hid behind countless puppets. Their deaths are yours to answer for.\"",
@@ -2321,11 +2153,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "knights",
-      "card advantage",
-      "tempo"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__porcelainight.png",
     "artist": "L.A. Buckett",
     "flavorText": "",
@@ -2346,8 +2174,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "chess-removal"
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__positional-sacrifice.png",
     "artist": "Alexander Shatohin",
@@ -2369,9 +2197,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "removal",
-      "bishops",
-      "cost-reduction"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__preordained-mourning.png",
     "artist": "Leaf Art",
@@ -2393,10 +2219,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "chess-linked",
-      "aggro"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__project-l.a.d.y.png",
     "artist": "raspbearyart",
     "flavorText": "",
@@ -2417,8 +2240,7 @@
     "rarity": "Mythic",
     "custom": true,
     "archetypes": [
-      "card advantage",
-      "extra turns"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__pursuit-of-happiness.png",
     "artist": "Seerhealer",
@@ -2438,11 +2260,7 @@
     "colors": [],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "artifacts",
-      "equipment",
-      "chess"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__queen-s-attire.png",
     "artist": "Nano Banana",
     "flavorText": "\"Some of us are born rich, and some of us are just born. Think of this as a bridge.\"",
@@ -2463,8 +2281,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "sacrifice"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__queen-s-gambit.png",
     "artist": "Helena Sánchez",
@@ -2486,7 +2303,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "card-advantage"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__quick-study.jpg",
     "artist": "Iris Compiet",
@@ -2508,8 +2325,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "recursion",
-      "graveyard"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__raise-dead.jpg",
     "artist": "Carl Critchlow",
@@ -2531,7 +2347,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "ramp"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__rampant-growth.jpg",
     "artist": "Steven Belledin",
@@ -2553,9 +2369,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "card-advantage",
-      "bishops",
-      "chess-recovery"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__reach-for-the-stars.png",
     "artist": "Aitor Sebastián",
@@ -2577,10 +2391,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "artifact hate",
-      "enchantment hate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__reclamation-sage.jpg",
     "artist": "Christopher Moeller",
     "flavorText": "\"What was once formed by masons, shaped by smiths, or given life by mages, I will return to the embrace of the earth.\"",
@@ -2601,7 +2412,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "recursion"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__regrowth.jpg",
     "artist": "Dan Scott",
@@ -2622,10 +2433,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "card draw",
-      "ramp"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__resonance.png",
     "artist": "Cheryle Bannon",
     "flavorText": "\"Life, when lived to the fullest, teaches us that within each of us, there's the beauty of all of us.\"",
@@ -2646,7 +2454,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "recursion"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__restock.jpg",
     "artist": "Daren Bader",
@@ -2669,9 +2477,9 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-linked",
-      "lifegain",
-      "enchantment recursion"
+      "Blink",
+      "Enchantments",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__restoration-entity.png",
     "artist": "Peter Mohrbacher",
@@ -2691,7 +2499,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "RW"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__reverie-city.png",
     "artist": "Marc Simonetti",
@@ -2713,9 +2522,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "knights",
-      "chess-manipulation",
-      "enchantments"
+      "Extra Moves",
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__rider-s-bond.png",
     "artist": "Rowland Wheelwright",
@@ -2738,10 +2546,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "pawns",
-      "artifacts",
-      "chess-linked",
-      "ramp"
+      "Extra Moves",
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__right-hand-of-greatness.png",
     "artist": "Frank Frazetta",
@@ -2762,10 +2568,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "board-control",
-      "chess-matters"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__row-power.png",
     "artist": "Star_andDiamond",
     "flavorText": "\"The Sovereign's hand weighs upon all, yet even the crown is bound by the turn of destiny; to touch is to tether, and to be touched is to endure the shadowy chains of fate.\"\n—The Tome of Birth and Death, Second Revelation",
@@ -2783,9 +2586,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "RG"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__rugged-highlands.jpg",
     "artist": "Eytan Zana",
     "flavorText": "",
@@ -2806,8 +2607,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "protection"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__sacrifice-i-m-willing-to-make.png",
     "artist": "Christian Alzmann",
@@ -2828,9 +2628,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "extra-turns"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__savor-the-moment.jpg",
     "artist": "Warren Mahy",
     "flavorText": "The merrow took a moment for herself. She never gave it back.",
@@ -2851,9 +2649,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "aggro",
-      "chess-manipulation",
-      "evasion"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__scare.png",
     "artist": "Dan Gartman",
@@ -2872,9 +2668,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "WB"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__scoured-barrens.jpg",
     "artist": "Eytan Zana",
     "flavorText": "",
@@ -2892,9 +2686,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "UB"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__secret-passage.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -2914,10 +2706,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "artifact-hate",
-      "removal"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__shatterstorm.jpg",
     "artist": "Parente",
     "flavorText": "From a marvel of magical mechanization to a smoking stack of scrap in one easy step.",
@@ -2939,8 +2728,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "legendary"
+      "Evasion"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__she-of-gears-turning.png",
     "artist": "Monori Rogue",
@@ -2963,10 +2751,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "queens",
-      "artifacts",
-      "chess-linked",
-      "legendary"
+      "Extra Moves",
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__she-of-majestic-dread.png",
     "artist": "NERDY.NOSTALGIA",
@@ -2988,11 +2774,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess",
-      "control",
-      "removal"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__she-that-s-beyond-measure.png",
     "artist": "vargasjhonatan573",
     "flavorText": "",
@@ -3014,8 +2796,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess",
-      "ramp"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__shepherd-of-emerald.png",
     "artist": "Scot Fischer",
@@ -3038,8 +2819,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "graveyard",
-      "card-advantage"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__sing-for-the-forgotten.png",
     "artist": "Cory Godbey",
@@ -3061,10 +2841,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "board-wipe",
-      "chess-matters"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__singularity-convergence.png",
     "artist": "Cr4sh4rt",
     "flavorText": "\"Let it be written: on the Day Ordained, Radiance and Gloom divided the faithful, and one host was preserved while the other was unmade; not as mercy nor as wrath, but by decree, for the spared were condemned to remember, and remembrance became their curse.\"\n—The Tome of Birth and Death, Third Revelation",
@@ -3085,12 +2862,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "equipment",
-      "aggro",
-      "chess-linked",
-      "artifacts"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__skewer.png",
     "artist": "Nano Banana",
     "flavorText": "",
@@ -3112,8 +2884,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "rook-matters"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__sleeping-headstone.png",
     "artist": "Jason Reynolds",
@@ -3135,9 +2906,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "artifact-hate",
-      "removal",
-      "card-advantage"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__smash.jpg",
     "artist": "Parente",
@@ -3160,9 +2929,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-linking",
-      "aristocrats",
-      "card-draw"
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__sonneteer-of-the-departed.png",
     "artist": "João Bragato",
@@ -3182,8 +2950,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "Simic",
-      "chess"
+      "Extra Moves",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__sprawling-aqueduct.png",
     "artist": "Suishou Gensou",
@@ -3205,10 +2973,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "chess-linking",
-      "aggro"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__stallion-of-bad-omens.png",
     "artist": "Heidi Taillefer",
     "flavorText": "",
@@ -3229,11 +2994,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "chess-linked",
-      "white squares",
-      "anthem"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__stallion-of-good-omens.png",
     "artist": "Heidi Taillefer",
     "flavorText": "",
@@ -3255,10 +3016,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "fliers",
-      "cost reduction",
-      "artifacts",
-      "enchantments"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__starnheim-courser.jpg",
     "artist": "Andrew Mar",
@@ -3281,9 +3039,8 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "pawns",
-      "go-wide",
-      "auras"
+      "Enchantments",
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__strength-of-the-meek.png",
     "artist": "Jian Guo",
@@ -3302,9 +3059,7 @@
     "colors": [],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "Azorius"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__study.jpg",
     "artist": "Arthur Yuan",
     "flavorText": "",
@@ -3323,7 +3078,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-bishop.png",
     "artist": "Peter Mohrbacher",
@@ -3343,7 +3098,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-knight.png",
     "artist": "Peter Mohrbacher",
@@ -3363,7 +3118,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-pawn.png",
     "artist": "Peter Mohrbacher",
@@ -3382,9 +3137,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "chess"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-queen.png",
     "artist": "Peter Mohrbacher",
     "flavorText": "Born to a wealthy Faefolk family on Eldraine, she wanders across all of Chetara in search of a mischievous Puppeteer worthy of a shared adventure—one that begins with running away together.",
@@ -3403,7 +3156,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__summon_-the-rook.png",
     "artist": "Peter Mohrbacher",
@@ -3425,8 +3178,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "pawns",
-      "go-wide"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__summon_-the-twins.png",
     "artist": "Peter Mohrbacher",
@@ -3448,9 +3200,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "flash",
-      "spells-matter",
-      "card-advantage"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__swift-recognition.png",
     "artist": "Sylvia Strijk",
@@ -3469,9 +3219,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "Izzet"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__swiftwater-cliffs.jpg",
     "artist": "Adam Paquette",
     "flavorText": "",
@@ -3492,9 +3240,9 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "bishops",
-      "reanimator",
-      "tutor"
+      "Graveyard",
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__teachings-of-the-darkest-night.png",
     "artist": "Tkacz",
@@ -3517,8 +3265,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "enchantments",
-      "lifegain"
+      "Enchantments"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__tell-your-stories.png",
     "artist": "Omar Rayyan",
@@ -3539,9 +3286,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "extra-turns"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__temporal-manipulation.jpg",
     "artist": "Franz Vohwinkel",
     "flavorText": "Doing something at the last minute isn't so bad when you can make that minute last.",
@@ -3562,9 +3307,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "control",
-      "bounce",
-      "tempo"
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__that-s-tomorrow-s-problem.png",
     "artist": "Cuttlefish That Loves Diving",
@@ -3586,9 +3329,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "combat trick",
-      "chess-linked",
-      "bishop matters"
+      "Pawns & Bishops"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-blessed-shell-bless.png",
     "artist": "Alex Dos Diaz",
@@ -3607,11 +3348,7 @@
     "colors": [],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "artifacts",
-      "chess",
-      "alternate win"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/colorless__the-door-between-all-doors.png",
     "artist": "Cuttlefish That Loves Diving",
     "flavorText": "\"Welcome back, now let's turn some tables!\"\n—Tarian, the Mischievous Judge",
@@ -3632,10 +3369,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "chess",
-      "control"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__the-emerald-king.png",
     "artist": "Tanaka Kenichi",
     "flavorText": "",
@@ -3657,9 +3391,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-linked",
-      "queen",
-      "control"
+      "Extra Moves"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-indomable-one.png",
     "artist": "Vox Dei",
@@ -3681,11 +3413,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess-linking",
-      "board-control",
-      "deathtouch"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__the-killer-instinct.png",
     "artist": "Tatiana Krstic",
     "flavorText": "",
@@ -3706,12 +3434,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "chess-linked",
-      "king",
-      "control",
-      "alternate win"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/white__the-marble-king.png",
     "artist": "Ya Lun",
     "flavorText": "",
@@ -3733,9 +3456,7 @@
     "rarity": "Mythic",
     "custom": true,
     "archetypes": [
-      "chess-linking",
-      "sacrifice",
-      "reanimator"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__the-moon-king.png",
     "artist": "JR Eisma",
@@ -3757,12 +3478,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "legendary",
-      "card-advantage",
-      "control"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__the-nyx-king.png",
     "artist": "Gray 6plus",
     "flavorText": "",
@@ -3783,13 +3499,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "kings",
-      "artifacts",
-      "chess-linked",
-      "legendary",
-      "board-wipe"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__the-obsidian-king.png",
     "artist": "Wayne Barlowe",
     "flavorText": "",
@@ -3810,10 +3520,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "chess-matters",
-      "legendary"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__the-pretender-king.png",
     "artist": "Archan Nair",
     "flavorText": "",
@@ -3834,9 +3541,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "rook-matters",
-      "card-advantage"
+      "Evasion",
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/blue__their-terrifying-presence.png",
     "artist": "Alexander Trufanov",
@@ -3855,9 +3561,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "Simic"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__thornwood-falls.jpg",
     "artist": "Eytan Zana",
     "flavorText": "",
@@ -3877,9 +3581,7 @@
     ],
     "rarity": "Rare",
     "custom": true,
-    "archetypes": [
-      "hand-disruption"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__thoughtseize.jpg",
     "artist": "Aleksi Briclot",
     "flavorText": "\"Any dream is a robust harvest. Still, I prefer the timeworn dreams, heavy with import, that haunt the obsessive mind.\"",
@@ -3900,8 +3602,8 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "blink",
-      "chess-matters"
+      "Blink",
+      "Instant Speed"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__through-infinite-doors.png",
     "artist": "Michael Cheval",
@@ -3923,13 +3625,7 @@
     ],
     "rarity": "Uncommon",
     "custom": true,
-    "archetypes": [
-      "rooks",
-      "artifacts",
-      "chess-linked",
-      "aggro",
-      "artifact-hate"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/red__towering-smasher.png",
     "artist": "Savina Cesare",
     "flavorText": "",
@@ -3947,9 +3643,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "Azorius"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__tranquil-cove.jpg",
     "artist": "Jonas De Ro",
     "flavorText": "",
@@ -3971,8 +3665,8 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-linking",
-      "sacrifice"
+      "Pawns & Bishops",
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__vile-arch-darknoid.png",
     "artist": "Des Hanley",
@@ -3995,8 +3689,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "removal"
+      "Knights-Jumping Matter"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__violence-over-reason.png",
     "artist": "_tissine",
@@ -4017,10 +3710,7 @@
     ],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "artifact hate",
-      "card draw"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__viridian-revel.jpg",
     "artist": "rk post",
     "flavorText": "\"Let them have their revel. Soon those who won't submit will be turned. Those who won't be turned will die.\"\n—Vorinclex, Voice of Hunger",
@@ -4042,9 +3732,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess-linking",
-      "deathtouch",
-      "resilience"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__voidglass-castellan.png",
     "artist": "Ziyi Monkey",
@@ -4068,8 +3756,7 @@
     "rarity": "Common",
     "custom": true,
     "archetypes": [
-      "chess-matters",
-      "card-advantage"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__watershell-ancient.png",
     "artist": "Square Enix",
@@ -4091,8 +3778,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "chess",
-      "card draw"
+      "Rooks Ramp"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/green__where-ancients-sing.png",
     "artist": "verkami",
@@ -4111,9 +3797,7 @@
     "colors": [],
     "rarity": "Common",
     "custom": true,
-    "archetypes": [
-      "Boros"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/land__wind-scarred-crag.jpg",
     "artist": "Jonas De Ro",
     "flavorText": "",
@@ -4133,10 +3817,7 @@
     ],
     "rarity": "Mythic",
     "custom": true,
-    "archetypes": [
-      "control",
-      "finisher"
-    ],
+    "archetypes": [],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__worst-fears.jpg",
     "artist": "Eric Deschamps",
     "flavorText": "Elspeth feared that her trespass into Nyx would not go unanswered.",
@@ -4157,7 +3838,7 @@
     "rarity": "Uncommon",
     "custom": true,
     "archetypes": [
-      "reanimator"
+      "Graveyard"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/black__zombify.jpg",
     "artist": "Mark Romanoski",
@@ -4180,9 +3861,7 @@
     "rarity": "Rare",
     "custom": true,
     "archetypes": [
-      "sacrifice",
-      "chess-matters",
-      "ritual"
+      "Sacrifice"
     ],
     "imageUrl": "https://github.com/netn10/Chetara/releases/download/card-art/gold__zugzwang.png",
     "artist": "Occultation",
