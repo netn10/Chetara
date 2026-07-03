@@ -3,6 +3,7 @@ import JudgeTower from '../models/JudgeTower.js';
 import Card from '../models/Card.js';
 import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
 import logger from '../utils/logger.js';
+import { mongoConnected, fbFind } from '../utils/fallbackCards.js';
 
 const router = express.Router();
 
@@ -44,8 +45,8 @@ router.post('/create', asyncHandler(async (req, res) => {
 
   logger.info(`Creating new Judge Tower game for player: ${playerName}`);
 
-  // Get all cards for the cube (library)
-  const allCards = await Card.find({});
+  // Get all cards for the cube (library) — Mongo when connected, else JSON DB.
+  const allCards = mongoConnected() ? await Card.find({}) : fbFind({});
 
   if (allCards.length === 0) {
     throw Errors.cardsInsufficient();

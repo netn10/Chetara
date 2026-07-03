@@ -2,8 +2,19 @@ import express from 'express';
 import Card from '../models/Card.js';
 import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
 import logger from '../utils/logger.js';
+import { mongoConnected, fbFind } from '../utils/fallbackCards.js';
 
 const router = express.Router();
+
+// Fetch cards from Mongo when connected, else from the bundled JSON DB, so
+// drafting works with no database (matches the /api/cards fallback).
+async function fetchCards(query = {}) {
+  if (mongoConnected()) return Card.find(query).lean();
+  let cards = fbFind({ rarity: query.rarity });
+  const nin = query._id && query._id.$nin;
+  if (nin) cards = cards.filter((c) => !nin.includes(c._id));
+  return cards;
+}
 
 // In-memory draft storage (no database)
 const drafts = new Map();
@@ -335,7 +346,7 @@ router.post('/:id/debug-pick-45', asyncHandler(async (req, res) => {
     throw Errors.invalidAction('Debug feature only available for admin (seat 0)');
   }
 
-  const allCards = await Card.find({}).lean();
+  const allCards = await fetchCards({});
   const shuffled = shuffleArray([...allCards]);
   const selectedCards = shuffled.slice(0, 45);
 
@@ -501,10 +512,10 @@ async function generateBoosters(draft) {
     const cardsPerBooster = draft.cardsPerBooster || 15;
 
     const [allCommons, allUncommons, allRares, allMythics] = await Promise.all([
-      Card.find({ rarity: 'Common' }).lean(),
-      Card.find({ rarity: 'Uncommon' }).lean(),
-      Card.find({ rarity: 'Rare' }).lean(),
-      Card.find({ rarity: 'Mythic' }).lean()
+      fetchCards({ rarity: 'Common' }),
+      fetchCards({ rarity: 'Uncommon' }),
+      fetchCards({ rarity: 'Rare' }),
+      fetchCards({ rarity: 'Mythic' })
     ]);
 
     for (let i = 0; i < numBoosters; i++) {
@@ -522,7 +533,7 @@ async function generateBoosters(draft) {
     }
   } else {
     // Cube draft
-    const allCards = await Card.find({ _id: { $nin: draft.usedCards } }).lean();
+    const allCards = await fetchCards({ _id: { $nin: draft.usedCards } });
 
     if (allCards.length < draft.players.length * draft.cardsPerBooster) {
       throw new Error('Not enough cards for cube draft');

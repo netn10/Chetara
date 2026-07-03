@@ -3,8 +3,22 @@ import Sealed from '../models/Sealed.js';
 import Card from '../models/Card.js';
 import { Errors, asyncHandler, processDbError } from '../utils/errorHandler.js';
 import logger from '../utils/logger.js';
+import { mongoConnected, fbFind } from '../utils/fallbackCards.js';
 
 const router = express.Router();
+
+// Random sample of `size` cards of a rarity, from Mongo when connected else the
+// bundled JSON DB, so sealed works with no database.
+async function sampleCards(rarity, size, excludeIds = []) {
+  if (mongoConnected()) {
+    const match = { rarity };
+    if (excludeIds.length) match._id = { $nin: excludeIds };
+    return Card.aggregate([{ $match: match }, { $sample: { size } }]);
+  }
+  let pool = fbFind({ rarity });
+  if (excludeIds.length) pool = pool.filter((c) => !excludeIds.includes(c._id));
+  return shuffleArray(pool).slice(0, size);
+}
 
 /**
  * Generate a unique player ID
@@ -36,28 +50,16 @@ function shuffleArray(array) {
 async function generateBooster(count = 15) {
   try {
     // Play booster distribution: 10-11 commons, 3-4 uncommons, 1 rare/mythic
-    const commons = await Card.aggregate([
-      { $match: { rarity: 'Common' } },
-      { $sample: { size: 10 } }
-    ]);
+    const commons = await sampleCards('Common', 10);
 
-    const uncommons = await Card.aggregate([
-      { $match: { rarity: 'Uncommon' } },
-      { $sample: { size: 3 } }
-    ]);
+    const uncommons = await sampleCards('Uncommon', 3);
 
     const isMythic = Math.random() < 0.125;
-    const rareCards = await Card.aggregate([
-      { $match: { rarity: isMythic ? 'Mythic' : 'Rare' } },
-      { $sample: { size: 1 } }
-    ]);
+    const rareCards = await sampleCards(isMythic ? 'Mythic' : 'Rare', 1);
 
     const totalCards = commons.length + uncommons.length + rareCards.length;
     if (totalCards < count) {
-      const extraCommons = await Card.aggregate([
-        { $match: { rarity: 'Common', _id: { $nin: commons.map(c => c._id) } } },
-        { $sample: { size: count - totalCards } }
-      ]);
+      const extraCommons = await sampleCards('Common', count - totalCards, commons.map(c => c._id));
       commons.push(...extraCommons);
     }
 
